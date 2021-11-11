@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+		<paths>
+    			<!--存储跟目录 / -->
+   			 <root-path
+        			name="root-path"
+        			path="" />
+    			<!--内部存储文件目录 /data/data/{packageName}/files context.getFilesDir() -->
+    			<files-path
+        			name="files-path"
+        			path="." />
+    			<!--内部存储缓存目录 /data/data/{packageName}/cache context.getCacheDir() -->
+    			<cache-path
+        			name="cache-path"
+        			path="." />
+    			<!--外部存储跟目录 /storage/emulated/0 Environment.getExternalStorageDirectory() -->
+    			<external-path
+        			name="external-path"
+        			path="." />
+    			<!--外部存储文件目录 /storage/emulated/0/Android/data/{packageName}/files context.getExternalFilesDirs()[0] -->
+   			 <external-files-path
+        			name="external-files-path"
+        			path="." />
+    			<!--外部存储缓存目录 /storage/emulated/0/Android/data/{packageName}/cache context.getExternalCacheDirs()[0] -->
+    			<external-cache-path
+       				name="external-cache-path"
+       				 path="." />
+    			<!--外部存储媒体目录 /storage/emulated/0/Android/media/{packageName}/files context.getExternalMediaDirs()[0] -->
+    			<external-media-path
+        			name="external-media-path"
+        			path="." />
+		</paths>
