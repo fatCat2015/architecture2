@@ -1,13 +1,13 @@
 package com.eju.demo.entity
 
-import com.eju.architecture.base.paging.PagingData
+import com.eju.architecture.core.PagingData
 
 data class Moment(
     val id:String,
     val content:String
 )
 
-class MomentPagingData:PagingData<Moment>{
+class MomentPagingData: PagingData<Moment> {
 
     var momentList :List<Moment> ? =null
     var momentNextParams :MomentNext? =null

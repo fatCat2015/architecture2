@@ -1,8 +1,7 @@
 package com.eju.demo.repository
 
-import com.eju.architecture.base.BaseRepository
+import com.eju.architecture.core.BaseRepository
 import com.eju.demo.service.HelpService
-import timber.log.Timber
 import javax.inject.Inject
 
 

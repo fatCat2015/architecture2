@@ -1,7 +1,7 @@
 package com.eju.demo.viewModel
 
-import com.eju.architecture.base.paging.BasePagingViewModel
-import com.eju.architecture.base.paging.LoadingParams
+import com.eju.architecture.core.BasePagingViewModel
+import com.eju.architecture.core.LoadingParams
 import com.eju.demo.entity.Moment
 import com.eju.demo.entity.MomentNext
 import com.eju.demo.entity.MomentPagingData
@@ -10,7 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MomentListViewModel @Inject constructor(private val momentRepository: MomentRepository):BasePagingViewModel<Moment,MomentPagingData,MomentLoadingParams>(){
+class MomentListViewModel @Inject constructor(private val momentRepository: MomentRepository):
+    BasePagingViewModel<Moment, MomentPagingData, MomentLoadingParams>(){
 
     override val loadingParamsFactory: () -> MomentLoadingParams
         get() = {
@@ -41,7 +42,7 @@ class MomentListViewModel @Inject constructor(private val momentRepository: Mome
 class MomentLoadingParams(
     private val initialAnchor:MomentNext?,
     val pageSize:Int
-):LoadingParams<Moment,MomentPagingData>{
+): LoadingParams<Moment, MomentPagingData> {
 
     var momentNext:MomentNext? = initialAnchor
 

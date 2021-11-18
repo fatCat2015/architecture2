@@ -1,6 +1,6 @@
 package com.eju.appbase.service
 
-import com.eju.architecture.base.paging.PagingData
+import com.eju.architecture.core.PagingData
 import com.google.gson.annotations.SerializedName
 
 @Suppress("UNCHECKED_CAST")
@@ -31,7 +31,7 @@ data class PagedList<T>(
     val total_page:Int?,
     val total_count:Int?,
     val list:List<T>?
-):PagingData<T>{
+): PagingData<T> {
     override fun getPagedList(): List<T>? {
         return list
     }

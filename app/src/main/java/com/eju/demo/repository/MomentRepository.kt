@@ -1,6 +1,6 @@
 package com.eju.demo.repository
 
-import com.eju.architecture.base.BaseRepository
+import com.eju.architecture.core.BaseRepository
 import com.eju.demo.entity.Moment
 import com.eju.demo.entity.MomentNext
 import com.eju.demo.entity.MomentPagingData

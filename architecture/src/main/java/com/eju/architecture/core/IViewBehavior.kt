@@ -1,15 +1,10 @@
-package com.eju.architecture.base
+package com.eju.architecture.core
 
 import android.widget.Toast
-import androidx.annotation.IntDef
 import androidx.annotation.StringRes
-import androidx.recyclerview.widget.AdapterListUpdateCallback
-import androidx.recyclerview.widget.ListUpdateCallback
 import com.eju.tools.SnackDuration
 import com.eju.tools.ToastDuration
 import com.google.android.material.snackbar.BaseTransientBottomBar
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 
 interface IViewBehavior {

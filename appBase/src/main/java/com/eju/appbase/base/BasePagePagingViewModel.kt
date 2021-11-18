@@ -1,12 +1,12 @@
-package com.eju.appbase.base.paging
+package com.eju.appbase.base
 
 import com.eju.appbase.service.PagedList
-import com.eju.architecture.base.paging.BasePagingViewModel
-import com.eju.architecture.base.paging.LoadingParams
-import timber.log.Timber
+import com.eju.architecture.core.BasePagingViewModel
+import com.eju.architecture.core.LoadingParams
 
 
-abstract class BasePagePagingViewModel<T>:BasePagingViewModel<T,PagedList<T>,PageLoadingParams<T>>(){
+abstract class BasePagePagingViewModel<T>:
+    BasePagingViewModel<T, PagedList<T>, PageLoadingParams<T>>(){
 
     protected open val initialPage:Int = 1
 
@@ -44,7 +44,7 @@ abstract class BasePagePagingViewModel<T>:BasePagingViewModel<T,PagedList<T>,Pag
 class PageLoadingParams<T>(
     private val initialPage:Int,
     val pageSize:Int,
-):LoadingParams<T,PagedList<T>>{
+): LoadingParams<T, PagedList<T>> {
 
     var page:Int = initialPage
 

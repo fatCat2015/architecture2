@@ -1,4 +1,4 @@
-package com.eju.architecture.base
+package com.eju.architecture.core
 
 interface IExceptionHandler {
     fun handleException(throwable: Throwable?)

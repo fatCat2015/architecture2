@@ -1,13 +1,13 @@
-package com.eju.architecture.base.lazy
+package com.eju.architecture.core.lazy
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
-import com.eju.architecture.base.BaseViewModel
-import com.eju.architecture.base.IExceptionHandler
-import com.eju.architecture.base.IPagingBehavior
-import com.eju.architecture.base.IViewBehavior
-import com.eju.architecture.base.paging.BasePagingViewModel
+import com.eju.architecture.core.BaseViewModel
+import com.eju.architecture.core.IExceptionHandler
+import com.eju.architecture.core.IPagingBehavior
+import com.eju.architecture.core.IViewBehavior
+import com.eju.architecture.core.BasePagingViewModel
 import kotlin.reflect.KClass
 
 
@@ -71,7 +71,7 @@ class BaseViewModelLazy<VM : BaseViewModel> (
     }
 
     private fun observePagingViewLiveData(viewModel:BaseViewModel){
-        (viewModel as? BasePagingViewModel<*,*,*>)?.let { pagingViewModel->
+        (viewModel as? BasePagingViewModel<*, *, *>)?.let { pagingViewModel->
             pagingViewBehavior?.let { pagingViewBehavior->
                 pagingViewModel.finishRefreshLD.observe(lifecycleOwner){
                     pagingViewBehavior.finishRefresh()

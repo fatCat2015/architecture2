@@ -1,6 +1,6 @@
 package com.eju.demo.repository
 
-import com.eju.architecture.base.BaseRepository
+import com.eju.architecture.core.BaseRepository
 import com.eju.demo.entity.User
 import com.eju.appbase.service.PagedList
 import kotlinx.coroutines.Dispatchers

@@ -1,4 +1,4 @@
-package com.eju.architecture.base
+package com.eju.architecture.core
 
 import android.os.Bundle
 import android.view.MotionEvent

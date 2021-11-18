@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.base.*
-import com.eju.architecture.base.lazy.BaseViewModelLazy
-import com.eju.architecture.base.lazy.ViewBindingLazy
+import com.eju.architecture.core.*
+import com.eju.architecture.core.lazy.BaseViewModelLazy
+import com.eju.architecture.core.lazy.ViewBindingLazy
 import timber.log.Timber
 import java.lang.Exception
 import java.lang.reflect.ParameterizedType

@@ -1,8 +1,6 @@
 package com.eju.appbase.base
 
-import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -11,7 +9,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.eju.appbase.R
 import com.eju.appbase.service.ApiException
 import com.eju.appbase.service.ServiceErrorCode
-import com.eju.architecture.base.IExceptionHandler
+import com.eju.architecture.core.IExceptionHandler
 import com.eju.tools.application
 import com.eju.tools.showToast
 

@@ -53,6 +53,9 @@ class UserListActivity:AppBasePagingActivity<ActiivtyListBinding>() {
         adapter.notifyDataSetChanged()
     }
 
+    override fun showEmptyView(showEmpty: Boolean) {
+    }
+
 
 
 

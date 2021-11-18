@@ -1,10 +1,13 @@
 package com.eju.appbase.base
 
+import android.view.View
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.core.IPagingBehavior
+import com.eju.appbase.R
+import com.eju.architecture.core.*
+import com.gyf.immersionbar.ktx.immersionBar
+import timber.log.Timber
 
-abstract class AppBasePagingActivity<V:ViewBinding>:AppBaseActivity<V>(),IPagingBehavior {
-
+abstract class AppBasePagingFragment<V:ViewBinding>:AppBaseFragment<V>(), IPagingBehavior {
 
     override fun notifyItemChanged(position: Int, itemCount: Int, payload: Any?) {
     }
@@ -17,7 +20,5 @@ abstract class AppBasePagingActivity<V:ViewBinding>:AppBaseActivity<V>(),IPaging
 
     override fun notifyItemRemoved(position: Int, itemCount: Int) {
     }
-
-
 
 }

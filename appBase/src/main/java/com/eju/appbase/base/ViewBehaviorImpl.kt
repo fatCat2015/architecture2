@@ -1,15 +1,14 @@
 package com.eju.appbase.base
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.eju.appbase.dialog.LoadingDialog
-import com.eju.architecture.base.IViewBehavior
+import com.eju.architecture.core.IViewBehavior
 import com.eju.tools.showToast
 import com.google.android.material.snackbar.Snackbar
 
@@ -25,8 +24,11 @@ class ViewBehaviorImpl(
 
     constructor(fragment: Fragment):this(null,fragment,true)
 
-    private val context:Context? by lazy {
+    private val context: Context? by lazy {
         if(isFragment) fragment?.activity else activity
+    }
+    private val activityContentView:View? by lazy {
+        (if(isFragment) fragment?.activity else activity)?.findViewById(android.R.id.content)
     }
 
     private val fragmentManager: FragmentManager? by lazy {
@@ -70,7 +72,7 @@ class ViewBehaviorImpl(
 
     override fun showSnack(msg: CharSequence?, duration:Int,code:Int) {
         msg?.let { msg->
-            activity?.findViewById<View>(android.R.id.content)?.let { view->
+            activityContentView?.let { view->
                 Snackbar.make(view,msg,duration).show()
             }
         }
@@ -78,7 +80,7 @@ class ViewBehaviorImpl(
 
     override fun showSnack(resId: Int?, duration: Int, code: Int) {
         resId?.let { resId->
-            activity?.findViewById<View>(android.R.id.content)?.let { view->
+            activityContentView?.let { view->
                 Snackbar.make(view,resId,duration).show()
             }
 

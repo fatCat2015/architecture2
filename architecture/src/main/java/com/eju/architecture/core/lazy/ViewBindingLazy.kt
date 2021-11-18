@@ -1,4 +1,4 @@
-package com.eju.architecture.base.lazy
+package com.eju.architecture.core.lazy
 
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding

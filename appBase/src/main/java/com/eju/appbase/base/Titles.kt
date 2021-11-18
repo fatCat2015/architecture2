@@ -2,7 +2,7 @@ package com.eju.appbase.base
 
 import android.app.Activity
 import com.eju.appbase.databinding.LayoutCommonTitleBinding
-import com.eju.architecture.base.ITitleView
+import com.eju.architecture.core.ITitleView
 
 
 open class CommonTitleView(private val activity: Activity): ITitleView<LayoutCommonTitleBinding> {

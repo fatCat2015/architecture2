@@ -56,6 +56,8 @@ class MomentListActivity:AppBasePagingActivity<ActiivtyListBinding>() {
     }
 
 
+    override fun showEmptyView(showEmpty: Boolean) {
+    }
 
 
 }

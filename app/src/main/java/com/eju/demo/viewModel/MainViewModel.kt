@@ -1,9 +1,8 @@
 package com.eju.demo.viewModel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.eju.architecture.base.BaseViewModel
+import com.eju.architecture.core.BaseViewModel
 import com.eju.demo.entity.HelpDetail
 import com.eju.demo.repository.MainRepository
 import com.eju.retrofit.RetrofitModule

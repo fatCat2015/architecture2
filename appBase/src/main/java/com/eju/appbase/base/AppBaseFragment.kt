@@ -1,16 +1,12 @@
 package com.eju.appbase.base
 
-import android.view.View
 import androidx.viewbinding.ViewBinding
-import com.eju.appbase.R
-import com.eju.architecture.core.IViewBehavior
-import com.eju.architecture.core.BaseActivity
+import com.eju.architecture.core.BaseFragment
 import com.eju.architecture.core.IExceptionHandler
-import com.eju.architecture.core.ITitleView
-import com.gyf.immersionbar.ktx.immersionBar
+import com.eju.architecture.core.IViewBehavior
 import timber.log.Timber
 
-abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
+abstract class AppBaseFragment<V:ViewBinding>:BaseFragment<V>() {
 
     private val viewBehaviorImpl: IViewBehavior by lazy {
         ViewBehaviorImpl(this).apply {
@@ -18,7 +14,7 @@ abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
         }
     }
 
-    private val exceptionHandler:IExceptionHandler by lazy {
+    private val exceptionHandler: IExceptionHandler by lazy {
         ExceptionHandlerImpl(this).apply {
             Timber.i("IExceptionHandler init")
         }
@@ -56,20 +52,5 @@ abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
         exceptionHandler.handleException(throwable)
 
     }
-
-    override fun <V : ViewBinding> titleView(): ITitleView<V>? {
-        return CommonTitleView(this) as ITitleView<V>
-    }
-
-    override fun setImmersionBar() {
-        super.setImmersionBar()
-        immersionBar {
-            findViewById<View>(R.id.app_title)?.let{
-                titleBar(it)
-            }
-        }
-    }
-
-
 
 }

@@ -1,8 +1,5 @@
-package com.eju.architecture.base
+package com.eju.architecture.core
 
-import android.app.Activity
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 
 interface ITitleView<B:ViewBinding> {
