@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -39,12 +37,6 @@ dependencies {
 
     implementation(project(":appBase"))
     implementation(project(":retrofit"))
-    implementation(project(":tools"))
-
-    //retrofit
-    implementation(ThirdDependency.retrofit)
-    implementation(ThirdDependency.converter_gson)
-    implementation(ThirdDependency.converter_scalars)
 
     //smartRefreshLayout
     implementation(ThirdDependency.smartRefreshLayout)

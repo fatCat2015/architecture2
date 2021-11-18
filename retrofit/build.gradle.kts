@@ -37,9 +37,9 @@ dependencies {
     implementation(GoogleDependency.hilt)
     kapt(GoogleDependency.hiltCompile)
     //retrofit
-    implementation(ThirdDependency.retrofit)
-    implementation(ThirdDependency.converter_gson)
-    implementation(ThirdDependency.converter_scalars)
+    api(ThirdDependency.retrofit)
+    api(ThirdDependency.converter_gson)
+    api(ThirdDependency.converter_scalars)
     //stetho
     implementation(ThirdDependency.stetho)
     implementation(ThirdDependency.stetho_okhttp)

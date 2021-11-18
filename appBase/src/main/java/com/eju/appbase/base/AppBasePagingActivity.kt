@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.eju.appbase.R
 import com.eju.architecture.base.IPagingBehavior
-import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 abstract class AppBasePagingActivity<V:ViewBinding>:AppBaseActivity<V>(),IPagingBehavior {
 
