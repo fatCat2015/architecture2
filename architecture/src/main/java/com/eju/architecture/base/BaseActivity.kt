@@ -6,15 +6,15 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.ContentFrameLayout
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.global.fixAndroidQMemoryLeak
-import com.eju.architecture.global.hideSoftInput
-import com.eju.architecture.global.isShouldHideSoftInput
-import com.eju.architecture.initializer.NetworkState
-import com.eju.architecture.initializer.observeNetworkStatus
+import com.eju.tools.hideSoftInput
+import com.eju.tools.isShouldHideSoftInput
+import com.eju.tools.initializer.NetworkState
+import com.eju.tools.initializer.observeNetworkStatus
 import com.eju.architecture.viewBinding
+import com.eju.tools.fixAndroidQMemoryLeak
 
 
-abstract class BaseActivity<V:ViewBinding>:AppCompatActivity(), IViewBehavior {
+abstract class BaseActivity<V:ViewBinding>:AppCompatActivity(), IViewBehavior,IExceptionHandler {
 
     protected val binding:V by viewBinding()
 

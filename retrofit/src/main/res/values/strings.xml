@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+
+
+    <!--接口错误信息-->
+    <string name="ConnectException">当前网络不可用</string>
+    <string name="UnknownHostException">请求异常,请稍后重试</string>
+    <string name="SocketTimeoutException">请求超时,请稍后重试</string>
+    <string name="HttpException">请求发生错误,请稍后重试</string>
+    <string name="HttpException4xx">请求发生错误</string>
+    <string name="JsonParseException">抱歉,数据解析发生错误!</string>
+
+</resources>

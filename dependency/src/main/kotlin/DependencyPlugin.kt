@@ -6,9 +6,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.DependencyHandler
-import org.gradle.internal.extensibility.DefaultConvention
 import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.kotlin.gradle.model.Kapt
 
 const val api = "api"
 const val implementation = "implementation"

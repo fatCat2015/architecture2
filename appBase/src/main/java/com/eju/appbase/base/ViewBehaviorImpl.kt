@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.eju.appbase.dialog.LoadingDialog
 import com.eju.architecture.base.IViewBehavior
-import com.eju.architecture.global.showToast
+import com.eju.tools.showToast
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -22,6 +22,7 @@ class ViewBehaviorImpl(
 
 
     constructor(activity: FragmentActivity):this(activity,null,false)
+
     constructor(fragment: Fragment):this(null,fragment,true)
 
     private val context:Context? by lazy {

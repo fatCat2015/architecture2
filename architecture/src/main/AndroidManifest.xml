@@ -17,24 +17,6 @@
         android:resizeableActivity="false"
         >
         <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data  android:name="com.eju.architecture.initializer.ActivityRecordInitializer"
-                android:value="androidx.startup" />
-            <meta-data  android:name="com.eju.architecture.initializer.LogInitializer"
-                android:value="androidx.startup" />
-            <meta-data  android:name="com.eju.architecture.initializer.MMKVInitializer"
-                android:value="androidx.startup" />
-            <meta-data  android:name="com.eju.architecture.initializer.NetworkInitializer"
-                android:value="androidx.startup" />
-            <meta-data  android:name="com.eju.architecture.initializer.ProcessStateInitializer"
-                android:value="androidx.startup" />
-        </provider>
-
-
-        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"

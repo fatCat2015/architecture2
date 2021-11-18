@@ -4,15 +4,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import com.eju.architecture.base.BaseViewModel
+import com.eju.architecture.base.IExceptionHandler
 import com.eju.architecture.base.IPagingBehavior
 import com.eju.architecture.base.IViewBehavior
-import com.eju.architecture.base.paging.BasePagePagingViewModel
+import com.eju.architecture.base.paging.BasePagingViewModel
 import kotlin.reflect.KClass
 
 
 class BaseViewModelLazy<VM : BaseViewModel> (
     private val viewModelClass: KClass<VM>,
     private val viewBehavior: IViewBehavior,
+    private val exceptionHandler: IExceptionHandler,
     private val pagingViewBehavior: IPagingBehavior?,
     private val lifecycleOwner: LifecycleOwner,
     private val storeProducer: () -> ViewModelStore,
@@ -30,6 +32,7 @@ class BaseViewModelLazy<VM : BaseViewModel> (
                 ViewModelProvider(store, factory).get(viewModelClass.java).also {
                     lifecycleOwner.lifecycle.addObserver(it)
                     observeViewLiveData(it)
+                    observeExceptionHandlerLiveData(it)
                     observePagingViewLiveData(it)
                     cached = it
                 }
@@ -58,12 +61,17 @@ class BaseViewModelLazy<VM : BaseViewModel> (
             }else{
                 viewBehavior.showSnack(it.msg,it.duration,it.code)
             }
+        }
+    }
 
+    private fun observeExceptionHandlerLiveData(viewModel:BaseViewModel){
+        viewModel.handleExceptionLD.observe(lifecycleOwner){
+            exceptionHandler.handleException(it)
         }
     }
 
     private fun observePagingViewLiveData(viewModel:BaseViewModel){
-        (viewModel as? BasePagePagingViewModel<*>)?.let { pagingViewModel->
+        (viewModel as? BasePagingViewModel<*,*,*>)?.let { pagingViewModel->
             pagingViewBehavior?.let { pagingViewBehavior->
                 pagingViewModel.finishRefreshLD.observe(lifecycleOwner){
                     pagingViewBehavior.finishRefresh()

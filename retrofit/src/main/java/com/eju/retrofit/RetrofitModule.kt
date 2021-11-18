@@ -9,10 +9,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -22,16 +24,25 @@ object RetrofitModule {
 
     private val requestHeaders= mutableMapOf<String,String>()
 
+    private const val cacheSize:Long = 10*1024*1024
+
+    private val cacheDir:File by lazy {
+        File(RetrofitInitializer.application.cacheDir,"httpCache")
+    }
+
     @Singleton
     @Provides
     fun provideOKHttpclient(): OkHttpClient {
         return OkHttpClient().newBuilder()
+            .cache(Cache(cacheDir,cacheSize))
             .apply {
                 if(BuildConfig.showStethoInfo){
                     addNetworkInterceptor(StethoInterceptor())
                 }
             }
             .addInterceptor(AddHeadersInterceptor(requestHeaders))
+            .addInterceptor(CacheInterceptor())
+            .addInterceptor(HttpErrorInterceptor())
             .apply {
                 if(BuildConfig.DEBUG&&BuildConfig.showHttpLog){
                     addInterceptor(

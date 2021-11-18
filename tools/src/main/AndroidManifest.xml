@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.eju.tools">
+
+    <!--存储权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+
+    <!--监听网络状态需要-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!--8.0(o)新增的安装未知应用的权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <application
+        android:usesCleartextTraffic="true"
+        android:resizeableActivity="false"
+        >
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data  android:name="com.eju.tools.initializer.ActivityRecordInitializer"
+                android:value="androidx.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.MMKVInitializer"
+                android:value="androidx.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.NetworkInitializer"
+                android:value="androidx.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.ProcessStateInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+    </application>
+
+</manifest>

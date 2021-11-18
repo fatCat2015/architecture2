@@ -5,6 +5,8 @@ import androidx.annotation.IntDef
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.ListUpdateCallback
+import com.eju.tools.SnackDuration
+import com.eju.tools.ToastDuration
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -42,17 +44,7 @@ interface IPagingBehavior{
 
 }
 
-@IntDef(value = [Toast.LENGTH_SHORT, Toast.LENGTH_LONG])
-@Retention(
-    RetentionPolicy.SOURCE
-)
-annotation class ToastDuration
 
-@IntDef(value = [BaseTransientBottomBar.LENGTH_SHORT, BaseTransientBottomBar.LENGTH_LONG,BaseTransientBottomBar.LENGTH_INDEFINITE])
-@Retention(
-    RetentionPolicy.SOURCE
-)
-annotation class SnackDuration
 
 internal data class ToastInfo(
     var msg:CharSequence?,

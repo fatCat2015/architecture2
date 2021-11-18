@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import com.eju.appbase.R
 import com.eju.appbase.databinding.DialogLoadingBinding
 import com.eju.architecture.dialog.BaseDialogFragment
-import com.eju.architecture.global.dp
+import com.eju.tools.dp
 
 class LoadingDialog:BaseDialogFragment<DialogLoadingBinding>() {
 

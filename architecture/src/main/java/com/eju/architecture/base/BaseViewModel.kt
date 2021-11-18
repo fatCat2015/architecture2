@@ -1,15 +1,14 @@
 package com.eju.architecture.base
 
-import android.app.Application
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
-import com.eju.architecture.global.application
+import com.eju.tools.application
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
+open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,IExceptionHandler{
 
     internal val showLoadingLD : MutableLiveData<CharSequence> by lazy {
         MutableLiveData<CharSequence>()
@@ -23,6 +22,9 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     internal val showSnackLD :MutableLiveData<SnackInfo> by lazy {
         MutableLiveData<SnackInfo>()
     }
+    internal val handleExceptionLD:MutableLiveData<Throwable> by lazy {
+        MutableLiveData<Throwable>()
+    }
 
     @MainThread
     final override fun showLoading(msg: CharSequence?) {
@@ -30,7 +32,7 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     }
 
     @MainThread
-    override fun showLoading(resId: Int) {
+    final override fun showLoading(resId: Int) {
         showLoading(application.getString(resId))
     }
 
@@ -40,7 +42,7 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     }
 
     @MainThread
-    override fun showToast(msg: CharSequence?, duration: Int) {
+    final override fun showToast(msg: CharSequence?, duration: Int) {
         showToastLD.value = showToastLD.value?.apply {
             this.msg = msg
             this.duration =duration
@@ -48,7 +50,7 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     }
 
     @MainThread
-    override fun showToast(resId: Int?, duration: Int) {
+    final override fun showToast(resId: Int?, duration: Int) {
         showToastLD.value = showToastLD.value?.apply {
             this.resId = resId
             this.duration =duration
@@ -56,7 +58,7 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     }
 
     @MainThread
-    override fun showSnack(msg: CharSequence?, duration: Int, code: Int) {
+    final override fun showSnack(msg: CharSequence?, duration: Int, code: Int) {
         showSnackLD.value = showSnackLD.value?.apply {
             this.msg = msg
             this.duration =duration
@@ -65,12 +67,17 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
     }
 
     @MainThread
-    override fun showSnack(resId: Int?, duration: Int, code: Int) {
+    final override fun showSnack(resId: Int?, duration: Int, code: Int) {
         showSnackLD.value = showSnackLD.value?.apply {
             this.resId = resId
             this.duration =duration
             this.code = code
         }?: SnackInfo(null,resId,duration,code)
+    }
+
+    @MainThread
+    final override fun handleException(throwable: Throwable?) {
+        handleExceptionLD.value = throwable
     }
 
     private suspend fun CoroutineScope.wrap(
@@ -88,8 +95,8 @@ open class BaseViewModel():ViewModel(), IViewBehavior,DefaultLifecycleObserver{
         } catch (e: CancellationException) {
             //JobCancellationException 手动取消 不作处理
         } catch (e: Throwable) {
-            e.printStackTrace()
             if (onError?.invoke(e) != true) {
+                handleException(e)
                 showToast(e.message)
             }
         } finally {

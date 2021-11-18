@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.base.BaseActivity
-import com.eju.architecture.base.BaseViewModel
-import com.eju.architecture.base.IPagingBehavior
+import com.eju.architecture.base.*
 import com.eju.architecture.base.lazy.BaseViewModelLazy
 import com.eju.architecture.base.lazy.ViewBindingLazy
-import com.eju.architecture.base.IViewBehavior
 import timber.log.Timber
 import java.lang.Exception
 import java.lang.reflect.ParameterizedType
@@ -42,7 +39,14 @@ fun<B:ViewBinding> Fragment.viewBinding() = ViewBindingLazy<B>(javaClass) { layo
 
 @MainThread
 inline fun <reified VM : BaseViewModel> BaseActivity<*>.baseViewModels(): Lazy<VM> {
-    return BaseViewModelLazy(VM::class,this as IViewBehavior,this as? IPagingBehavior,this as LifecycleOwner, { viewModelStore } ,{ defaultViewModelProviderFactory })
+    return BaseViewModelLazy(VM::class,
+        this as IViewBehavior,
+        this as IExceptionHandler,
+        this as? IPagingBehavior,
+        this as LifecycleOwner,
+        { viewModelStore } ,
+        { defaultViewModelProviderFactory }
+    )
 }
 
 

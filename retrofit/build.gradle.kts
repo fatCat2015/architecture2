@@ -47,4 +47,8 @@ dependencies {
     implementation(ThirdDependency.LoggingInterceptor)
     //appStartUp
     implementation(GoogleDependency.appStartup)
+    //cache
+    implementation(project(":cache"))
+    //tools
+    implementation(project(":tools"))
 }

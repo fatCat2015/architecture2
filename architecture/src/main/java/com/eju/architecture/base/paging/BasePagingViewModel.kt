@@ -1,14 +1,25 @@
 package com.eju.architecture.base.paging
 
-import android.app.Application
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import com.eju.architecture.base.BaseViewModel
 import com.eju.architecture.base.IPagingBehavior
 import com.eju.architecture.base.ListNotifyInfo
-import com.eju.retrofit.PagedList
+import kotlinx.coroutines.Job
 
-abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
+abstract class BasePagingViewModel<V,D:PagingData<V>,K:LoadingParams<V,D>>: BaseViewModel(), IPagingBehavior {
+
+    private val _list:MutableList<V> by lazy {
+        mutableListOf()
+    }
+
+    val list:List<V> = _list
+
+    private val loadingParams:K by lazy {
+        loadingParamsFactory.invoke()
+    }
+
+    abstract val loadingParamsFactory:()->K
 
     internal val finishRefreshLD : MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
@@ -43,45 +54,33 @@ abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
         MutableLiveData<ListNotifyInfo>()
     }
 
-    protected val loadingParams: LoadingParams<K>  by lazy {
-        loadingParamsProducer()
-    }
-
-    protected abstract val loadingParamsProducer:()->LoadingParams<K>
-
-    private val _list:MutableList<V> by lazy {
-        mutableListOf()
-    }
-
-    val list:List<V> get() = _list
-
     @MainThread
-    override fun finishRefresh() {
+    final override fun finishRefresh() {
         finishRefreshLD.value = (finishRefreshLD.value?:0)+1
     }
 
     @MainThread
-    override fun finishLoadMore() {
+    final override fun finishLoadMore() {
         finishLoadMoreLD.value = (finishLoadMoreLD.value?:0)+1
     }
 
     @MainThread
-    override fun setEnableLoadMore(enabled: Boolean) {
+    final override fun setEnableLoadMore(enabled: Boolean) {
         setEnableLoadMoreLD.value = enabled
     }
 
     @MainThread
-    override fun showEmptyView(showEmpty: Boolean) {
+    final override fun showEmptyView(showEmpty: Boolean) {
         showEmptyViewLD.value = showEmpty
     }
 
     @MainThread
-    override fun notifyDataSetChanged() {
+    final override fun notifyDataSetChanged() {
         notifyDataSetChangedLD.value = (notifyDataSetChangedLD.value?:0)+1
     }
 
     @MainThread
-    override fun notifyItemChanged(position: Int, itemCount: Int, payload: Any?) {
+    final override fun notifyItemChanged(position: Int, itemCount: Int, payload: Any?) {
         notifyItemChangedLD.value =  notifyItemChangedLD.value?.apply {
             this.position=position
             this.itemCount=itemCount
@@ -90,7 +89,7 @@ abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
     }
 
     @MainThread
-    override fun notifyItemInserted(position: Int, itemCount: Int) {
+    final override fun notifyItemInserted(position: Int, itemCount: Int) {
         notifyItemInsertedLD.value =  notifyItemInsertedLD.value?.apply {
             this.position=position
             this.itemCount=itemCount
@@ -98,7 +97,7 @@ abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
     }
 
     @MainThread
-    override fun notifyItemRemoved(position: Int, itemCount: Int) {
+    final override fun notifyItemRemoved(position: Int, itemCount: Int) {
         notifyItemRemovedLD.value =  notifyItemRemovedLD.value?.apply {
             this.position=position
             this.itemCount=itemCount
@@ -106,7 +105,7 @@ abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
     }
 
     @MainThread
-    override fun notifyItemMoved(fromPosition: Int, toPosition: Int) {
+    final override fun notifyItemMoved(fromPosition: Int, toPosition: Int) {
         notifyItemMovedLD.value =  notifyItemMovedLD.value?.apply {
             this.fromPosition = fromPosition
             this.toPosition = toPosition
@@ -116,60 +115,54 @@ abstract class BasePagingViewModel<K,V>(): BaseViewModel(), IPagingBehavior {
         }
     }
 
-    fun refresh(){
-        resetKey()
-        loadPagedData(true)
+    open fun refresh():Job{
+        loadingParams.reset()
+        return loadPagedList(true)
     }
 
-    fun loadMore(){
-        loadPagedData(false)
+    open fun loadMore():Job{
+        return loadPagedList(false)
     }
 
-    protected abstract fun resetKey()
-
-    protected abstract fun setNextPage(pagedList: PagedList<V>)
-
-    protected abstract fun verifyEnableLoadMore(pagedList: PagedList<V>,list:List<V>):Boolean
-
-    protected abstract fun verifyShowEmptyView(list:List<V>):Boolean
-
-    private fun loadPagedData(isRefresh:Boolean){
-        launch(
-            showLoading = false,
-            loadingMsg = "",
-            onError = {
-                false
-            },
-            onComplete = {
+    private fun loadPagedList(isRefresh:Boolean):Job{
+        return launch(showLoading= false,
+            loadingMsg=null,
+            onComplete={
                 if(isRefresh){
                     finishRefresh()
                 }else{
                     finishLoadMore()
                 }
-            }
-        ){
-            val pagedList=load(loadingParams)
-            val positionStart = _list.size
-            val itemCount = pagedList.list?.size?:0
+            },
+        ) {
+            val pagedData = load(loadingParams)
+            val pagedList = pagedData.getPagedList()?: emptyList()
             if(isRefresh){
                 _list.clear()
             }
-            pagedList.list?.let {
-                _list.addAll(it)
-            }
-            showEmptyView(verifyShowEmptyView(_list))
-            setEnableLoadMore(verifyEnableLoadMore(pagedList,_list))
-            setNextPage(pagedList)
-            if(!isRefresh&&itemCount>0){
-                notifyItemInserted(positionStart,itemCount)
-            }else{
-                notifyDataSetChanged()
-            }
+            _list.addAll(pagedList)
+            showEmptyView(verifyShowEmptyView(_list,loadingParams,pagedData))
+            setEnableLoadMore(verifyEnableLoadMore(_list,loadingParams,pagedData))
+            loadingParams.setNext(_list,pagedData)
+            notifyDataSetChanged()
         }
-
     }
 
-    protected abstract suspend fun load(loadingParams: LoadingParams<K>):PagedList<V>
+    /**
+     * @param list 最后一次请求之后的列表数据
+     * @param loadingParams 分页请求参数
+     * @param pagedData 最后一次分页数据
+     */
+    protected abstract fun verifyShowEmptyView(list:List<V>,loadingParams: K,pagedData:D):Boolean
+
+    /**
+     * @param list 最后一次请求之后的列表数据
+     * @param loadingParams 分页请求参数
+     * @param pagedData 最后一次分页数据
+     */
+    protected abstract fun verifyEnableLoadMore(list:List<V>,loadingParams: K,pagedData:D):Boolean
+
+    protected abstract suspend fun load(loadingParams: K):D
 
 
 

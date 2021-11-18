@@ -1,11 +1,10 @@
 package com.eju.demo.service
 
 import com.eju.demo.entity.HelpDetail
-import com.eju.retrofit.BaseResult
+import com.eju.appbase.service.BaseResult
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-import java.io.Serializable
 
 interface HelpService {
     @GET("/rescue/detail")

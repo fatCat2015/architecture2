@@ -1,9 +1,8 @@
 package com.eju.demo.repository
 
-import android.util.Log
 import com.eju.architecture.base.BaseRepository
 import com.eju.demo.entity.User
-import com.eju.retrofit.PagedList
+import com.eju.appbase.service.PagedList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor():BaseRepository(){
 
-    suspend fun load(page:Int,pageSize:Int):PagedList<User>{
+    suspend fun load(page:Int,pageSize:Int): PagedList<User> {
         Timber.i("${page}  ${pageSize}")
         return withContext(Dispatchers.IO){
             delay(1000)

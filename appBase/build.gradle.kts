@@ -16,6 +16,14 @@ android {
 
 dependencies {
     api(project(":architecture"))
+    api(project(":tools"))
 
     implementation(ThirdDependency.smartRefreshLayout)
+    implementation(ThirdDependency.gson)
+
+    //hilt
+    implementation(GoogleDependency.hilt)
+    kapt(GoogleDependency.hiltCompile)
+
+
 }

@@ -1,15 +1,21 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter()
-        maven("https://jitpack.io")
-    }
-}
-rootProject.name = "sck"
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//        jcenter()
+//        maven("https://jitpack.io")
+//    }
+//}
+rootProject.name = "architecture2"
 includeBuild("dependency")
+include(":tools")
+include(":aop")
 include (":architecture")
-include (":app")
 include (":retrofit")
+include(":cache")
 include(":appBase")
+include (":app")
+
+
+

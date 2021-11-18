@@ -39,6 +39,7 @@ dependencies {
 
     implementation(project(":appBase"))
     implementation(project(":retrofit"))
+    implementation(project(":tools"))
 
     //retrofit
     implementation(ThirdDependency.retrofit)

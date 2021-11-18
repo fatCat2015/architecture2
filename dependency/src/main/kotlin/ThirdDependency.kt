@@ -26,8 +26,9 @@ object ThirdDependency {
     const val stetho_okhttp = "com.facebook.stetho:stetho-okhttp3:1.6.0"
     //rxPermissions
     const val rxPermissions = "com.github.tbruyelle:rxpermissions:0.12"
-    //permissionsX
-    const val permissionsX =  "com.permissionx.guolindev:permissionx:1.4.0"
+    //permissionsX https://github.com/guolindev/PermissionX
+    //https://guolin.blog.csdn.net/article/details/120685379
+    const val permissionsX = "com.guolindev.permissionx:permissionx:1.6.1"
     // https://github.com/Justson/AgentWeb
     const val agentWeb = "com.just.agentweb:agentweb:4.1.4"
     // https://github.com/hehonghui/AndroidEventBus
@@ -64,8 +65,8 @@ object ThirdDependency {
     //https://github.com/JakeWharton/DiskLruCache
     const val diskLruCache = "com.jakewharton:disklrucache:2.0.2"
     //aRouter https://github.com/alibaba/ARouter/blob/master/README_CN.md
-    const val aRouter = "com.alibaba:arouter-api:1.5.1"
-    const val aRouterCompiler =  "com.alibaba:arouter-compiler:1.5.1"
+    const val aRouter = "com.alibaba:arouter-api:1.5.2"
+    const val aRouterCompiler =  "com.alibaba:arouter-compiler:1.5.2"
     //leakCanary
     const val leakCanary =  "com.squareup.leakcanary:leakcanary-android:2.7"
     //immersionBar  https://github.com/gyf-dev/ImmersionBar

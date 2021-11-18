@@ -5,6 +5,7 @@ import androidx.viewbinding.ViewBinding
 import com.eju.appbase.R
 import com.eju.architecture.base.IViewBehavior
 import com.eju.architecture.base.BaseActivity
+import com.eju.architecture.base.IExceptionHandler
 import com.eju.architecture.base.ITitleView
 import com.gyf.immersionbar.ktx.immersionBar
 import timber.log.Timber
@@ -13,11 +14,15 @@ abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
 
     private val viewBehaviorImpl: IViewBehavior by lazy {
         ViewBehaviorImpl(this).apply {
-            Timber.i("viewBehavior init")
+            Timber.i("IViewBehavior init")
         }
     }
 
-
+    private val exceptionHandler:IExceptionHandler by lazy {
+        ExceptionHandlerImpl(this).apply {
+            Timber.i("IExceptionHandler init")
+        }
+    }
 
     override fun showLoading(msg: CharSequence?) {
         viewBehaviorImpl.showLoading(msg)
@@ -45,6 +50,11 @@ abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
 
     override fun showSnack(resId: Int?, duration: Int, code: Int) {
         viewBehaviorImpl.showSnack(resId,duration,code)
+    }
+
+    override fun handleException(throwable: Throwable?) {
+        exceptionHandler.handleException(throwable)
+
     }
 
     override fun <V : ViewBinding> titleView(): ITitleView<V>? {
