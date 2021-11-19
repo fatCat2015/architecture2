@@ -1,10 +1,10 @@
-package com.eju.demo.repository
+package com.eju.demomodule.repository
 
 import com.eju.architecture.core.BaseRepository
-import com.eju.demo.entity.Moment
-import com.eju.demo.entity.MomentNext
-import com.eju.demo.entity.MomentPagingData
-import com.eju.demo.viewModel.MomentLoadingParams
+import com.eju.demomodule.entity.Moment
+import com.eju.demomodule.entity.MomentNext
+import com.eju.demomodule.entity.MomentPagingData
+import com.eju.demomodule.viewmodel.MomentLoadingParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext

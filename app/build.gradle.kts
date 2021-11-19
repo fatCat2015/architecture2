@@ -50,46 +50,32 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
+}
+
+val isModule:Boolean get() {
+    val isModule:String by System.getProperties()
+    return isModule.toBoolean()
 }
 
 dependencies {
 
     implementation(GoogleDependency.coreKtx)
-    implementation(GoogleDependency.appcompat)
-    implementation(GoogleDependency.material)
-    implementation(GoogleDependency.constraintLayout)
-    implementation(GoogleDependency.coroutine)
-    implementation(GoogleDependency.activityKtx)
-    implementation(GoogleDependency.fragmentKtx)
-    implementation(GoogleDependency.lifecycleCommon)
-    implementation(GoogleDependency.viewModelKtx)
-    implementation(GoogleDependency.liveDataKtx)
-    implementation(GoogleDependency.lifecycleKtx)
-    implementation(GoogleDependency.resultActivity)
-    implementation(GoogleDependency.resultFragment)
-
-    implementation(ThirdDependency.immersionBar)
-    implementation(ThirdDependency.immersionBarKtx)
-
     implementation(ThirdDependency.timber)
 
     //hilt
     implementation(GoogleDependency.hilt)
     kapt(GoogleDependency.hiltCompile)
 
-    //smartRefreshLayout
-    implementation(ThirdDependency.smartRefreshLayout)
-    implementation(ThirdDependency.smartRefreshHeader0)
-
-}
-
-dependencies{
     implementation(project(":appBase"))
-    implementation(project(":retrofit"))
+    if(!isModule){
+        implementation(project(":demomodule"))
+    }
+
 }
+
 
 dependencies{
     testImplementation(Test.junit)

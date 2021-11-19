@@ -13,8 +13,6 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
-        android:usesCleartextTraffic="true"
-        android:resizeableActivity="false"
         >
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -22,6 +20,8 @@
             android:exported="false"
             tools:node="merge">
             <meta-data  android:name="com.eju.tools.initializer.ActivityRecordInitializer"
+                android:value="androidx.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.CoilInitializer"
                 android:value="androidx.startup" />
             <meta-data  android:name="com.eju.tools.initializer.MMKVInitializer"
                 android:value="androidx.startup" />

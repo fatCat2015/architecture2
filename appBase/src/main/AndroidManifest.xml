@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.eju.appbase">
 
+
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <application
+        >
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data  android:name="com.eju.appbase.router.ARouterInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+
+        <activity android:name=".router.PageRouterActivity"
+            android:screenOrientation="portrait"
+            >
+            <!-- Scheme -->
+            <intent-filter>
+                <data
+                    android:host="mobile.app.yilou"
+                    android:scheme="eju"/>
+
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+            </intent-filter>
+
+            <!-- App Links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="jiandanhome.com"
+                    android:scheme="http"/>
+                <data
+                    android:host="jiandanhome.com"
+                    android:scheme="https"/>
+            </intent-filter>
+
+        </activity>
+
+    </application>
 </manifest>

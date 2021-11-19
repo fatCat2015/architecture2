@@ -1,8 +1,8 @@
-package com.eju.demo.repository
+package com.eju.demomodule.repository
 
 import com.eju.architecture.core.BaseRepository
-import com.eju.demo.entity.User
 import com.eju.appbase.service.PagedList
+import com.eju.demomodule.entity.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext

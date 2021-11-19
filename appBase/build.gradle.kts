@@ -4,6 +4,12 @@ plugins {
     id("kotlin-kapt")
 }
 
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
 android {
 
     compileSdk =Versions.compileSdkVersion
@@ -50,6 +56,7 @@ dependencies {
     implementation(GoogleDependency.lifecycleKtx)
     implementation(GoogleDependency.resultActivity)
     implementation(GoogleDependency.resultFragment)
+    implementation(GoogleDependency.appStartup)
 
     implementation(ThirdDependency.immersionBar)
     implementation(ThirdDependency.immersionBarKtx)
@@ -57,6 +64,10 @@ dependencies {
     implementation(ThirdDependency.timber)
 
     implementation(ThirdDependency.gson)
+
+    implementation(ThirdDependency.aRouter)
+    kapt(ThirdDependency.aRouterCompiler)
+
 }
 
 dependencies {

@@ -1,4 +1,4 @@
-package com.eju.demo.entity
+package com.eju.demomodule.entity
 
 data class User(
     val id:String,

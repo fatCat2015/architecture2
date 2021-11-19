@@ -1,31 +1,34 @@
-package com.eju.demo.view
+package com.eju.demomodule.view
 
 import android.os.Bundle
-import com.eju.appbase.base.AppBasePagingActivity
+import com.eju.appbase.base.AppBaseLazyLoadFragment
+import com.eju.appbase.base.AppBaseLazyLoadPagingFragment
 import com.eju.architecture.baseViewModels
-import com.eju.demo.adapter.MomentAdapter
-import com.eju.demo.adapter.UserAdapter
-import com.eju.demo.databinding.ActiivtyListBinding
-import com.eju.demo.viewModel.MomentListViewModel
-import com.eju.demo.viewModel.UserListViewModel
+import com.eju.demomodule.adapter.DemoAdapter
+import com.eju.demomodule.databinding.FragmentCoilBinding
+import com.eju.demomodule.databinding.FragmentUserListBinding
+import com.eju.demomodule.viewmodel.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MomentListActivity:AppBasePagingActivity<ActiivtyListBinding>() {
+class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() {
 
 
-    private val viewModel:MomentListViewModel by baseViewModels()
+    private val viewModel: UserListViewModel by baseViewModels()
 
 
-    private val adapter:MomentAdapter  by lazy {
-        MomentAdapter(viewModel.list).apply {
+    private val adapter:DemoAdapter  by lazy {
+        DemoAdapter(viewModel.list).apply {
             Timber.i("adapter :${this}")
         }
     }
 
+    override fun observeLazy() {
 
-    override fun afterCreate(savedInstanceState: Bundle?) {
+    }
+
+    override fun lazyLoad(savedInstanceState: Bundle?) {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.refresh()
         }.setOnLoadMoreListener {
@@ -35,8 +38,7 @@ class MomentListActivity:AppBasePagingActivity<ActiivtyListBinding>() {
         binding.refreshLayout.autoRefresh()
     }
 
-    override fun observe() {
-
+    override fun setListenersLazy() {
     }
 
     override fun finishRefresh() {
@@ -55,9 +57,6 @@ class MomentListActivity:AppBasePagingActivity<ActiivtyListBinding>() {
         adapter.notifyDataSetChanged()
     }
 
-
     override fun showEmptyView(showEmpty: Boolean) {
     }
-
-
 }

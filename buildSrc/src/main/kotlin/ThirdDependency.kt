@@ -6,7 +6,7 @@ object ThirdDependency {
 
     const val refreshLayoutVersion = "2.0.3"
 
-    const val coilVersion = "1.3.0"
+    const val coilVersion = "1.4.0"
 
     //retrofit
     const val retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"

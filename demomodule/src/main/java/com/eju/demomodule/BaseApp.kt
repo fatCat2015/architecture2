@@ -1,9 +1,8 @@
-package com.eju.demo
+package com.eju.demomodule
 
-import android.app.Application
 import com.eju.appbase.AppBaseApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class BaseApplication:AppBaseApplication() {
+class BaseApp:AppBaseApplication() {
 }

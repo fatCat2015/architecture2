@@ -7,8 +7,4 @@ open class BaseApplication:Application() {
     override fun onCreate() {
         super.onCreate()
     }
-
-    companion object{
-        internal lateinit var application:Application
-    }
 }

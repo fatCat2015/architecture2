@@ -49,5 +49,18 @@ inline fun <reified VM : BaseViewModel> BaseActivity<*>.baseViewModels(): Lazy<V
     )
 }
 
+@MainThread
+inline fun <reified VM : BaseViewModel> BaseFragment<*>.baseViewModels(): Lazy<VM> {
+    return BaseViewModelLazy(VM::class,
+        this as IViewBehavior,
+        this as IExceptionHandler,
+        this as? IPagingBehavior,
+        this as LifecycleOwner,
+        { viewModelStore } ,
+        { defaultViewModelProviderFactory }
+    )
+}
+
+
 
 

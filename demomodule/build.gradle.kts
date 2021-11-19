@@ -11,6 +11,12 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+//ARouter
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
 
 val isModule:Boolean get() {
     val isModule:String by System.getProperties()
@@ -115,6 +121,10 @@ dependencies {
     //hilt
     implementation(GoogleDependency.hilt)
     kapt(GoogleDependency.hiltCompile)
+
+    //ARouter
+    implementation(ThirdDependency.aRouter)
+    kapt(ThirdDependency.aRouterCompiler)
 
     //smartRefreshLayout
     implementation(ThirdDependency.smartRefreshLayout)

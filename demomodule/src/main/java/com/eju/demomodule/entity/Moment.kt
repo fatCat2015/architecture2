@@ -1,4 +1,4 @@
-package com.eju.demo.entity
+package com.eju.demomodule.entity
 
 import com.eju.architecture.core.PagingData
 
