@@ -7,6 +7,7 @@
 //        maven("https://jitpack.io")
 //    }
 //}
+
 rootProject.name = "architecture2"
 includeBuild("dependency")
 include(":tools")
@@ -18,4 +19,4 @@ include(":appBase")
 include (":app")
 
 
-
+include(":demomodule")

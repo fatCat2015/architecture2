@@ -17,6 +17,9 @@ const val debug:Boolean = true
 class DependencyPlugin :Plugin<Project> {
 
     override fun apply(target: Project) {
+        //project下的build.gradle.kts中
+        //id("com.eju.dependencyPlugin") apply(false)
+        //false表示不会执行Plugin的apply,也就是configProject(target)不会执行
         configProject(target)
     }
 

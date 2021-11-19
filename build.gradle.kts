@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins{
-    id("com.eju.dependencyPlugin")
+    id("com.eju.dependencyPlugin") apply(false)
 }
 
 buildscript {
@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
 
         //hilt
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")

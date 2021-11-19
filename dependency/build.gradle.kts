@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         //版本同项目根目录
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
     }
 }
 plugins {
@@ -21,7 +21,7 @@ repositories {
 dependencies {
     compileOnly(gradleApi())
     //版本同项目根目录
-    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+    compileOnly("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0")
     //版本同项目根目录
     compileOnly("com.android.tools.build:gradle:7.0.2")
 }

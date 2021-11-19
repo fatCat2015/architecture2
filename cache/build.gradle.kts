@@ -6,16 +6,39 @@ plugins {
 
 android {
 
+    compileSdk =Versions.compileSdkVersion
+
+    defaultConfig{
+        minSdk = Versions.minSdkVersion
+        targetSdk = Versions.targetSdkVersion
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
 }
 
 
 dependencies {
-    //module需要使用aop时添加
+    implementation(GoogleDependency.coreKtx)
+    implementation(ThirdDependency.timber)
     implementation(ThirdDependency.diskLruCache)
+
+    testImplementation(Test.junit)
+    androidTestImplementation(Test.extJunit)
+    androidTestImplementation(Test.espresso)
 }

@@ -27,6 +27,7 @@
             <option value="$PROJECT_DIR$/appBase" />
             <option value="$PROJECT_DIR$/architecture" />
             <option value="$PROJECT_DIR$/cache" />
+            <option value="$PROJECT_DIR$/demomodule" />
             <option value="$PROJECT_DIR$/dependency" />
             <option value="$PROJECT_DIR$/retrofit" />
             <option value="$PROJECT_DIR$/tools" />

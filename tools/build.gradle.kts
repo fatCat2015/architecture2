@@ -6,6 +6,14 @@ plugins {
 
 android {
 
+    compileSdk =Versions.compileSdkVersion
+
+    defaultConfig{
+        minSdk = Versions.minSdkVersion
+        targetSdk = Versions.targetSdkVersion
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
@@ -20,16 +28,33 @@ android {
 
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
 }
 
-
 dependencies {
-    //appStartUp
+
+    implementation(GoogleDependency.coreKtx)
+    implementation(GoogleDependency.appcompat)
+    implementation(GoogleDependency.material)
+    implementation(GoogleDependency.coroutine)
+    implementation(GoogleDependency.lifecycleCommon)
     implementation(GoogleDependency.appStartup)
-    //mmkv
-    implementation(ThirdDependency.mmkv)
-    //permissionX
-    implementation(ThirdDependency.permissionsX)
-    //ProcessLifecycleOwner
     implementation(GoogleDependency.lifecycleProcess)
+    implementation(ThirdDependency.mmkv)
+    implementation(ThirdDependency.timber)
+    implementation(ThirdDependency.permissionsX)
+
+    testImplementation(Test.junit)
+    androidTestImplementation(Test.extJunit)
+    androidTestImplementation(Test.espresso)
+
 }

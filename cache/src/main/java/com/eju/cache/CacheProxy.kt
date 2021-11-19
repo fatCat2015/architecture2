@@ -3,8 +3,6 @@ package com.eju.cache
 import android.content.Context
 import com.eju.cache.core.DiskCache
 import com.eju.cache.core.MemoryCache
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.util.concurrent.TimeUnit
 
 class CacheProxy(

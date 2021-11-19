@@ -1,10 +1,17 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id ("android-aspectjx")
+    id("android-aspectjx")
 }
 
 android {
+    compileSdk =Versions.compileSdkVersion
+
+    defaultConfig{
+        minSdk = Versions.minSdkVersion
+        targetSdk = Versions.targetSdkVersion
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 
     buildTypes {
         getByName("release") {
@@ -12,6 +19,17 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+
 }
 
 //在使用aop的module中添加 在aop module中添加不起作用
@@ -35,7 +53,13 @@ android {
 //    enabled = true    //aop开关
 //}
 
-
-dependencies {
+dependencies{
+    implementation(GoogleDependency.coreKtx)
+    implementation(GoogleDependency.appcompat)
+    implementation(ThirdDependency.timber)
     implementation("org.aspectj:aspectjrt:1.9.6")
+
+    testImplementation(Test.junit)
+    androidTestImplementation(Test.extJunit)
+    androidTestImplementation(Test.espresso)
 }
