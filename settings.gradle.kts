@@ -9,7 +9,6 @@
 //}
 
 rootProject.name = "architecture2"
-includeBuild("dependency")
 include(":tools")
 include(":aop")
 include (":architecture")

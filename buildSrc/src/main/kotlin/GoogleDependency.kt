@@ -28,8 +28,8 @@ object GoogleDependency {
 
     //hilt
     private const val hilt_version = "2.38.1"
-    const val hilt = "com.google.dagger:hilt-android:${hilt_version}"
-    const val hiltCompile = "com.google.dagger:hilt-compiler:${hilt_version}"
+    const val hilt = "com.google.dagger:hilt-android:$hilt_version"
+    const val hiltCompile = "com.google.dagger:hilt-compiler:$hilt_version"
 
     //activity result api
     const val resultActivity = "androidx.activity:activity:1.3.1"
