@@ -27,7 +27,7 @@ object GoogleDependency {
     const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     //hilt
-    private const val hilt_version = "2.38.1"
+    private const val hilt_version = "2.40.1"
     const val hilt = "com.google.dagger:hilt-android:$hilt_version"
     const val hiltCompile = "com.google.dagger:hilt-compiler:$hilt_version"
 

@@ -3,7 +3,13 @@
     package="com.eju.demomodule">
 
     <application>
-        <activity android:name=".view.DemoActivity"></activity>
+        <activity android:name=".view.DemoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.BigImageActivity"></activity>
     </application>
 
