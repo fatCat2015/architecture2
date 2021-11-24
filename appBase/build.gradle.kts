@@ -74,6 +74,7 @@ dependencies {
     implementation(GoogleDependency.resultActivity)
     implementation(GoogleDependency.resultFragment)
     implementation(GoogleDependency.appStartup)
+    implementation(GoogleDependency.kotlin_reflect)
 
 
     //hilt

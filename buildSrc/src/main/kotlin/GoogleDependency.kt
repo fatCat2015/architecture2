@@ -41,4 +41,6 @@ object GoogleDependency {
 
     const val flexbox = "com.google.android:flexbox:2.0.0"
     const val palette = "androidx.palette:palette:1.0.0"
+
+    const val kotlin_reflect = "org.jetbrains.kotlin:kotlin-reflect:1.6.0"
 }
