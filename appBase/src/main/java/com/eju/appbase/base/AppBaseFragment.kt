@@ -48,6 +48,10 @@ abstract class AppBaseFragment<V:ViewBinding>:BaseFragment<V>() {
         viewBehaviorImpl.showSnack(resId,duration,code)
     }
 
+    override fun finishPage() {
+        viewBehaviorImpl.finishPage()
+    }
+
     override fun handleException(throwable: Throwable?) {
         exceptionHandler.handleException(throwable)
 

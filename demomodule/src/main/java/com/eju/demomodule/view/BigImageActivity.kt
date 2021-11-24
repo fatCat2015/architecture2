@@ -3,18 +3,17 @@ package com.eju.demomodule.view
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import coil.load
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
-import com.eju.appbase.router.RouterPath
+import com.eju.appbase.router.PagePath
 import com.eju.demomodule.databinding.ActivityBigImageBinding
 import com.eju.tools.intentExtra
 import timber.log.Timber
 
-@Route(path = RouterPath.DemoModule.ImageDetail)
+@Route(path = PagePath.DemoModule.ImageDetail)
 class BigImageActivity : AppBaseActivity<ActivityBigImageBinding>() {
 
 

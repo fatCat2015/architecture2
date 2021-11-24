@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-kapt")
+    //hilt
+    id("dagger.hilt.android.plugin")
 }
 
 kapt {
@@ -20,8 +22,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore")
+            storePassword = "123456"
+            keyAlias = "key0"
+            keyPassword = "123456"
+        }
+    }
     buildTypes {
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("release")
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+
         getByName("release") {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -58,6 +75,12 @@ dependencies {
     implementation(GoogleDependency.resultFragment)
     implementation(GoogleDependency.appStartup)
 
+
+    //hilt
+    implementation(GoogleDependency.hilt)
+    kapt(GoogleDependency.hiltCompile)
+
+
     implementation(ThirdDependency.immersionBar)
     implementation(ThirdDependency.immersionBarKtx)
 
@@ -72,6 +95,7 @@ dependencies {
 
 dependencies {
     api(project(":architecture"))
+    api(project(":retrofit"))
     api(project(":tools"))
 }
 

@@ -1,6 +1,5 @@
 package com.eju.appbase.base
 
-import android.app.Activity
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -84,6 +83,14 @@ class ViewBehaviorImpl(
                 Snackbar.make(view,resId,duration).show()
             }
 
+        }
+    }
+
+    override fun finishPage() {
+        if(isFragment){
+            fragment?.activity?.finish()
+        }else{
+            activity?.finish()
         }
     }
 

@@ -1,6 +1,5 @@
 package com.eju.demomodule.view
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
@@ -18,8 +17,8 @@ import coil.transform.GrayscaleTransformation
 import coil.transform.RoundedCornersTransformation
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseLazyLoadFragment
-import com.eju.appbase.router.RouterPath
-import com.eju.demomodule.R
+import com.eju.appbase.router.PagePath
+import com.eju.appbase.R
 import com.eju.demomodule.databinding.FragmentCoilBinding
 import com.eju.tools.doOnClick
 import com.eju.tools.initializer.HttpVideoFrameFetcher
@@ -183,7 +182,7 @@ class CoilFragment:AppBaseLazyLoadFragment<FragmentCoilBinding>() {
         }
         binding.iv9.doOnClick {
             binding.iv9.memoryCacheKey?.let { memoryCacheKey->
-                ARouter.getInstance().build(RouterPath.DemoModule.ImageDetail)
+                ARouter.getInstance().build(PagePath.DemoModule.ImageDetail)
                     .withParcelable("memoryCacheKey",memoryCacheKey)
                     .withTransition(0,0)
                     .navigation()

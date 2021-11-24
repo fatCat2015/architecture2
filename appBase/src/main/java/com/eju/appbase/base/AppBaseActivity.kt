@@ -52,6 +52,10 @@ abstract class AppBaseActivity<B:ViewBinding>:BaseActivity<B>() {
         viewBehaviorImpl.showSnack(resId,duration,code)
     }
 
+    override fun finishPage() {
+        viewBehaviorImpl.finishPage()
+    }
+
     override fun handleException(throwable: Throwable?) {
         exceptionHandler.handleException(throwable)
 

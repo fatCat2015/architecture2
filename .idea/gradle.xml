@@ -11,15 +11,16 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/aop" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appBase" />
-            <option value="$PROJECT_DIR$/architecture" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/cache" />
             <option value="$PROJECT_DIR$/demomodule" />
-            <option value="$PROJECT_DIR$/retrofit" />
-            <option value="$PROJECT_DIR$/tools" />
+            <option value="$PROJECT_DIR$/library/architectures/architecture" />
+            <option value="$PROJECT_DIR$/library/tools/aop" />
+            <option value="$PROJECT_DIR$/library/tools/cache" />
+            <option value="$PROJECT_DIR$/library/tools/retrofit" />
+            <option value="$PROJECT_DIR$/library/tools/tools" />
+            <option value="$PROJECT_DIR$/start" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -2,12 +2,8 @@ package com.eju.appbase.dialog
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import com.eju.appbase.R
 import com.eju.appbase.databinding.DialogLoadingBinding
 import com.eju.architecture.dialog.BaseDialogFragment

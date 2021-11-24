@@ -1,7 +1,6 @@
 package com.eju.appbase.base
 
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.core.BaseFragment
 import com.eju.architecture.core.BaseLazyLoadFragment
 import com.eju.architecture.core.IExceptionHandler
 import com.eju.architecture.core.IViewBehavior
@@ -47,6 +46,10 @@ abstract class AppBaseLazyLoadFragment<V:ViewBinding>:BaseLazyLoadFragment<V>() 
 
     override fun showSnack(resId: Int?, duration: Int, code: Int) {
         viewBehaviorImpl.showSnack(resId,duration,code)
+    }
+
+    override fun finishPage() {
+        viewBehaviorImpl.finishPage()
     }
 
     override fun handleException(throwable: Throwable?) {

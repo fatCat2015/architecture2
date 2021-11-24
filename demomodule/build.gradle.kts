@@ -136,7 +136,6 @@ dependencies {
 
 dependencies {
     implementation(project(":appBase"))
-    implementation(project(":retrofit"))
 }
 
 dependencies {

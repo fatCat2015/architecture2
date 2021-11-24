@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
 
+    <string name="app_name" >app啊</string>
     <string name="loading" >加载中...</string>
     <string name="be_kicked_out" >账号已在其它设备登陆,请重新登录</string>
     <string name="token_out_of_date" >登录过期,请重新登录</string>

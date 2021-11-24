@@ -9,13 +9,34 @@
 //}
 
 rootProject.name = "architecture2"
-include(":tools")
-include(":aop")
+
 include (":architecture")
+project (":architecture").apply {
+    projectDir = File(rootProject.projectDir, "/library/architectures/architecture")
+}
+
+include(":tools")
+project (":tools").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/tools")
+}
+
+include(":aop")
+project (":aop").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/aop")
+}
+
 include (":retrofit")
+project (":retrofit").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/retrofit")
+}
+
 include(":cache")
+project (":cache").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/cache")
+}
+
+
 include(":appBase")
 include (":app")
-
-
+include(":start")
 include(":demomodule")
