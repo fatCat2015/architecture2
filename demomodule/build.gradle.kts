@@ -54,6 +54,7 @@ android {
         getByName("main"){
             if(isModule){
                 manifest.srcFile("src/main/module/AndroidManifest.xml")
+                java.srcDir("src/main/module")
             }else{
                 manifest.srcFile("src/main/AndroidManifest.xml")
             }
