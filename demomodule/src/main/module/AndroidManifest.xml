@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         >
-        <activity android:name=".view.DemoActivity">
+        <activity android:name=".view.DemoActivity"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

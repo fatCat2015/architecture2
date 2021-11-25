@@ -8,23 +8,23 @@ plugins {
 
 android {
 
-    compileSdk =Versions.compileSdkVersion
+    compileSdk =CompileConst.compileSdkVersion
 
     defaultConfig{
-        applicationId = Versions.applicationId
-        minSdk = Versions.minSdkVersion
-        targetSdk = Versions.targetSdkVersion
-        versionName = Versions.versionName
-        versionCode = Versions.versionCode
+        applicationId = project.property("application_id").toString()
+        minSdk = CompileConst.minSdkVersion
+        targetSdk = CompileConst.targetSdkVersion
+        versionCode = project.property("version_code").toString().toInt()
+        versionName = project.property("version_name").toString()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
+            storeFile = File(project.rootDir,project.property("storeFilePath").toString())
+            storePassword = project.property("storePassword").toString()
+            keyAlias = project.property("keyAlias").toString()
+            keyPassword = project.property("keyPassword").toString()
         }
     }
     buildTypes {

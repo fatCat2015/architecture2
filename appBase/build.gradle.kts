@@ -14,34 +14,12 @@ kapt {
 
 android {
 
-    compileSdk =Versions.compileSdkVersion
+    compileSdk =CompileConst.compileSdkVersion
 
     defaultConfig{
-        minSdk = Versions.minSdkVersion
-        targetSdk = Versions.targetSdkVersion
+        minSdk = CompileConst.minSdkVersion
+        targetSdk = CompileConst.targetSdkVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        create("release") {
-            storeFile = file("../keystore")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
-        }
-    }
-    buildTypes {
-        getByName("debug") {
-            signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-
-        getByName("release") {
-            signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
     }
 
     kotlinOptions {
@@ -74,7 +52,8 @@ dependencies {
     implementation(GoogleDependency.resultActivity)
     implementation(GoogleDependency.resultFragment)
     implementation(GoogleDependency.appStartup)
-    implementation(GoogleDependency.kotlin_reflect)
+    implementation(GoogleDependency.kotlinReflect)
+    debugImplementation(ThirdDependency.leakCanary)
 
 
     //hilt

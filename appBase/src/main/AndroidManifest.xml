@@ -20,6 +20,7 @@
 
 
         <activity android:name=".router.PageRouterActivity"
+            android:exported = "true"
             android:screenOrientation="portrait"
             >
             <!-- Scheme -->

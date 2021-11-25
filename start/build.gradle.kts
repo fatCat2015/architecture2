@@ -31,21 +31,21 @@ val useIndependentApplicationId:Boolean get() {
 
 android {
 
-    compileSdk =Versions.compileSdkVersion
+    compileSdk =CompileConst.compileSdkVersion
 
     defaultConfig {
         if(isModule){
             if(!useIndependentApplicationId){
                 if(this is com.android.build.api.dsl.ApplicationDefaultConfig){
-                    applicationId = Versions.applicationId
+                    applicationId = project.property("application_id").toString()
                 }
             }
         }
-        minSdk = Versions.minSdkVersion
-        targetSdk = Versions.targetSdkVersion
+        minSdk = CompileConst.minSdkVersion
+        targetSdk = CompileConst.targetSdkVersion
         if(this is com.android.build.api.dsl.ApplicationDefaultConfig){
-            versionName = Versions.versionName
-            versionCode = Versions.versionCode
+            versionCode = project.property("version_code").toString().toInt()
+            versionName = project.property("version_name").toString()
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,10 +63,10 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("../keystore")
-            storePassword = "123456"
-            keyAlias = "key0"
-            keyPassword = "123456"
+            storeFile = File(project.rootDir,project.property("storeFilePath").toString())
+            storePassword = project.property("storePassword").toString()
+            keyAlias = project.property("keyAlias").toString()
+            keyPassword = project.property("keyPassword").toString()
         }
     }
 
