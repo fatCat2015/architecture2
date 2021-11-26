@@ -29,8 +29,8 @@ val useIndependentApplicationId:Boolean get() {
 }
 
 
-android {
 
+android {
     compileSdk =CompileConst.compileSdkVersion
 
     defaultConfig {

@@ -55,19 +55,18 @@ dependencies {
     implementation(GoogleDependency.kotlinReflect)
     debugImplementation(ThirdDependency.leakCanary)
 
-
     //hilt
     implementation(GoogleDependency.hilt)
     kapt(GoogleDependency.hiltCompile)
-
 
     implementation(ThirdDependency.immersionBar)
     implementation(ThirdDependency.immersionBarKtx)
 
     implementation(ThirdDependency.timber)
-
     implementation(ThirdDependency.gson)
+    implementation(ThirdDependency.agentWeb)
 
+    //ARouter
     implementation(ThirdDependency.aRouter)
     kapt(ThirdDependency.aRouterCompiler)
 
