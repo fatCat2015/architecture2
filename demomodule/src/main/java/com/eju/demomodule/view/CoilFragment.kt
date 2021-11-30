@@ -15,6 +15,7 @@ import coil.transform.BlurTransformation
 import coil.transform.CircleCropTransformation
 import coil.transform.GrayscaleTransformation
 import coil.transform.RoundedCornersTransformation
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.router.PagePath
@@ -24,6 +25,7 @@ import com.eju.tools.doOnClick
 import com.eju.tools.initializer.HttpVideoFrameFetcher
 import com.eju.tools.initializer.memoryCacheKey
 
+@Route(path = PagePath.DemoModule.CoilFragment)
 class CoilFragment:AppBaseLazyLoadFragment<FragmentCoilBinding>() {
 
     override fun observeLazy() {

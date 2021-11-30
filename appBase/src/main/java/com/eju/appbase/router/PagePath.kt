@@ -55,6 +55,19 @@ object PagePath {
         const val Demo="/DemoModule/Demo"
         @PathName("测试大图页面")
         const val ImageDetail="/DemoModule/ImageDetial"
+        @PathName("Web页面展示")
+        const val WebPage="/DemoModule/WebPage"
+
+        @PathName("demo例子")
+        const val DemoFragment="/DemoModule/DemoFragment"
+        @PathName("coil的使用")
+        const val CoilFragment="/DemoModule/CoilFragment"
+        @PathName("分页展示")
+        const val UserList="/DemoModule/UserList"
+        @PathName("自定义分页逻辑")
+        const val MomentList="/DemoModule/MomentList"
+
+
     }
 
 }

@@ -1,8 +1,10 @@
 package com.eju.demomodule.view
 
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.base.AppBaseLazyLoadPagingFragment
+import com.eju.appbase.router.PagePath
 import com.eju.architecture.baseViewModels
 import com.eju.demomodule.adapter.DemoAdapter
 import com.eju.demomodule.databinding.FragmentCoilBinding
@@ -13,6 +15,7 @@ import com.eju.demomodule.viewmodel.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@Route(path = PagePath.DemoModule.MomentList)
 @AndroidEntryPoint
 class MomentListFragment: AppBaseLazyLoadPagingFragment<FragmentMomentListBinding>() {
 

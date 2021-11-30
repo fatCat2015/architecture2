@@ -7,6 +7,6 @@ object Versions {
     const val coil = "1.4.0"
     const val stetho = "1.6.0"
     const val refreshLayout = "2.0.3"
-    const val agentWeb = "v4.1.9-android"
+    const val agentWeb = "v4.1.9-androidx"
     const val immersionbar = "3.0.0"
 }

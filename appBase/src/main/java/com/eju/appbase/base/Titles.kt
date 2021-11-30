@@ -7,9 +7,14 @@ import com.eju.architecture.core.ITitleView
 
 open class CommonTitleView(private val activity: Activity): ITitleView<LayoutCommonTitleBinding> {
 
-    override val binding: LayoutCommonTitleBinding
-        get() = LayoutCommonTitleBinding.inflate(activity.layoutInflater)
+    override val bindingCreator: () -> LayoutCommonTitleBinding
+        get() = {
+            LayoutCommonTitleBinding.inflate(activity.layoutInflater)
+        }
 
+    override val binding: LayoutCommonTitleBinding by lazy {
+        bindingCreator()
+    }
 
     override fun onBindView(binding: LayoutCommonTitleBinding) {
         binding.ibAppTitleLeft.setOnClickListener { activity.onBackPressed() }

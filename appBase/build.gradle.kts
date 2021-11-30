@@ -64,7 +64,9 @@ dependencies {
 
     implementation(ThirdDependency.timber)
     implementation(ThirdDependency.gson)
-    implementation(ThirdDependency.agentWeb)
+
+    //agentWeb
+    api(ThirdDependency.agentWeb)
 
     //ARouter
     implementation(ThirdDependency.aRouter)
