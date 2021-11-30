@@ -51,7 +51,7 @@ abstract class BaseActivity<V:ViewBinding>:AppCompatActivity(), IViewBehavior,IE
 
     open fun showTitle() = true
 
-    open fun <V:ViewBinding>titleView():ITitleView<V>?=null
+    open fun <V:ViewBinding> titleView():ITitleView<V>?=null
 
     private fun setStatusBar(){
         if(immersionBarEnabled()){
@@ -74,7 +74,6 @@ abstract class BaseActivity<V:ViewBinding>:AppCompatActivity(), IViewBehavior,IE
     open fun onNetworkStateChanged(connected: Boolean, newNetworkState: NetworkState){
 
     }
-
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         //处理非EditText处点击时,软键盘的收起

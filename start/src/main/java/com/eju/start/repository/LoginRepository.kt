@@ -3,12 +3,11 @@ package com.eju.start.repository
 import com.eju.appbase.service.BaseResult
 import com.eju.appbase.service.ServiceErrorCode
 import com.eju.architecture.core.BaseRepository
-import com.eju.appbase.api.LoginService
-import com.eju.appbase.api.bean.User
+import com.eju.start.api.LoginService
+import com.eju.start.api.bean.User
 import com.eju.appbase.persistence.IS_LOGGED
 import com.eju.appbase.persistence.LOGGED_USER_INFO
 import com.eju.tools.saveBoolean
-import com.eju.tools.saveInt
 import com.eju.tools.saveSerializable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -1,4 +1,4 @@
-package com.eju.appbase.api
+package com.eju.start.api
 
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideLoginService(retrofit: Retrofit):LoginService{
+    fun provideLoginService(retrofit: Retrofit): LoginService {
         return retrofit.create(LoginService::class.java).also {   Timber.i("provideLoginService ${it}") }
     }
 

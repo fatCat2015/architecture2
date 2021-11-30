@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -42,33 +43,42 @@ abstract class AppBaseWebActivity<V:ViewBinding>:AppBaseActivity<V>(),WebConfig,
     }
 
 
-     override fun indicatorColorResId(): Int {
-         return R.color.colorPrimary
-     }
+    override fun indicatorColorResId(): Int {
+        return R.color.colorPrimary
+    }
 
-     override fun indicatorHeightInDp(): Int {
-         return 2
-     }
+    override fun indicatorHeightInDp(): Int {
+        return 2
+    }
 
-     override fun webViewClient(): WebViewClient {
-         return WebViewClient()
-     }
+    override fun webViewClient(): WebViewClient {
+        return WebViewClient()
+    }
 
-     override fun webChromeClient(): WebChromeClient {
-         return WebChromeClient()
-     }
+    override fun webChromeClient(): WebChromeClient {
+        return WebChromeClient()
+    }
 
-     override fun errorViewLayoutId(): Int {
-         return R.layout.layout_web_main_frame_error_view
-     }
+    override fun errorViewLayoutId(): Int {
+        return R.layout.layout_web_main_frame_error_view
+    }
 
-     override fun refreshBtnViewId(): Int {
-         return -1  //-1表示点击整个布局都刷新
-     }
+    override fun refreshBtnViewId(): Int {
+//        return -1  //-1表示点击整个布局都刷新
+        return R.id.tvRefresh
+    }
 
-     override fun additionalHttpHeaders(): Map<String, String> {
-         return emptyMap()
-     }
+    override fun additionalHttpHeaders(): Map<String, String> {
+        return emptyMap()
+    }
+
+    override fun webLayout(): IWebLayout<WebView, ViewGroup>? {
+        return null
+    }
+
+    override fun webSettings(): IAgentWebSettings<WebSettings>? {
+        return null
+    }
 
     override fun getWebView(): WebView {
         return agentWeb.webCreator.webView
@@ -108,8 +118,16 @@ abstract class AppBaseWebActivity<V:ViewBinding>:AppBaseActivity<V>(),WebConfig,
     /**
      * 需要activity中onBackPressed中调用
      */
-    override fun handleback(): Boolean {
+    override fun handleBack(): Boolean {
         return agentWeb.back()
+    }
+
+    override fun getCookieByUrl(url: String): String {
+        return AgentWebConfig.getCookiesByUrl(url)
+    }
+
+    override fun syncCookie(url: String,cookie:String) {
+        AgentWebConfig.syncCookie(url,cookie)
     }
 
     override fun onPause() {
@@ -135,12 +153,12 @@ abstract class AppBaseWebActivity<V:ViewBinding>:AppBaseActivity<V>(),WebConfig,
     }
 
     override fun onBackPressed() {
-        if(!handleback()){
+        if(!handleBack()){
             super.onBackPressed()
         }
     }
 
- }
+}
 
 interface AgentWebCreator{
     fun create():AgentWeb
@@ -170,8 +188,15 @@ class DefaultAgentCreator(private val activity:Activity?,
                 if(!httpHeaders.isNullOrEmpty()){
                     additionalHttpHeader(webConfig.getUrl(),httpHeaders)
                 }
+                webConfig.webLayout()?.let {
+                    setWebLayout(it)
+                }
+                webConfig.webSettings()?.let {
+                    setAgentWebWebSettings(it)
+                }
             }
             .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他页面时，弹窗质询用户前往其他应用
+
 //            .useMiddlewareWebChrome()
 //            .useMiddlewareWebClient()
 //            .setPermissionInterceptor { url, permissions, action ->
@@ -180,13 +205,13 @@ class DefaultAgentCreator(private val activity:Activity?,
 //                })
 //                true
 //            }
-//           .setAgentWebWebSettings()
 //           .setAgentWebUIController()
             .interceptUnkownUrl() //拦截找不到相关页面的Url
             .createAgentWeb()
             .ready()
             .go(webConfig.getUrl())
     }
+
 
 }
 
@@ -209,6 +234,10 @@ interface WebConfig{
     fun refreshBtnViewId():Int
 
     fun additionalHttpHeaders():Map<String,String>
+
+    fun webLayout():IWebLayout<WebView,ViewGroup>?
+
+    fun webSettings():IAgentWebSettings<WebSettings>?
 }
 
 interface WebAction{
@@ -229,6 +258,11 @@ interface WebAction{
 
     fun handleKeyEvent(keycode:Int,keyEvent: KeyEvent?):Boolean
 
-    fun handleback(): Boolean
+    fun handleBack(): Boolean
+
+    fun getCookieByUrl(url:String):String
+
+    fun syncCookie(url: String,cookie:String)
+
 }
 

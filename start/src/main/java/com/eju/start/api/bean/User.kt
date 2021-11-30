@@ -1,4 +1,4 @@
-package com.eju.appbase.api.bean
+package com.eju.start.api.bean
 
 import java.io.Serializable
 

@@ -15,15 +15,16 @@ import com.eju.appbase.router.PagePath
 import com.eju.architecture.core.ITitleView
 import com.eju.demomodule.R
 import com.eju.demomodule.databinding.ActivityWebBinding
+import com.eju.demomodule.databinding.WebLayoutBinding
 import com.eju.demomodule.titles.WebTitle
 import com.eju.tools.safeIntentExtra
+import com.just.agentweb.IWebLayout
 import com.just.agentweb.WebChromeClient
 import com.just.agentweb.WebViewClient
 import timber.log.Timber
 
 @Route(path = PagePath.DemoModule.WebPage)
 class WebActivity:AppBaseWebActivity<ActivityWebBinding>() {
-
 
     private val webUrl by safeIntentExtra<String>("url")
 
@@ -48,6 +49,22 @@ class WebActivity:AppBaseWebActivity<ActivityWebBinding>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         super.afterCreate(savedInstanceState)
         //todo anything
+    }
+
+    override fun webLayout(): IWebLayout<WebView, ViewGroup>? {
+        return object:IWebLayout<WebView,ViewGroup>{
+
+            private val layoutBinding:WebLayoutBinding by lazy {
+                WebLayoutBinding.inflate(layoutInflater)
+            }
+
+            override fun getLayout(): ViewGroup {
+                return layoutBinding.root
+            }
+            override fun getWebView(): WebView? {
+                return layoutBinding.webView
+            }
+        }
     }
 
     override fun webViewClient(): WebViewClient {
