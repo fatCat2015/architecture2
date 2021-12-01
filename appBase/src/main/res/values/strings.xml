@@ -5,7 +5,11 @@
     <string name="be_kicked_out" >账号已在其它设备登陆,请重新登录</string>
     <string name="token_out_of_date" >登录过期,请重新登录</string>
 
+    <string name="unknown_page" >未知页面</string>
+    <string name="page_not_found" >抱歉,未找到指定页面</string>
+
     <string name="web_view_error_description" >网络不可用或发生其它错误</string>
     <string name="click_to_refresh" >点击刷新</string>
+
 
 </resources>

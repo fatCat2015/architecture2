@@ -18,8 +18,10 @@ object PagePath {
         File(cacheDirPath,"androidPagePath.txt").print {
             PagePath::class.nestedClasses.forEach { clz->
                 clz.memberProperties?.forEach { property->
-                    property.findAnnotations(PathName::class)?.firstOrNull()?.let { pathName->
-                        println("${pathName.name} = ${property.call()}")
+                    property.findAnnotations(PathName::class)?.firstOrNull()?.let { path->
+                        if(!path.isFragment){
+                            println("${path.name} = ${property.call()}")
+                        }
                     }
                 }
             }
@@ -33,6 +35,11 @@ object PagePath {
 
     fun createPathUri1(path:String):Uri{
         return Uri.parse("http://www.jiandanhome.com${path}")
+    }
+
+    object Other{
+        @PathName("降级页面")
+        const val NotFound="/Other/NotFound"
     }
 
 
@@ -57,14 +64,16 @@ object PagePath {
         const val ImageDetail="/DemoModule/ImageDetial"
         @PathName("Web页面展示")
         const val WebPage="/DemoModule/WebPage"
+        @PathName("arouter使用")
+        const val ARouterDemo="/DemoModule/ARouterDemo"
 
-        @PathName("demo例子")
+        @PathName("demo例子",isFragment = true)
         const val DemoFragment="/DemoModule/DemoFragment"
-        @PathName("coil的使用")
+        @PathName("coil的使用",isFragment = true)
         const val CoilFragment="/DemoModule/CoilFragment"
-        @PathName("分页展示")
+        @PathName("分页展示",isFragment = true)
         const val UserList="/DemoModule/UserList"
-        @PathName("自定义分页逻辑")
+        @PathName("自定义分页逻辑",isFragment = true)
         const val MomentList="/DemoModule/MomentList"
 
 
@@ -75,6 +84,6 @@ object PagePath {
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD, ElementType.METHOD)
-annotation class PathName( val name:String)
+annotation class PathName( val name:String,val isFragment:Boolean = false)
 
 

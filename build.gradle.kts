@@ -4,14 +4,14 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+        jcenter()  //immersionbar smartRefreshLayout还在用
         maven("https://jitpack.io")
     }
     dependencies {
         classpath(PluginConst.gradle)
         classpath(PluginConst.kotlin)
         classpath(PluginConst.hilt)
-        classpath(PluginConst.aop)
+        classpath(PluginConst.aopNew)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -21,7 +21,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+        jcenter() //immersionbar smartRefreshLayout还在用
         maven("https://jitpack.io")
     }
 }

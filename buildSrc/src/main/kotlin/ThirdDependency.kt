@@ -58,8 +58,10 @@ object ThirdDependency {
     const val diskLruCache = "com.jakewharton:disklrucache:2.0.2"
 
     //aRouter https://github.com/alibaba/ARouter/blob/master/README_CN.md
+    //使用 IDE 插件导航到目标类,需要安装plugin: ARouter Helper
     const val aRouter = "com.alibaba:arouter-api:1.5.2"
     const val aRouterCompiler =  "com.alibaba:arouter-compiler:1.5.2"
+    const val aRouterRegister =  "com.alibaba:arouter-register:1.0.2"
 
     //leakCanary https://github.com/square/leakcanary
     const val leakCanary =  "com.squareup.leakcanary:leakcanary-android:2.7"

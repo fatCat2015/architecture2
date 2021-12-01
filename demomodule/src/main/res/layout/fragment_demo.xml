@@ -20,6 +20,23 @@
                 android:textAllCaps="false"
                 android:layout_height="wrap_content">
             </Button>
+
+            <Button
+                android:id="@+id/btArouter"
+                android:layout_width="match_parent"
+                android:text="arouter的使用"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
+            <Button
+                android:id="@+id/btApi"
+                android:layout_width="match_parent"
+                android:text="请求接口"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

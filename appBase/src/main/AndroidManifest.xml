@@ -19,7 +19,7 @@
         </provider>
 
 
-        <activity android:name=".router.PageRouterActivity"
+        <activity android:name=".router.AppLinkEntryActivity"
             android:exported = "true"
             android:screenOrientation="portrait"
             >
@@ -36,20 +36,27 @@
             </intent-filter>
 
             <!-- App Links -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW"/>
+<!--            <intent-filter android:autoVerify="true">-->
+<!--                <action android:name="android.intent.action.VIEW"/>-->
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+<!--                <category android:name="android.intent.category.DEFAULT"/>-->
+<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
 
-                <data
-                    android:host="jiandanhome.com"
-                    android:scheme="http"/>
-                <data
-                    android:host="jiandanhome.com"
-                    android:scheme="https"/>
-            </intent-filter>
+<!--                <data-->
+<!--                    android:host="jiandanhome.com"-->
+<!--                    android:scheme="http"/>-->
+<!--                <data-->
+<!--                    android:host="jiandanhome.com"-->
+<!--                    android:scheme="https"/>-->
+<!--            </intent-filter>-->
 
+        </activity>
+
+        <activity android:name=".router.PageNotFoundActivity"
+            android:exported = "true"
+            android:label="@string/unknown_page"
+            android:screenOrientation="portrait"
+            >
         </activity>
 
     </application>

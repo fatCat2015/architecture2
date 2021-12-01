@@ -10,4 +10,7 @@ object PluginConst {
     //https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx
     const val aop = "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:2.0.10"
 
+    //https://github.com/wurensen/gradle_plugin_android_aspectjx
+    const val aopNew = "io.github.wurensen:gradle-android-plugin-aspectjx:2.0.13"
+
 }

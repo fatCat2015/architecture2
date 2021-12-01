@@ -1,16 +1,21 @@
 package com.eju.appbase.base
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
+import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.R
+import com.eju.appbase.persistence.IS_LOGGED
+import com.eju.appbase.router.PagePath
 import com.eju.appbase.service.ApiException
 import com.eju.appbase.service.ServiceErrorCode
 import com.eju.architecture.core.IExceptionHandler
 import com.eju.tools.application
+import com.eju.tools.saveBoolean
 import com.eju.tools.showToast
 
 class ExceptionHandlerImpl(
@@ -38,13 +43,16 @@ class ExceptionHandlerImpl(
 
     override fun handleException(throwable: Throwable?) {
         if(throwable is ApiException){
+            val apiMsg:String? = throwable?.message
             when(throwable.code){
                 ServiceErrorCode.BE_KICKEd_OUT ->{
-                    showToast(context?.getString(R.string.be_kicked_out))
+                    showToast(if(apiMsg.isNullOrEmpty()) context?.getString(R.string.be_kicked_out) else apiMsg)
+                    logout()
                     toReLogin()
                 }
                 ServiceErrorCode.TOKEN_OUT_OF_DATE ->{
-                    showToast(context?.getString(R.string.token_out_of_date))
+                    showToast(if(apiMsg.isNullOrEmpty()) context?.getString(R.string.token_out_of_date) else apiMsg)
+                    logout()
                     toReLogin()
                 }
                 else->{
@@ -55,8 +63,16 @@ class ExceptionHandlerImpl(
             showToastLifecycleAware(throwable?.message)
         }
     }
+    
+    private fun logout(){
+        saveBoolean(IS_LOGGED,false)
+        //todo 退出登录后的其他处理
+    }
 
     private fun toReLogin(){
+        ARouter.getInstance().build(PagePath.Start.Login)
+//            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK) 这样处理会导致黑屏.改为在登陆页面打开之后调用 finishAllActivitiesExceptTop
+            .navigation(context)
     }
 
     private fun showToast(msg:CharSequence?){

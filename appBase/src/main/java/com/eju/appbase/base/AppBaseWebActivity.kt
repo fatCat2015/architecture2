@@ -186,7 +186,7 @@ class DefaultAgentCreator(private val activity:Activity?,
             .apply {
                 val httpHeaders = webConfig.additionalHttpHeaders()
                 if(!httpHeaders.isNullOrEmpty()){
-                    additionalHttpHeader(webConfig.getUrl(),httpHeaders)
+                    additionalHttpHeader(webConfig.getUrl(),httpHeaders)  //TODO 使用
                 }
                 webConfig.webLayout()?.let {
                     setWebLayout(it)

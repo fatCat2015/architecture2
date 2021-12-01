@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.demomodule.databinding.ActivityBigImageBinding
+import com.eju.tools.finishAllActivitiesExceptTop
 import com.eju.tools.intentExtra
 import timber.log.Timber
 

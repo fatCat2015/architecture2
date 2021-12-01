@@ -15,6 +15,7 @@ plugins {
 kapt {
     arguments {
         arg("AROUTER_MODULE_NAME", project.getName())
+//        arg("AROUTER_GENERATE_DOC", "enable")  kotlin下不支持路由文档的生成
     }
 }
 
@@ -130,6 +131,7 @@ dependencies {
     //smartRefreshLayout
     implementation(ThirdDependency.smartRefreshLayout)
     implementation(ThirdDependency.smartRefreshHeader0)
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.eju.demomodule.view
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +9,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.demomodule.databinding.ActivityDemoBinding
-import com.eju.demomodule.view.CoilFragment
-import com.eju.demomodule.view.MomentListFragment
-import com.eju.demomodule.view.UserListFragment
 import com.eju.tools.setUpWithViewPager2
 import com.eju.tools.widget.SimpleFragmentAdapter2
 import dagger.hilt.android.AndroidEntryPoint
