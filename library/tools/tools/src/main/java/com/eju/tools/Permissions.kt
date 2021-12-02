@@ -110,7 +110,7 @@ class PermissionCheckerImpl: PermissionChecker {
 /**
  * 用于权限检查,每次都使用一个新对象
  */
-val permissionChecker: PermissionChecker get() =  PermissionCheckerImpl()
+private val permissionChecker: PermissionChecker get() =  PermissionCheckerImpl()
 
 fun FragmentActivity.requestPermissions(vararg permissions: String, deniedCallback:((deniedList:List<String>)->Unit)?=null,
                                         allGrantedCallback:(grantedList:List<String>)->Unit){

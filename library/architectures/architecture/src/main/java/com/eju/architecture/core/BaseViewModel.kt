@@ -2,6 +2,7 @@ package com.eju.architecture.core
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import com.eju.architecture.BuildConfig
 import com.eju.tools.application
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -103,6 +104,9 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         } catch (e: CancellationException) {
             //JobCancellationException 手动取消 不作处理
         } catch (e: Throwable) {
+            if(BuildConfig.DEBUG){
+                e.printStackTrace()
+            }
             if (onError?.invoke(e) != true) {
                 handleException(e)
                 showToast(e.message)

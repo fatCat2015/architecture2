@@ -8,10 +8,12 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
+import com.eju.appbase.router.newFragment
 import com.eju.demomodule.databinding.ActivityDemoBinding
 import com.eju.tools.setUpWithViewPager2
 import com.eju.tools.widget.SimpleFragmentAdapter2
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @Route(path=PagePath.DemoModule.Demo)
 @AndroidEntryPoint
@@ -23,10 +25,10 @@ class DemoActivity : AppBaseActivity<ActivityDemoBinding>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         val fragments = listOf(
-            ARouter.getInstance().build(PagePath.DemoModule.DemoFragment).navigation() as Fragment,
-            ARouter.getInstance().build(PagePath.DemoModule.CoilFragment).navigation() as Fragment,
-            ARouter.getInstance().build(PagePath.DemoModule.UserList).navigation() as Fragment,
-            ARouter.getInstance().build(PagePath.DemoModule.MomentList).navigation() as Fragment,
+            newFragment<DemoFragment>(PagePath.DemoModule.DemoFragment),
+            newFragment<CoilFragment>(PagePath.DemoModule.CoilFragment),
+            newFragment<UserListFragment>(PagePath.DemoModule.UserList),
+            newFragment<MomentListFragment>(PagePath.DemoModule.MomentList)
         )
         binding.viewPager2.adapter = SimpleFragmentAdapter2(fragments,this)
         binding.viewPager2.offscreenPageLimit = fragments.size-1

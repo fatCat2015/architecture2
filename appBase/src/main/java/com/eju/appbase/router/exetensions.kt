@@ -19,9 +19,16 @@ fun Postcard.navigation(fragment: Fragment, requestCode:Int){
     }
 }
 
+
 val Activity.aRouter:ARouter get() = ARouter.getInstance()
 
 val Fragment.aRouter:ARouter get() = ARouter.getInstance()
+
+fun <F:Fragment> newFragment(path:String,block:Postcard.()->Unit = {}):F{
+    return ARouter.getInstance().build(path).apply {
+        block()
+    }.navigation() as F
+}
 
 /**
  * 获取原始的URI.通过AppLinkEntryActivity分发至的目标页面才有值,这个值是applink中的链接

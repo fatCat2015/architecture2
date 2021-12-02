@@ -37,6 +37,14 @@
                 android:layout_height="wrap_content">
             </Button>
 
+            <Button
+                android:id="@+id/btRequestPermissions"
+                android:layout_width="match_parent"
+                android:text="请求权限"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

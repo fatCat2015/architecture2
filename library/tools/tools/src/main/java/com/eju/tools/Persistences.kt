@@ -6,7 +6,6 @@ import timber.log.Timber
 import java.io.*
 
 
-
 private const val DEFAULT_MMKV_ID = "9527#$#_@&*default_mmkv_id"
 
 private val mmkvMap:MutableMap<String,MMKV> by lazy {
@@ -136,5 +135,12 @@ fun <T:Serializable> fetchSerializable(key:String,defaultValue: T?=null,identify
     }?:defaultValue
 }
 
+fun removeValueForKey(key:String,identify:String = DEFAULT_MMKV_ID){
+    putIfAbsent(identify).removeValueForKey(key)
+}
+
+fun removeValueForKeys(vararg keys:String,identify:String = DEFAULT_MMKV_ID){
+    putIfAbsent(identify).removeValuesForKeys(keys)
+}
 
 

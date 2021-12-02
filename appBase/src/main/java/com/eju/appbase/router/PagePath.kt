@@ -3,7 +3,6 @@ package com.eju.appbase.router
 import android.net.Uri
 import com.eju.tools.cacheDirPath
 import com.eju.tools.print
-import timber.log.Timber
 import java.io.File
 import java.lang.annotation.*
 import java.lang.annotation.Retention
@@ -18,7 +17,7 @@ object PagePath {
         File(cacheDirPath,"androidPagePath.txt").print {
             PagePath::class.nestedClasses.forEach { clz->
                 clz.memberProperties?.forEach { property->
-                    property.findAnnotations(PathName::class)?.firstOrNull()?.let { path->
+                    property.findAnnotations(PathDescription::class)?.firstOrNull()?.let { path->
                         if(!path.isFragment){
                             println("${path.name} = ${property.call()}")
                         }
@@ -37,43 +36,45 @@ object PagePath {
         return Uri.parse("http://www.jiandanhome.com${path}")
     }
 
+
+
     object Other{
-        @PathName("降级页面")
+        @PathDescription("降级页面")
         const val NotFound="/Other/NotFound"
     }
 
 
     object Start {
-        @PathName("启动页")
+        @PathDescription("启动页")
         const val Splash="/Start/Splash"
-        @PathName("引导页")
+        @PathDescription("引导页")
         const val Guide="/Start/Guide"
-        @PathName("登录页")
+        @PathDescription("登录页")
         const val Login="/Start/Login"
     }
 
     object Main{
-        @PathName("首页")
+        @PathDescription("首页")
         const val Home="/Main/Home"
     }
 
     object DemoModule{
-        @PathName("测试页面")
+        @PathDescription("测试页面")
         const val Demo="/DemoModule/Demo"
-        @PathName("测试大图页面")
+        @PathDescription("测试大图页面")
         const val ImageDetail="/DemoModule/ImageDetial"
-        @PathName("Web页面展示")
+        @PathDescription("Web页面展示")
         const val WebPage="/DemoModule/WebPage"
-        @PathName("arouter使用")
+        @PathDescription("arouter使用")
         const val ARouterDemo="/DemoModule/ARouterDemo"
 
-        @PathName("demo例子",isFragment = true)
+        @PathDescription("demo例子",isFragment = true)
         const val DemoFragment="/DemoModule/DemoFragment"
-        @PathName("coil的使用",isFragment = true)
+        @PathDescription("coil的使用",isFragment = true)
         const val CoilFragment="/DemoModule/CoilFragment"
-        @PathName("分页展示",isFragment = true)
+        @PathDescription("分页展示",isFragment = true)
         const val UserList="/DemoModule/UserList"
-        @PathName("自定义分页逻辑",isFragment = true)
+        @PathDescription("自定义分页逻辑",isFragment = true)
         const val MomentList="/DemoModule/MomentList"
 
 
@@ -84,6 +85,8 @@ object PagePath {
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD, ElementType.METHOD)
-annotation class PathName( val name:String,val isFragment:Boolean = false)
+annotation class PathDescription(val name:String, val isFragment:Boolean = false)
+
+
 
 

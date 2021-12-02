@@ -9,7 +9,9 @@ const val IS_LOGGED = "is_logged"
 const val GUIDE_INDEX = "guide_index"
 
 //登录用户信息
-const val LOGGED_USER_INFO = "logged_user_info"
+const val USER_ID = "user_id"
+const val USER_TOKEN = "user_token"
+const val LOGGED_MOBILE = "logged_mobile"
 
 //用于判断是否是新版本第一次启动
 //本地保存的versionCode和app的versionCode进行比较,然后更新本地的versionCode

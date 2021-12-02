@@ -72,10 +72,25 @@ object RetrofitModule {
     }
 
     //公共请求头的添加
+    @Synchronized
     fun addRequestHeader(key:String,value:String){
-        requestHeaders[key] = value
+        addRequestHeader(key to value)
     }
-    fun addRequestHeader(headers:Map<String,String>){
+
+    @Synchronized
+    fun addRequestHeader(vararg headers:Pair<String,String>){
         requestHeaders.putAll(headers)
+    }
+
+    @Synchronized
+    fun removeQuestHeader(key:String){
+        requestHeaders.remove(key)
+    }
+
+    @Synchronized
+    fun removeQuestHeaders(vararg keys:String){
+        keys.forEach {
+            removeQuestHeader(it)
+        }
     }
 }

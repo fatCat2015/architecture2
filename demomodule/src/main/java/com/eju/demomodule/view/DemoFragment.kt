@@ -1,5 +1,6 @@
 package com.eju.demomodule.view
 
+import android.Manifest
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -11,6 +12,7 @@ import com.eju.architecture.baseViewModels
 import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
 import com.eju.tools.doOnClick
+import com.eju.tools.requestPermissions
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -44,8 +46,18 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
                 .navigation()
         }
 
+
+
         binding.btApi.doOnClick {
             viewModel.queryOrderDetail("89")
+        }
+
+        binding.btRequestPermissions.doOnClick {
+            requestPermissions(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,deniedCallback = {
+                         showToast("denied ${it}")
+            },allGrantedCallback = {
+                showToast("all granted")
+            })
         }
     }
 }

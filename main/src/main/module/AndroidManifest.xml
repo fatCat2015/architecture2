@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.eju.demomodule">
-
-    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    package="com.eju.main"
+    >
 
     <application
         android:allowBackup="false"
@@ -16,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         >
-        <activity android:name=".view.DemoActivity"
+        <activity android:name=".view.MainActivity"
             android:exported="true"
             >
             <intent-filter>
@@ -26,15 +23,5 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.BigImageActivity"
-            android:label="大图">
-        </activity>
-        <activity android:name=".view.WebActivity"
-            android:label="webPage">
-        </activity>
-        <activity android:name=".view.ARouterDemoActivity"
-            android:label="ARouterDemo">
-        </activity>
     </application>
-
 </manifest>
