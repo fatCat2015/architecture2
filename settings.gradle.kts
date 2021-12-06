@@ -35,6 +35,11 @@ project (":cache").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/cache")
 }
 
+include(":wechat")
+project (":wechat").apply {
+    projectDir = File(rootProject.projectDir, "/library/sdk/wechat")
+}
+
 
 include(":appBase")
 include (":app")

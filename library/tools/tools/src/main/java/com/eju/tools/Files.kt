@@ -4,10 +4,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import androidx.core.content.FileProvider
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.PrintWriter
+import java.io.*
 
 internal val fileProviderAuthorities :String get() = "${packageName}.fileProvider"
 
@@ -51,3 +48,23 @@ val cacheDirPath: String
         internalCacheDirPath
 
 
+fun File.toByteArray():ByteArray{
+    var buffer: ByteArray? = null
+    try {
+        val fis = FileInputStream(this)
+        val bos = ByteArrayOutputStream()
+        val b = ByteArray(1024)
+        var n: Int
+        while (fis.read(b).also { n = it } != -1) {
+            bos.write(b, 0, n)
+        }
+        fis.close()
+        bos.close()
+        buffer = bos.toByteArray()
+    } catch (e: FileNotFoundException) {
+        e.printStackTrace()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return buffer!!
+}

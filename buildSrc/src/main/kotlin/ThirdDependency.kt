@@ -74,5 +74,9 @@ object ThirdDependency {
     //mmkv  https://github.com/Tencent/MMKV/blob/master/README_CN.md
     const val mmkv = "com.tencent:mmkv-static:1.2.11"
 
+    //Compressor  https://github.com/zetbaitsu/Compressor
+    const val compressor = "id.zelory:compressor:3.0.1"
+
+
 
 }

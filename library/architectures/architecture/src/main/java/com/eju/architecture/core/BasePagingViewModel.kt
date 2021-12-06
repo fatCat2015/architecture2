@@ -19,64 +19,58 @@ abstract class BasePagingViewModel<V,D: PagingData<V>,K: LoadingParams<V, D>>: B
     abstract val loadingParamsFactory:()->K
 
     internal val finishRefreshLD : MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MainSaveLiveData<Int>()
     }
     internal val finishLoadMoreLD : MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MainSaveLiveData<Int>()
     }
     internal val setEnableLoadMoreLD : MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MainSaveLiveData<Boolean>()
     }
     internal val showEmptyViewLD : MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
+        MainSaveLiveData<Boolean>()
     }
 
     internal val notifyDataSetChangedLD : MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MainSaveLiveData<Int>()
     }
 
     internal val notifyItemChangedLD : MutableLiveData<ListNotifyInfo> by lazy {
-        MutableLiveData<ListNotifyInfo>()
+        MainSaveLiveData<ListNotifyInfo>()
     }
 
     internal val notifyItemInsertedLD : MutableLiveData<ListNotifyInfo> by lazy {
-        MutableLiveData<ListNotifyInfo>()
+        MainSaveLiveData<ListNotifyInfo>()
     }
 
     internal val notifyItemRemovedLD : MutableLiveData<ListNotifyInfo> by lazy {
-        MutableLiveData<ListNotifyInfo>()
+        MainSaveLiveData<ListNotifyInfo>()
     }
 
     internal val notifyItemMovedLD : MutableLiveData<ListNotifyInfo> by lazy {
-        MutableLiveData<ListNotifyInfo>()
+        MainSaveLiveData<ListNotifyInfo>()
     }
 
-    @MainThread
     final override fun finishRefresh() {
         finishRefreshLD.value = (finishRefreshLD.value?:0)+1
     }
 
-    @MainThread
     final override fun finishLoadMore() {
         finishLoadMoreLD.value = (finishLoadMoreLD.value?:0)+1
     }
 
-    @MainThread
     final override fun setEnableLoadMore(enabled: Boolean) {
         setEnableLoadMoreLD.value = enabled
     }
 
-    @MainThread
     final override fun showEmptyView(showEmpty: Boolean) {
         showEmptyViewLD.value = showEmpty
     }
 
-    @MainThread
     final override fun notifyDataSetChanged() {
         notifyDataSetChangedLD.value = (notifyDataSetChangedLD.value?:0)+1
     }
 
-    @MainThread
     final override fun notifyItemChanged(position: Int, itemCount: Int, payload: Any?) {
         notifyItemChangedLD.value =  notifyItemChangedLD.value?.apply {
             this.position=position
@@ -85,7 +79,6 @@ abstract class BasePagingViewModel<V,D: PagingData<V>,K: LoadingParams<V, D>>: B
         }?:ListNotifyInfo(position,itemCount,payload)
     }
 
-    @MainThread
     final override fun notifyItemInserted(position: Int, itemCount: Int) {
         notifyItemInsertedLD.value =  notifyItemInsertedLD.value?.apply {
             this.position=position
@@ -93,7 +86,6 @@ abstract class BasePagingViewModel<V,D: PagingData<V>,K: LoadingParams<V, D>>: B
         }?:ListNotifyInfo(position,itemCount,null)
     }
 
-    @MainThread
     final override fun notifyItemRemoved(position: Int, itemCount: Int) {
         notifyItemRemovedLD.value =  notifyItemRemovedLD.value?.apply {
             this.position=position
@@ -101,7 +93,6 @@ abstract class BasePagingViewModel<V,D: PagingData<V>,K: LoadingParams<V, D>>: B
         }?:ListNotifyInfo(position,itemCount,null)
     }
 
-    @MainThread
     final override fun notifyItemMoved(fromPosition: Int, toPosition: Int) {
         notifyItemMovedLD.value =  notifyItemMovedLD.value?.apply {
             this.fromPosition = fromPosition

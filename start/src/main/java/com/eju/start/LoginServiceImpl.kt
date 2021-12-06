@@ -6,12 +6,13 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.persistence.IS_LOGGED
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.service.LoginService
+import com.eju.appbase.router.service.ServicePath
 import com.eju.retrofit.RetrofitModule
 import com.eju.tools.*
 import timber.log.Timber
 
 
-@Route(path = "/Service/LoginService")
+@Route(path = ServicePath.loginService)
 class LoginServiceImpl: LoginService {
 
     private var context:Context? = null

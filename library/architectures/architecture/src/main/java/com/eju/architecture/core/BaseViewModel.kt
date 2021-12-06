@@ -12,40 +12,36 @@ import kotlinx.coroutines.launch
 open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,IExceptionHandler{
 
     internal val showLoadingLD : MutableLiveData<CharSequence> by lazy {
-        MutableLiveData<CharSequence>()
+        MainSaveLiveData<CharSequence>()
     }
     internal val hideLoadingLD : MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MainSaveLiveData<Int>()
     }
     internal val showToastLD :MutableLiveData<ToastInfo> by lazy {
-        MutableLiveData<ToastInfo>()
+        MainSaveLiveData<ToastInfo>()
     }
     internal val showSnackLD :MutableLiveData<SnackInfo> by lazy {
-        MutableLiveData<SnackInfo>()
+        MainSaveLiveData<SnackInfo>()
     }
     internal val finishPageLD : MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+        MainSaveLiveData<Int>()
     }
     internal val handleExceptionLD:MutableLiveData<Throwable> by lazy {
-        MutableLiveData<Throwable>()
+        MainSaveLiveData<Throwable>()
     }
 
-    @MainThread
     final override fun showLoading(msg: CharSequence?) {
         showLoadingLD.value = msg
     }
 
-    @MainThread
     final override fun showLoading(resId: Int) {
         showLoading(application.getString(resId))
     }
 
-    @MainThread
     final override fun hideLoading() {
         hideLoadingLD.value = (hideLoadingLD.value?:0)+1
     }
 
-    @MainThread
     final override fun showToast(msg: CharSequence?, duration: Int) {
         showToastLD.value = showToastLD.value?.apply {
             this.msg = msg
@@ -53,7 +49,6 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         }?: ToastInfo(msg,null,duration)
     }
 
-    @MainThread
     final override fun showToast(resId: Int?, duration: Int) {
         showToastLD.value = showToastLD.value?.apply {
             this.resId = resId
@@ -61,7 +56,6 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         }?: ToastInfo(null,resId,duration)
     }
 
-    @MainThread
     final override fun showSnack(msg: CharSequence?, duration: Int, code: Int) {
         showSnackLD.value = showSnackLD.value?.apply {
             this.msg = msg
@@ -70,7 +64,6 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         }?: SnackInfo(msg,null,duration,code)
     }
 
-    @MainThread
     final override fun showSnack(resId: Int?, duration: Int, code: Int) {
         showSnackLD.value = showSnackLD.value?.apply {
             this.resId = resId
@@ -79,12 +72,10 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         }?: SnackInfo(null,resId,duration,code)
     }
 
-    @MainThread
     final override fun finishPage(){
         finishPageLD.value = (finishPageLD.value?:0)+1
     }
 
-    @MainThread
     final override fun handleException(throwable: Throwable?) {
         handleExceptionLD.value = throwable
     }

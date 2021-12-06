@@ -45,6 +45,23 @@
                 android:layout_height="wrap_content">
             </Button>
 
+            <Button
+                android:id="@+id/btShare"
+                android:layout_width="match_parent"
+                android:text="分享测试"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
+
+            <Button
+                android:id="@+id/btCompressImage"
+                android:layout_width="match_parent"
+                android:text="图片压缩"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

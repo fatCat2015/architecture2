@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.eju.wechat">
+
+    <queries>
+        <package android:name="com.tencent.mm" />
+    </queries>
+
+    <application
+        >
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data  android:name="com.eju.wechat.WechatInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <activity
+            android:name="com.aichongyou.icy.wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Transparent"
+            android:exported="true"
+            android:taskAffinity="${applicationId}"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name="com.aichongyou.icy.wxapi.WXPayEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Transparent"
+            android:exported="true"
+            android:taskAffinity="${applicationId}"
+            android:launchMode="singleTask">
+        </activity>
+
+    </application>
+
+</manifest>

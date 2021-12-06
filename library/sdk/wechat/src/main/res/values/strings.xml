@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+
+    <string name="wx_send_auth_failed" >授权失败</string>
+    <string name="wx_share_failed" >分享失败</string>
+
+
+</resources>

@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/demomodule" />
             <option value="$PROJECT_DIR$/library/architectures/architecture" />
+            <option value="$PROJECT_DIR$/library/sdk/wechat" />
             <option value="$PROJECT_DIR$/library/tools/aop" />
             <option value="$PROJECT_DIR$/library/tools/cache" />
             <option value="$PROJECT_DIR$/library/tools/retrofit" />

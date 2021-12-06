@@ -1,20 +1,24 @@
 package com.eju.demomodule.view
 
 import android.Manifest
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.entity.User
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.aRouter
 import com.eju.architecture.baseViewModels
+import com.eju.demomodule.R
 import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
-import com.eju.tools.doOnClick
-import com.eju.tools.requestPermissions
+import com.eju.tools.*
+import com.eju.wechat.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.io.File
 
 @AndroidEntryPoint
 @Route(path = PagePath.DemoModule.DemoFragment)
@@ -58,6 +62,29 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             },allGrantedCallback = {
                 showToast("all granted")
             })
+
+        }
+
+        binding.btShare.doOnClick {
+            viewModel.requestWxLogin()
+            return@doOnClick
+            viewModel.shareBitmap(BitmapFactory.decodeResource(
+                resources,
+                R.drawable.ic_big
+            ))
+        }
+
+        binding.btCompressImage.doOnClick {
+            val small =  BitmapFactory.decodeResource(resources,R.drawable.ic_demo,BitmapFactory.Options()).saveLocally(
+                File(cacheDirPath,"small.jpg")
+            )
+            val big =  BitmapFactory.decodeResource(resources,R.drawable.ic_big,BitmapFactory.Options()).saveLocally(
+                File(cacheDirPath,"big.jpg")
+            )
+            lifecycleScope.launch {
+                compressImageFile(File(small),32)
+                compressImageFile(File(big),1024)
+            }
         }
     }
 }

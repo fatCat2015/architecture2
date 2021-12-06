@@ -53,6 +53,7 @@ dependencies {
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
     implementation(ThirdDependency.permissionsX)
+    api(ThirdDependency.compressor)
 
     api(ThirdDependency.coil)
     api(ThirdDependency.coilGif)

@@ -138,6 +138,7 @@ dependencies {
 
 dependencies {
     implementation(project(":appBase"))
+    implementation(project(":wechat"))
 }
 
 dependencies {
