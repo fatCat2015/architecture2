@@ -2,6 +2,7 @@ package com.eju.tools.initializer
 
 import android.app.Application
 import android.content.Context
+import androidx.startup.AppInitializer
 import androidx.startup.Initializer
 import timber.log.Timber
 

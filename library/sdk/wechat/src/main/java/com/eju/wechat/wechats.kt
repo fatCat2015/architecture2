@@ -128,6 +128,16 @@ suspend fun launchMiniProgram(userName:String,path:String?,miniprogramType:WeCha
     }
 }
 
+/**
+ * 是否安装了微信
+ */
+val isWXAppInstalled :Boolean = api.isWXAppInstalled
+
+/**
+ * 打开微信app
+ */
+val openWXApp :Boolean = api.openWXApp()
+
 
 /**
  * 分享文本
