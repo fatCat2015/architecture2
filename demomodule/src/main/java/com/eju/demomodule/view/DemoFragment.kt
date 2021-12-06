@@ -66,8 +66,6 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
         }
 
         binding.btShare.doOnClick {
-            viewModel.requestWxLogin()
-            return@doOnClick
             viewModel.shareBitmap(BitmapFactory.decodeResource(
                 resources,
                 R.drawable.ic_big
