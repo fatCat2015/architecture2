@@ -9,7 +9,6 @@ import timber.log.Timber
 
 class MMKVInitializer:SimpleInitializer<Unit>() {
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         MMKV.initialize(context,if(BuildConfig.DEBUG) MMKVLogLevel.LevelDebug else MMKVLogLevel.LevelNone)
     }
 

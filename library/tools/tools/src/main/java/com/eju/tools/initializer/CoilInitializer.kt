@@ -28,7 +28,6 @@ import kotlin.math.roundToInt
 
 class CoilInitializer:SimpleInitializer<Unit>() {
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         initCoil(context)
     }
 

@@ -15,20 +15,24 @@
     <application
         >
         <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
+            android:name="com.eju.startup.InitializationProvider"
+            android:authorities="${applicationId}.eju-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data  android:name="com.eju.tools.initializer.ActivityRecordInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.ApplicationInitializer"
+                android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.CoilInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
+            <meta-data  android:name="com.eju.tools.initializer.LogInitializer"
+                android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.MMKVInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.NetworkInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.ProcessStateInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
         </provider>
 
     </application>

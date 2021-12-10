@@ -1,11 +1,11 @@
 package com.eju.tools.initializer
 
-import androidx.startup.Initializer
-import timber.log.Timber
+import com.eju.startup.Initializer
 
-abstract class SimpleInitializer<T>:Initializer<T> {
 
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
+abstract class SimpleInitializer<T>: Initializer<T> {
+
+    override fun dependencies(): List<Class<out Initializer<*>>> {
         return mutableListOf(LogInitializer::class.java)
     }
 

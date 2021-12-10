@@ -2,14 +2,12 @@ package com.eju.tools.initializer
 
 import android.app.Application
 import android.content.Context
-import androidx.startup.AppInitializer
-import androidx.startup.Initializer
+import com.eju.startup.Initializer
 import timber.log.Timber
 
-class ApplicationInitializer:Initializer<Unit>{
+class ApplicationInitializer: Initializer<Unit> {
 
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         application = context as Application
     }
 
@@ -18,8 +16,12 @@ class ApplicationInitializer:Initializer<Unit>{
             private set
     }
 
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
-        return mutableListOf()
+    override fun dependencies(): List<Class<out Initializer<*>>> {
+        return listOf()
+    }
+
+    override fun createOnMainThread(): Boolean {
+        return true
     }
 
 }

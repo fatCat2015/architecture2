@@ -52,7 +52,6 @@ dependencies {
     implementation(GoogleDependency.lifecycleKtx)
     implementation(GoogleDependency.resultActivity)
     implementation(GoogleDependency.resultFragment)
-    implementation(GoogleDependency.appStartup)
     implementation(GoogleDependency.kotlinReflect)
     debugImplementation(ThirdDependency.leakCanary)
 
@@ -79,6 +78,7 @@ dependencies {
     api(project(":architecture"))
     api(project(":retrofit"))
     api(project(":tools"))
+    implementation(project(":startup"))
 }
 
 dependencies {

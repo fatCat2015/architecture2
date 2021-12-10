@@ -67,12 +67,12 @@ dependencies {
     implementation(ThirdDependency.stetho_okhttp)
     //httpLog
     implementation(ThirdDependency.LoggingInterceptor)
-    //appStartUp
-    implementation(GoogleDependency.appStartup)
     //cache
     implementation(project(":cache"))
     //tools
     implementation(project(":tools"))
+    //startup
+    implementation(project(":startup"))
 
     implementation(ThirdDependency.timber)
 

@@ -2,9 +2,9 @@ package com.eju.appbase.router
 
 import android.app.Application
 import android.content.Context
-import androidx.startup.Initializer
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.BuildConfig
+import com.eju.startup.Initializer
 
 class ARouterInitializer:Initializer<Unit> {
     override fun create(context: Context) {

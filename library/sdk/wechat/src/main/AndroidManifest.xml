@@ -10,12 +10,12 @@
     <application
         >
         <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
+            android:name="com.eju.startup.InitializationProvider"
+            android:authorities="${applicationId}.eju-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data  android:name="com.eju.wechat.WechatInitializer"
-                android:value="androidx.startup" />
+                android:value="eju.startup" />
         </provider>
 
         <activity

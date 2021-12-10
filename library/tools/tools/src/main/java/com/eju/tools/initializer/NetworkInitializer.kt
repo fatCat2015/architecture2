@@ -15,7 +15,6 @@ import timber.log.Timber
 class NetworkInitializer: SimpleInitializer<Unit>()  {
 
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         init(context)
     }
 

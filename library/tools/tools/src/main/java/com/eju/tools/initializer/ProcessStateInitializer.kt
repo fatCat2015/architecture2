@@ -9,7 +9,6 @@ import timber.log.Timber
 class ProcessStateInitializer:SimpleInitializer<Unit>()  {
 
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) {
             }
@@ -36,6 +35,10 @@ class ProcessStateInitializer:SimpleInitializer<Unit>()  {
         processStateObserverList.forEach {
             it.onProcessStop()
         }
+    }
+
+    override fun createOnMainThread(): Boolean {
+        return true
     }
 
 

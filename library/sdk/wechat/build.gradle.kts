@@ -51,7 +51,6 @@ dependencies {
     implementation(GoogleDependency.material)
     implementation(GoogleDependency.constraintLayout)
     implementation(GoogleDependency.coroutine)
-    implementation(GoogleDependency.appStartup)
 
     implementation(ThirdDependency.timber)
 
@@ -64,6 +63,7 @@ dependencies {
 dependencies {
     implementation(project(":appBase"))
     implementation(project(":tools"))
+    implementation(project(":startup"))
 }
 
 dependencies {

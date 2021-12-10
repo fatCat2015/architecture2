@@ -47,13 +47,14 @@ dependencies {
     implementation(GoogleDependency.material)
     implementation(GoogleDependency.coroutine)
     implementation(GoogleDependency.lifecycleCommon)
-    implementation(GoogleDependency.appStartup)
     implementation(GoogleDependency.lifecycleProcess)
     implementation(GoogleDependency.palette)
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
     implementation(ThirdDependency.permissionsX)
     api(ThirdDependency.compressor)
+
+    implementation(project(":startup"))
 
     api(ThirdDependency.coil)
     api(ThirdDependency.coilGif)

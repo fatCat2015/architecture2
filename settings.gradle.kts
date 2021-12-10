@@ -15,14 +15,14 @@ project (":architecture").apply {
     projectDir = File(rootProject.projectDir, "/library/architectures/architecture")
 }
 
-include(":tools")
-project (":tools").apply {
-    projectDir = File(rootProject.projectDir, "/library/tools/tools")
-}
-
 include(":aop")
 project (":aop").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/aop")
+}
+
+include(":cache")
+project (":cache").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/cache")
 }
 
 include (":retrofit")
@@ -30,9 +30,14 @@ project (":retrofit").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/retrofit")
 }
 
-include(":cache")
-project (":cache").apply {
-    projectDir = File(rootProject.projectDir, "/library/tools/cache")
+include(":startup")
+project (":startup").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/startup")
+}
+
+include(":tools")
+project (":tools").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/tools")
 }
 
 include(":wechat")
@@ -43,6 +48,6 @@ project (":wechat").apply {
 
 include(":appBase")
 include (":app")
-include(":start")
-include(":demomodule")
-include(":main")
+include(":moduleStart")
+include(":moduleDemo")
+include(":moduleMain")

@@ -14,15 +14,16 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/appBase" />
             <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/demomodule" />
             <option value="$PROJECT_DIR$/library/architectures/architecture" />
             <option value="$PROJECT_DIR$/library/sdk/wechat" />
             <option value="$PROJECT_DIR$/library/tools/aop" />
             <option value="$PROJECT_DIR$/library/tools/cache" />
             <option value="$PROJECT_DIR$/library/tools/retrofit" />
+            <option value="$PROJECT_DIR$/library/tools/startup" />
             <option value="$PROJECT_DIR$/library/tools/tools" />
-            <option value="$PROJECT_DIR$/main" />
-            <option value="$PROJECT_DIR$/start" />
+            <option value="$PROJECT_DIR$/moduleDemo" />
+            <option value="$PROJECT_DIR$/moduleMain" />
+            <option value="$PROJECT_DIR$/moduleStart" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

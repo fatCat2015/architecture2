@@ -4,14 +4,12 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import androidx.startup.Initializer
 import com.eju.tools.activityCache
 import timber.log.Timber
 
 class ActivityRecordInitializer:SimpleInitializer<Unit>(){
 
     override fun create(context: Context) {
-        Timber.i("Initializer init ${this}")
         (context as? Application)?.let {
             it.registerActivityLifecycleCallbacks(object:Application.ActivityLifecycleCallbacks{
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -40,6 +38,12 @@ class ActivityRecordInitializer:SimpleInitializer<Unit>(){
             })
         }
     }
+
+    override fun createOnMainThread(): Boolean {
+        return true
+    }
+
+
 
 
 }

@@ -2,10 +2,10 @@ package com.eju.retrofit
 
 import android.app.Application
 import android.content.Context
-import androidx.startup.Initializer
+import com.eju.startup.Initializer
 import com.facebook.stetho.Stetho
 
-class RetrofitInitializer:Initializer<Unit> {
+class RetrofitInitializer: Initializer<Unit> {
 
     override fun create(context: Context) {
         application = context as Application
