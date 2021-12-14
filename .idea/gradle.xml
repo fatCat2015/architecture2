@@ -15,10 +15,14 @@
             <option value="$PROJECT_DIR$/appBase" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/library/architectures/architecture" />
+            <option value="$PROJECT_DIR$/library/sdk/analysis" />
             <option value="$PROJECT_DIR$/library/sdk/wechat" />
             <option value="$PROJECT_DIR$/library/tools/aop" />
             <option value="$PROJECT_DIR$/library/tools/cache" />
+            <option value="$PROJECT_DIR$/library/tools/imageLoader" />
+            <option value="$PROJECT_DIR$/library/tools/permissions" />
             <option value="$PROJECT_DIR$/library/tools/retrofit" />
+            <option value="$PROJECT_DIR$/library/tools/room" />
             <option value="$PROJECT_DIR$/library/tools/startup" />
             <option value="$PROJECT_DIR$/library/tools/tools" />
             <option value="$PROJECT_DIR$/moduleDemo" />

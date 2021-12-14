@@ -1,7 +1,6 @@
-package com.eju.tools
+package com.eju.permissions
 
 import android.content.Context
-import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.permissionx.guolindev.PermissionMediator
@@ -9,43 +8,17 @@ import com.permissionx.guolindev.PermissionX
 import com.permissionx.guolindev.request.ForwardScope
 import timber.log.Timber
 
-
-/**
- * true 表示已经获取了允许安装未知来源的权限
- */
-fun canRequestPackageInstalls():Boolean{
-    if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
-        return true
-    }
-    return application.packageManager.canRequestPackageInstalls()
-}
-
-interface PermissionChecker{
-    fun requestPermissions(activity: FragmentActivity,vararg permissions: String,
-                           deniedCallback:((deniedList:List<String>)->Unit)?=null,
-                           allGrantedCallback:(grantedList:List<String>)->Unit)
-
-    fun requestPermissions(fragment: Fragment,vararg permissions: String,
-                           deniedCallback:((deniedList:List<String>)->Unit)?=null,
-                           allGrantedCallback:(grantedList:List<String>)->Unit)
-
-    fun showForwardToSettingsDialog(deniedList:List<String>)
-
-    fun forwardToSettings(deniedList: List<String>)
-
-}
-
 class PermissionCheckerImpl: PermissionChecker {
 
     private var callback: ForwardScope?=null
 
-    private var fragment:Fragment?=null
+    private var fragment: Fragment?=null
 
-    private var activity:FragmentActivity?=null
+    private var activity: FragmentActivity?=null
 
     private var showForwardToSettingsDialogOnce:Boolean = false
 
-    private val context:Context?
+    private val context: Context?
         get() = activity?:fragment?.activity
 
     override fun requestPermissions(
@@ -106,22 +79,3 @@ class PermissionCheckerImpl: PermissionChecker {
     }
 
 }
-
-/**
- * 用于权限检查,每次都使用一个新对象
- */
-private val permissionChecker: PermissionChecker get() =  PermissionCheckerImpl()
-
-fun FragmentActivity.requestPermissions(vararg permissions: String, deniedCallback:((deniedList:List<String>)->Unit)?=null,
-                                        allGrantedCallback:(grantedList:List<String>)->Unit){
-    permissionChecker.requestPermissions(this,*permissions,deniedCallback=deniedCallback,allGrantedCallback = allGrantedCallback)
-}
-
-fun Fragment.requestPermissions(vararg permissions: String, deniedCallback:((deniedList:List<String>)->Unit)?=null,
-                                allGrantedCallback:(grantedList:List<String>)->Unit){
-    permissionChecker.requestPermissions(this,*permissions,deniedCallback=deniedCallback,allGrantedCallback = allGrantedCallback)
-}
-
-
-
-

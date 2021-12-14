@@ -9,6 +9,8 @@ import com.eju.architecture.baseViewModels
 import com.eju.main.R
 import com.eju.main.databinding.ActivityMainBinding
 import com.eju.main.viewmodel.MainViewModel
+import com.eju.tools.finishAllActivitiesExceptTop
+import com.eju.tools.pressBackTwiceToExitApp
 import dagger.hilt.android.AndroidEntryPoint
 
 @Route(path = PagePath.Main.Home)
@@ -22,6 +24,9 @@ class MainActivity : AppBaseActivity<ActivityMainBinding>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-
+        finishAllActivitiesExceptTop()
+        pressBackTwiceToExitApp {
+            showToast("再按一次退出应用")
+        }
     }
 }

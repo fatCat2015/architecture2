@@ -28,6 +28,7 @@ android {
 dependencies {
 
     implementation(GoogleDependency.coreKtx)
+    implementation(GoogleDependency.coroutine)
     implementation(ThirdDependency.timber)
 
     testImplementation(Test.junit)

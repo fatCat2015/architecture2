@@ -13,6 +13,7 @@ import com.eju.architecture.baseViewModels
 import com.eju.demomodule.R
 import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
+import com.eju.permissions.requestPermissions
 import com.eju.tools.*
 import com.eju.wechat.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,5 +85,11 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
                 compressImageFile(File(big),1024)
             }
         }
+
+
+        binding.btRoomDemo.doOnClick {
+            aRouter.build(PagePath.DemoModule.RoomDemo).navigation()
+        }
+
     }
 }

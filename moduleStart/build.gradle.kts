@@ -139,6 +139,8 @@ dependencies {
 
 dependencies {
     implementation(project(":appBase"))
+    implementation(project(":startup"))
+    implementation(project(":analysis"))
 }
 
 dependencies {

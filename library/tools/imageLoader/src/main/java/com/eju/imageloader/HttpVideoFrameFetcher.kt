@@ -1,4 +1,4 @@
-package com.eju.tools.initializer
+package com.eju.imageloader
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -6,64 +6,22 @@ import android.graphics.Paint
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
-import android.util.Log
-import android.widget.ImageView
 import androidx.core.graphics.applyCanvas
 import androidx.core.graphics.drawable.toDrawable
-import coil.Coil
 import coil.bitmap.BitmapPool
-import coil.decode.*
-import coil.fetch.*
-import coil.memory.MemoryCache
-import coil.metadata
+import coil.decode.DataSource
+import coil.decode.DecodeResult
+import coil.decode.DecodeUtils
+import coil.decode.Options
+import coil.fetch.DrawableResult
+import coil.fetch.FetchResult
+import coil.fetch.Fetcher
 import coil.request.videoFrameMicros
 import coil.request.videoFrameOption
 import coil.size.OriginalSize
 import coil.size.PixelSize
 import coil.size.Size
-import coil.util.DebugLogger
-import com.eju.tools.BuildConfig
-import timber.log.Timber
 import kotlin.math.roundToInt
-
-class CoilInitializer:SimpleInitializer<Unit>() {
-    override fun create(context: Context) {
-        initCoil(context)
-    }
-
-    private fun initCoil(context: Context){
-        Coil.setImageLoader{
-            coil.ImageLoader.Builder(context)
-                .availableMemoryPercentage(0.25) // Use 25% of the application's available memory.
-                .crossfade(true) // Show a short crossfade when loading images from network or disk.
-                .componentRegistry {
-                    // GIFs
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        add(ImageDecoderDecoder(context, enforceMinimumFrameDelay = true))
-                    } else {
-                        add(GifDecoder(enforceMinimumFrameDelay = true))
-                    }
-
-                    // SVGs
-                    add(SvgDecoder(context))
-                    // Video frames
-                    add(VideoFrameFileFetcher(context))
-                    add(VideoFrameUriFetcher(context))
-                    add(VideoFrameDecoder(context))
-                }
-                .apply {
-                    // Enable logging to the standard Android log if this is a debug build.
-                    if (BuildConfig.DEBUG) {
-                        logger(DebugLogger(Log.VERBOSE))
-                    }
-                }
-                .build()
-        }
-    }
-}
-
-val ImageView.memoryCacheKey: MemoryCache.Key? get() =  this.metadata?.memoryCacheKey
-
 
 /**
  * 展示网络视频时使用: imageView.load(""){ xxx fetcher(HttpVideoFrameFetcher(context)) }

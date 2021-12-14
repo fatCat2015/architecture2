@@ -13,6 +13,9 @@
         <activity android:name=".view.ARouterDemoActivity"
             android:label="ARouterDemo">
         </activity>
+        <activity
+            android:name=".view.RoomDemoActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

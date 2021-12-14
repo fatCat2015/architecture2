@@ -67,6 +67,8 @@ object PagePath {
         const val WebPage="/DemoModule/WebPage"
         @PathDescription("arouter使用")
         const val ARouterDemo="/DemoModule/ARouterDemo"
+        @PathDescription("room使用")
+        const val RoomDemo="/DemoModule/RoomDemo"
 
         @PathDescription("demo例子",isFragment = true)
         const val DemoFragment="/DemoModule/DemoFragment"

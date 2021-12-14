@@ -133,12 +133,16 @@ dependencies {
     implementation(ThirdDependency.smartRefreshHeader0)
 
 
+
 }
 
 
 dependencies {
     implementation(project(":appBase"))
     implementation(project(":wechat"))
+    implementation(project(":imageLoader"))
+    implementation(project(":permissions"))
+    implementation(project(":room"))
 }
 
 dependencies {

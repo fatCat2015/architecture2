@@ -18,7 +18,7 @@ class LoginViewModel @Inject constructor(private val loginRepository: LoginRepos
         launch(loadingMsg = "登录中...") {
             val user=loginRepository.login(mobile,code)
             loginRepository.onLogin(user)
-            toMain.value = true
+            toMain.postValue(true)
         }
     }
 

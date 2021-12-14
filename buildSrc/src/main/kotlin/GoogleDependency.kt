@@ -33,6 +33,12 @@ object GoogleDependency {
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompile = "com.google.dagger:hilt-compiler:${Versions.hilt}"
 
+    //room
+    //https://developer.android.google.cn/jetpack/androidx/releases/room#kts
+    const val room = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompile = "androidx.room:room-compiler:${Versions.room}"
+    const val roomKtx= "androidx.room:room-ktx:${Versions.room}"
+
     //activity result api
     const val resultActivity = "androidx.activity:activity:1.4.0"
     const val resultFragment = "androidx.fragment:fragment:1.4.0"

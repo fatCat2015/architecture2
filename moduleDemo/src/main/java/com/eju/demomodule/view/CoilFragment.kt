@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.lifecycle.lifecycleScope
+import coil.drawable.ScaleDrawable
 import coil.imageLoader
 import coil.load
 import coil.request.CachePolicy
@@ -21,9 +23,10 @@ import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.R
 import com.eju.demomodule.databinding.FragmentCoilBinding
+import com.eju.imageloader.*
+import com.eju.tools.application
 import com.eju.tools.doOnClick
-import com.eju.tools.initializer.HttpVideoFrameFetcher
-import com.eju.tools.initializer.memoryCacheKey
+import kotlinx.coroutines.launch
 
 @Route(path = PagePath.DemoModule.CoilFragment)
 class CoilFragment:AppBaseLazyLoadFragment<FragmentCoilBinding>() {
@@ -151,13 +154,13 @@ class CoilFragment:AppBaseLazyLoadFragment<FragmentCoilBinding>() {
 
 
         //自定义target
-        activity?.imageLoader?.enqueue(
+        imageLoader?.enqueue(
             ImageRequest.Builder(requireActivity())
             .data("https://pics4.baidu.com/feed/d000baa1cd11728bd4d98501effc13c8c3fd2c27.jpeg?token=73c8c9c6a7f8bee46641914a57098d98")
             .diskCachePolicy(CachePolicy.DISABLED)
             .memoryCachePolicy(CachePolicy.DISABLED)
             .placeholder(ColorDrawable(Color.GREEN))
-            .size(300,300)
+            .size(120,260)
             .error(ColorDrawable(Color.RED))
             .target(
                 onStart = {
@@ -174,6 +177,13 @@ class CoilFragment:AppBaseLazyLoadFragment<FragmentCoilBinding>() {
                 }
             )
             .build())
+
+        //url获取bitmap
+        lifecycleScope.launch {
+            val bitmap = activity?.loadBitmapFromUrl("https://pics4.baidu.com/feed/d000baa1cd11728bd4d98501effc13c8c3fd2c27.jpeg?token=73c8c9c6a7f8bee46641914a57098d98",200,200)
+            Log.i("sck220", "result: ${bitmap?.width}x${bitmap?.height}")
+        }
+
 
         //展示大图 从模糊到高清
         binding.iv9.load("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fclubimg.club.vmall.com%2Fdata%2Fattachment%2Fforum%2F202003%2F16%2F191956racqkqb94feaarvm.jpg&refer=http%3A%2F%2Fclubimg.club.vmall.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630139971&t=1cd7153a49c4a3300161b1fbaaafd37a"){

@@ -23,8 +23,6 @@
                 android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.ApplicationInitializer"
                 android:value="eju.startup" />
-            <meta-data  android:name="com.eju.tools.initializer.CoilInitializer"
-                android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.LogInitializer"
                 android:value="eju.startup" />
             <meta-data  android:name="com.eju.tools.initializer.MMKVInitializer"

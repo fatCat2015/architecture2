@@ -71,8 +71,8 @@ dependencies {
 
     implementation(project(":appBase"))
     if(!isModule){
-        implementation(project(":start"))
-        implementation(project(":demomodule"))
+        implementation(project(":moduleStart"))
+        implementation(project(":moduleMain"))
     }
 
 }

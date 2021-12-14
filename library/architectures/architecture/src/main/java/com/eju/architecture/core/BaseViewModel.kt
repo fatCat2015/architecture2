@@ -4,10 +4,8 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import com.eju.architecture.BuildConfig
 import com.eju.tools.application
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,IExceptionHandler{
 
@@ -85,7 +83,7 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
         loadingMsg: CharSequence?,
         onError: ((Throwable) -> Boolean)?,
         onComplete: (() -> Unit)?,
-        block: suspend CoroutineScope.() -> Unit
+        block: suspend CoroutineScope.() -> Unit,
     ) {
         try {
             if (showLoading) {
@@ -111,21 +109,23 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
     }
 
     //launch
-    protected fun launch(
+    protected fun  launch(
+        context:CoroutineContext = viewModelScope.coroutineContext+Dispatchers.IO,
         showLoading: Boolean = true,
         loadingMsg: CharSequence? = null,
         onError: ((Throwable) -> Boolean)? = null,
         onComplete: (() -> Unit)? = null,
-        block: suspend CoroutineScope.() -> Unit
+        block: suspend CoroutineScope.() -> Unit,
     ): Job {
-        return viewModelScope.launch {
-            wrap(showLoading, loadingMsg, onError, onComplete, block)
+        return viewModelScope.launch(context) {
+            wrap(showLoading, loadingMsg, onError, onComplete ,block)
         }
     }
 
 
     //custom
     protected fun <A,R> combineLiveData(
+        context:CoroutineContext = viewModelScope.coroutineContext+Dispatchers.IO,
         liveData0: LiveData<A>,
         showLoading: Boolean = true,
         loadingMsg: String? = "加载中",
@@ -141,16 +141,15 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
             }
             private fun onEachChanged(){
                 lastJob?.cancel()
-                lastJob=viewModelScope.launch {
-                    wrap(showLoading, loadingMsg, onError, onComplete){
-                        value=block(liveData0.value)
-                    }
+                lastJob = launch(context,showLoading,loadingMsg,onError,onComplete){
+                    postValue(block(liveData0.value))
                 }
             }
         }
     }
 
     protected fun <A,B,R> combineLiveData(
+        context:CoroutineContext = viewModelScope.coroutineContext+Dispatchers.IO,
         liveData0: LiveData<A>,
         liveData1: LiveData<B>,
         showLoading: Boolean = true,
@@ -170,16 +169,15 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
             }
             private fun onEachChanged(){
                 lastJob?.cancel()
-                lastJob=viewModelScope.launch {
-                    wrap(showLoading, loadingMsg, onError, onComplete){
-                        value=block(liveData0.value,liveData1.value)
-                    }
+                lastJob = launch(context,showLoading,loadingMsg,onError,onComplete){
+                    postValue(block(liveData0.value,liveData1.value))
                 }
             }
         }
     }
 
     protected fun <A,B,C,R> combineLiveData(
+        context:CoroutineContext = viewModelScope.coroutineContext+Dispatchers.IO,
         liveData0: LiveData<A>,
         liveData1: LiveData<B>,
         liveData2: LiveData<C>,
@@ -203,16 +201,15 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
             }
             private fun onEachChanged(){
                 lastJob?.cancel()
-                lastJob=viewModelScope.launch {
-                    wrap(showLoading, loadingMsg, onError, onComplete){
-                        value=block(liveData0.value,liveData1.value,liveData2.value)
-                    }
+                lastJob = launch(context,showLoading,loadingMsg,onError,onComplete){
+                    postValue(block(liveData0.value,liveData1.value,liveData2.value))
                 }
             }
         }
     }
 
     protected fun <A,B,C,D,R> combineLiveData(
+        context:CoroutineContext = viewModelScope.coroutineContext+Dispatchers.IO,
         liveData0: LiveData<A>,
         liveData1: LiveData<B>,
         liveData2: LiveData<C>,
@@ -240,10 +237,8 @@ open class BaseViewModel():ViewModel(),DefaultLifecycleObserver, IViewBehavior,I
             }
             private fun onEachChanged(){
                 lastJob?.cancel()
-                lastJob=viewModelScope.launch {
-                    wrap(showLoading, loadingMsg, onError, onComplete){
-                        value=block(liveData0.value,liveData1.value,liveData2.value,liveData3.value)
-                    }
+                lastJob = launch(context,showLoading,loadingMsg,onError,onComplete){
+                    postValue(block(liveData0.value,liveData1.value,liveData2.value,liveData3.value))
                 }
             }
         }

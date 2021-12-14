@@ -6,6 +6,7 @@
     <application>
 
         <activity android:name=".view.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -13,8 +14,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.GuideActivity" />
+        <activity android:name=".view.LoginActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".view.GuideActivity"
+            android:screenOrientation="portrait"
+            />
 
     </application>
 

@@ -51,15 +51,10 @@ dependencies {
     implementation(GoogleDependency.palette)
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
-    implementation(ThirdDependency.permissionsX)
     api(ThirdDependency.compressor)
 
     implementation(project(":startup"))
 
-    api(ThirdDependency.coil)
-    api(ThirdDependency.coilGif)
-    api(ThirdDependency.coilSvg)
-    api(ThirdDependency.coilVideo)
 
     testImplementation(Test.junit)
     androidTestImplementation(Test.extJunit)

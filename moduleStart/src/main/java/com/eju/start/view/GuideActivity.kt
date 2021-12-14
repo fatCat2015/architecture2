@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.persistence.GUIDE_INDEX
 import com.eju.appbase.router.PagePath
+import com.eju.appbase.router.aRouter
 import com.eju.architecture.baseViewModels
 import com.eju.start.BuildConfig
 import com.eju.start.databinding.ActivityGuideBinding
@@ -29,10 +30,10 @@ class GuideActivity:AppBaseActivity<ActivityGuideBinding>() {
 
     override fun observe() {
         viewModel.toLogin.observe(this){
-            ARouter.getInstance().build(PagePath.Start.Login).navigation(this)
+            aRouter.build(PagePath.Start.Login).navigation(this)
         }
         viewModel.toMain.observe(this){
-            ARouter.getInstance().build(PagePath.Main.Home).navigation(this)
+            aRouter.build(PagePath.Main.Home).navigation(this)
         }
     }
 

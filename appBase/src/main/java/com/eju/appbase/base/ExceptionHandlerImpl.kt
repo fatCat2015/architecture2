@@ -63,7 +63,7 @@ class ExceptionHandlerImpl(
     }
 
     private fun onForcedLogout(){
-        ARouter.getInstance().navigation(LoginService::class.java).let { loginService ->
+        ARouter.getInstance().navigation(LoginService::class.java)?.let { loginService ->
             loginService.onLogout(USER_ID, USER_TOKEN, LOGGED_MOBILE)
             loginService.removeRequestHeaders(USER_ID, USER_TOKEN)
             loginService.toLogin()
