@@ -18,7 +18,7 @@ class UserRepository @Inject constructor():BaseRepository(){
             PagedList(
                 page = null,
                 total_page = null,
-                total_count = 60,
+                total_count = 40,
                 list = mockList(page,pageSize)
             )
         }
@@ -27,7 +27,7 @@ class UserRepository @Inject constructor():BaseRepository(){
     private fun mockList(page:Int,pageSize:Int):List<User>{
         val startIndex = (page-1)*pageSize
         return List(pageSize){
-            val id = "${startIndex+it}"
+            val id = startIndex+it
             User(id,"我是name ${id}")
         }
     }

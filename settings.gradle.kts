@@ -22,6 +22,11 @@ project (":aop").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/aop")
 }
 
+include(":baseAdapter")
+project (":baseAdapter").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/baseAdapter")
+}
+
 include(":cache")
 project (":cache").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/cache")

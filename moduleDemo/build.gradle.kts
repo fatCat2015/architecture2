@@ -132,6 +132,10 @@ dependencies {
     implementation(ThirdDependency.smartRefreshLayout)
     implementation(ThirdDependency.smartRefreshHeader0)
 
+    //room
+    implementation(GoogleDependency.room)
+    implementation(GoogleDependency.roomKtx)
+    kapt(GoogleDependency.roomCompile)
 
 
 }
@@ -143,6 +147,7 @@ dependencies {
     implementation(project(":imageLoader"))
     implementation(project(":permissions"))
     implementation(project(":room"))
+    implementation(project(":baseAdapter"))
 }
 
 dependencies {

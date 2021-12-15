@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "93d3528eaf7c34e09b8fd901f1530b6b",
+    "identityHash": "52b28f263e515ad87a3d8b29ed84901c",
     "entities": [
       {
         "tableName": "Demo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `age` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`number` INTEGER NOT NULL, `name` TEXT NOT NULL, `age` INTEGER NOT NULL, PRIMARY KEY(`name`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "number",
+            "columnName": "number",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -29,9 +29,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "name"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -40,7 +40,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '93d3528eaf7c34e09b8fd901f1530b6b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '52b28f263e515ad87a3d8b29ed84901c')"
     ]
   }
 }

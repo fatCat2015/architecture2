@@ -6,8 +6,10 @@
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
+        app:layout_constraintTop_toBottomOf="@+id/clTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"
@@ -29,5 +31,58 @@
         </com.scwang.smart.refresh.footer.ClassicsFooter>
 
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/clTitle"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btAddHeader"
+            android:text="addHeader"
+            android:textAllCaps="false"
+            android:padding="0dp"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </Button>
+
+        <Button
+            android:id="@+id/btRemoveHeader"
+            android:text="removeHeader"
+            android:textAllCaps="false"
+            android:padding="0dp"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </Button>
+
+
+        <Button
+            android:id="@+id/btAddFooter"
+            android:text="addFooter"
+            android:textAllCaps="false"
+            android:padding="0dp"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </Button>
+
+        <Button
+            android:id="@+id/btRemoveFooter"
+            android:text="removeFooter"
+            android:textAllCaps="false"
+            android:padding="0dp"
+            android:textSize="10sp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </Button>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

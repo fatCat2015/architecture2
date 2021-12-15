@@ -8,8 +8,8 @@ import java.util.*
 
 @Entity()
 data class Demo(
-    @PrimaryKey(autoGenerate = true)
-    var id:Long,
+    var number:Long,
+    @PrimaryKey
     var name:String,
     var age:Int
 )

@@ -6,4 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".view.RoomDemoActivity">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btList"
+            android:text="list"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+
+        <Button
+            android:id="@+id/btInsert"
+            android:text="insert"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+        <Button
+            android:id="@+id/btDelete"
+            android:text="delete"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+        <Button
+            android:id="@+id/btUpdate"
+            android:text="update"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Button>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

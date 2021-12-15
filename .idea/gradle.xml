@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/library/sdk/analysis" />
             <option value="$PROJECT_DIR$/library/sdk/wechat" />
             <option value="$PROJECT_DIR$/library/tools/aop" />
+            <option value="$PROJECT_DIR$/library/tools/baseAdapter" />
             <option value="$PROJECT_DIR$/library/tools/cache" />
             <option value="$PROJECT_DIR$/library/tools/imageLoader" />
             <option value="$PROJECT_DIR$/library/tools/permissions" />

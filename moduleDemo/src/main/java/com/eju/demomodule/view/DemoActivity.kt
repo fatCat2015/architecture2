@@ -10,6 +10,7 @@ import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.newFragment
 import com.eju.demomodule.databinding.ActivityDemoBinding
+import com.eju.tools.moveTaskToBackWhenPressBack
 import com.eju.tools.setUpWithViewPager2
 import com.eju.tools.widget.SimpleFragmentAdapter2
 import dagger.hilt.android.AndroidEntryPoint
