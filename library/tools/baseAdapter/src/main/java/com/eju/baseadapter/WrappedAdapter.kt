@@ -1,5 +1,8 @@
 package com.eju.baseadapter
 
+import android.graphics.Canvas
+import android.graphics.Rect
+import android.view.View
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -94,7 +97,9 @@ abstract class WrappedAdapter<T>(data:List<T>? = null): BaseAdapter<T>(data){
         return headCount+super.getItemCount()+footerCount
     }
 
-    val realItemCount :Int get() =  super.getItemCount()
+    fun isNormalItem(position:Int) :Boolean = getItemViewType(position) in 0 until HEADER_ITEM_TYPE_OFFSET
+
+    private val realItemCount :Int get() =  super.getItemCount()
 
 
     override fun getItemViewType(position: Int): Int {
@@ -169,7 +174,6 @@ abstract class ExtraItem<B:ViewBinding>{
 abstract class Header<B:ViewBinding>:ExtraItem<B>()
 
 abstract class Footer<B:ViewBinding>:ExtraItem<B>()
-
 
 
 

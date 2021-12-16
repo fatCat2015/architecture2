@@ -1,6 +1,12 @@
 package com.eju.demomodule.view
 
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseLazyLoadFragment
@@ -103,6 +109,46 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         }
         (binding.rv.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         binding.rv.adapter=adapter
+        binding.rv.addItemDecoration(object:RecyclerView.ItemDecoration(){
+
+            private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = Color.RED
+            }
+            private val dividerHeight = 30
+
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                val position = parent.getChildAdapterPosition(view)
+                if(position!=RecyclerView.NO_POSITION){
+                    if(adapter.isNormalItem(position)){
+                        outRect.bottom = dividerHeight
+                    }
+
+                }
+
+            }
+
+            override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+                super.onDraw(c, parent, state)
+                val childCount = parent.childCount
+                for (index in 0 until childCount) {
+                    val childView = parent.getChildAt(index)
+                    val position = parent.getChildAdapterPosition(childView)
+                    if(position!=RecyclerView.NO_POSITION){
+                        if(adapter.isNormalItem(position)){
+                            c.drawRect(0F,childView.bottom.toFloat(),childView.width.toFloat(),
+                                (childView.bottom+dividerHeight).toFloat(),paint)
+                        }
+                    }
+                }
+
+            }
+        })
         binding.refreshLayout.autoRefresh()
     }
 
