@@ -26,6 +26,16 @@ class UserAdapter(data:List<User>):WrappedAdapter<User>(data) {
                 position: Int
             ) {
                 viewHolder.binding.tv.text = item.name
+                viewHolder.binding.tvId.text = "id:${item.id}"
+            }
+
+            override fun bindData(
+                viewHolder: BaseViewHolder<ItemUser0Binding>,
+                item: User,
+                position: Int,
+                payloads: List<Any>
+            ) {
+                viewHolder.binding.tv.text = item.name
             }
 
         })
@@ -43,8 +53,17 @@ class UserAdapter(data:List<User>):WrappedAdapter<User>(data) {
                 position: Int
             ) {
                 viewHolder.binding.tv.text = item.name
+                viewHolder.binding.tvId.text = "id:${item.id}"
             }
 
+            override fun bindData(
+                viewHolder: BaseViewHolder<ItemUser1Binding>,
+                item: User,
+                position: Int,
+                payloads: List<Any>
+            ) {
+                viewHolder.binding.tv.text = item.name
+            }
         })
     }
 }

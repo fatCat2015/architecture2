@@ -20,4 +20,11 @@ class UserListViewModel @Inject constructor(private val userRepository: UserRepo
         return userRepository.load(loadingParams.page,loadingParams.pageSize)
     }
 
+    fun updateName(position:Int){
+        list.getOrNull(position)?.let {
+            it.name = "我是更新后的name"  //局部刷新
+            notifyItemChanged(position, payload = "update name payload")
+        }
+    }
+
 }

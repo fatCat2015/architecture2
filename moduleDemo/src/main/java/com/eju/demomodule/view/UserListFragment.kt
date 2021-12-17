@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.postDelayed
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -176,6 +177,9 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         binding.btRemoveFooter.doOnClick {
             adapter.removeFooter(footer0,true)
         }
+        binding.root.postDelayed(5000){
+            viewModel.updateName(6)
+        }
     }
 
     override fun finishRefresh() {
@@ -193,6 +197,11 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
 
     override fun notifyDataSetChanged() {
         adapter.notifyDataSetChanged()
+    }
+
+    override fun notifyItemChanged(position: Int, itemCount: Int, payload: Any?) {
+        super.notifyItemChanged(position, itemCount, payload)
+        adapter.notifyItemRangeChanged(adapter.getRealPosition(position),itemCount,payload)
     }
 
     override fun showEmptyView(showEmpty: Boolean) {

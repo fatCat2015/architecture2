@@ -203,6 +203,8 @@ abstract class WrappedAdapter<T>(data:List<T>? = null): BaseAdapter<T>(data){
         return super.getItem(position-(itemSections[0].itemCount)-(itemSections[1].itemCount))
     }
 
+    fun getRealPosition(dataPosition:Int) :Int = dataPosition + itemSections[0].itemCount+itemSections[1].itemCount
+
 }
 
 
