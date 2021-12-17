@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -13,13 +14,9 @@ import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.base.AppBaseLazyLoadPagingFragment
 import com.eju.appbase.router.PagePath
 import com.eju.architecture.baseViewModels
-import com.eju.baseadapter.Footer
-import com.eju.baseadapter.Header
-import com.eju.demomodule.adapter.DemoAdapter
+import com.eju.baseadapter.ExtraItem
 import com.eju.demomodule.adapter.UserAdapter
-import com.eju.demomodule.adapter.UserAdapter1
 import com.eju.demomodule.databinding.*
-import com.eju.demomodule.entity.User
 import com.eju.demomodule.viewmodel.UserListViewModel
 import com.eju.tools.doOnClick
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,12 +42,26 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         }.also {
             it.addHeader(header0)
             it.addFooter(footer0)
+            it.setEmptyView({
+                it.root.doOnClick {
+                    showToast("empty clicked")
+                }
+            }) {
+                LayoutEmptyBinding.inflate(layoutInflater,it,false)
+            }
+            it.setNoMoreDataView ({
+                it.root.doOnClick {
+                    showToast("no more data clicked")
+                }
+            }) {
+                LayoutNoMoreDataBinding.inflate(layoutInflater,it,false)
+            }
         }
     }
 
-    private val header0 = object:Header<UserHeader0Binding>(){
-        override fun getLayoutViewBinding(): UserHeader0Binding {
-            return UserHeader0Binding.inflate(layoutInflater)
+    private val header0 = object:ExtraItem<UserHeader0Binding>(){
+        override fun getLayoutViewBinding(parent:ViewGroup): UserHeader0Binding {
+            return UserHeader0Binding.inflate(layoutInflater,parent,false)
         }
 
         override fun onBindView(dataBinding: UserHeader0Binding) {
@@ -60,9 +71,9 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         }
     }
 
-    private val header1 = object:Header<UserHeader1Binding>(){
-        override fun getLayoutViewBinding(): UserHeader1Binding {
-            return UserHeader1Binding.inflate(layoutInflater)
+    private val header1 = object:ExtraItem<UserHeader1Binding>(){
+        override fun getLayoutViewBinding(parent:ViewGroup): UserHeader1Binding {
+            return UserHeader1Binding.inflate(layoutInflater,parent,false)
         }
 
         override fun onBindView(dataBinding: UserHeader1Binding) {
@@ -72,9 +83,9 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         }
     }
 
-    private val footer0 = object:Footer<UserFooter0Binding>(){
-        override fun getLayoutViewBinding(): UserFooter0Binding {
-            return UserFooter0Binding.inflate(layoutInflater)
+    private val footer0 = object:ExtraItem<UserFooter0Binding>(){
+        override fun getLayoutViewBinding(parent:ViewGroup): UserFooter0Binding {
+            return UserFooter0Binding.inflate(layoutInflater,parent,false)
         }
 
         override fun onBindView(dataBinding: UserFooter0Binding) {
@@ -84,9 +95,9 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
         }
     }
 
-    private val footer1 = object:Footer<UserFooter1Binding>(){
-        override fun getLayoutViewBinding(): UserFooter1Binding {
-            return UserFooter1Binding.inflate(layoutInflater)
+    private val footer1 = object:ExtraItem<UserFooter1Binding>(){
+        override fun getLayoutViewBinding(parent:ViewGroup): UserFooter1Binding {
+            return UserFooter1Binding.inflate(layoutInflater,parent,false)
         }
 
         override fun onBindView(dataBinding: UserFooter1Binding) {
@@ -157,13 +168,13 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
             adapter.addHeader(header1,true)
         }
         binding.btRemoveHeader.doOnClick {
-            adapter.removeHeader(header1,true)
+            adapter.removeHeader(header0,true)
         }
         binding.btAddFooter.doOnClick {
             adapter.addFooter(footer1,true)
         }
         binding.btRemoveFooter.doOnClick {
-            adapter.removeFooter(footer1,true)
+            adapter.removeFooter(footer0,true)
         }
     }
 
@@ -177,6 +188,7 @@ class UserListFragment:AppBaseLazyLoadPagingFragment<FragmentUserListBinding>() 
 
     override fun setEnableLoadMore(enabled: Boolean) {
         binding.refreshLayout.setEnableLoadMore(enabled)
+        adapter.hasMoreData = enabled
     }
 
     override fun notifyDataSetChanged() {

@@ -38,6 +38,8 @@
         <entry key="moduleDemo/src/main/res/layout/item_demo.xml" value="0.22395833333333334" />
         <entry key="moduleDemo/src/main/res/layout/item_user0.xml" value="0.22395833333333334" />
         <entry key="moduleDemo/src/main/res/layout/item_user1.xml" value="0.22395833333333334" />
+        <entry key="moduleDemo/src/main/res/layout/layout_empty.xml" value="0.30364583333333334" />
+        <entry key="moduleDemo/src/main/res/layout/layout_no_more_data.xml" value="0.25104166666666666" />
         <entry key="moduleDemo/src/main/res/layout/user_footer0.xml" value="0.3707692307692308" />
         <entry key="moduleDemo/src/main/res/layout/user_footer1.xml" value="0.3765625" />
         <entry key="moduleDemo/src/main/res/layout/user_header0.xml" value="0.3765625" />

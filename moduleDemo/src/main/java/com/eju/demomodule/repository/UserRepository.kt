@@ -20,6 +20,8 @@ class UserRepository @Inject constructor():BaseRepository(){
                 total_page = null,
                 total_count = 40,
                 list = mockList(page,pageSize)
+//                total_count = 0,
+//                list = emptyList()
             )
         }
     }

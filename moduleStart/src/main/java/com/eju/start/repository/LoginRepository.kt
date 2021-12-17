@@ -22,6 +22,7 @@ class LoginRepository @Inject constructor(private val loginService: LoginService
 
     suspend fun login(mobile:String,code:String): User {
         delay(1500)
+        loginService.testGet()
         return loginService.simulateLogin("58",code).result.apply {
             this.userId = "963"
             this.userToken = "token12345678910111213"

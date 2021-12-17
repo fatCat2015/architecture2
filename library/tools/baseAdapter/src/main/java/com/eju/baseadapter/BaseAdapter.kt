@@ -21,10 +21,6 @@ abstract class BaseAdapter<T>(items:List<T>?):RecyclerView.Adapter<BaseViewHolde
         itemDelegateHolder.addItemDelegate(itemDelegate)
     }
 
-    fun <B:ViewBinding> removeItemDelegate(itemDelegate: ItemDelegate<T, B>){
-        itemDelegateHolder.removeItemDelegate(itemDelegate)
-    }
-
     override fun getItemViewType(position: Int): Int {
         return itemDelegateHolder.getItemViewType(getItem(position),position)
     }

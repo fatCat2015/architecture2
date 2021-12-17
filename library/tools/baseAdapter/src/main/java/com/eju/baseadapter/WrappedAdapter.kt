@@ -1,27 +1,46 @@
 package com.eju.baseadapter
 
-import android.graphics.Canvas
-import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import timber.log.Timber
 
 abstract class WrappedAdapter<T>(data:List<T>? = null): BaseAdapter<T>(data){
 
-    private val headers= SparseArrayCompat<Header<*>>()
+    private val itemSections:List<ItemSection> by lazy {
+        listOf(
+            ItemSection(startItemType = 1_000_000), //headers
+            ItemSection(startItemType = 2_000_000), //emptyView
+            NormalItemSection{                      //normal list items ,item type 范围: [0,1_000_000)
+                realItemCount
+            },
+            ItemSection(startItemType = 3_000_000), //footers
+            ItemSection(startItemType = 4_000_000), //noMoreData
+        )
+    }
 
-    private val footers= SparseArrayCompat<Footer<*>>()
+    private var emptyHeader :ExtraItem<*>? = null
 
-    val headCount :Int  get() =  headers.size()
+    private var noMoreDataFooter :ExtraItem<*>? = null
 
-    val footerCount :Int get() = footers.size()
-
+    var hasMoreData :Boolean = true
 
     init {
         registerAdapterDataObserver(object:RecyclerView.AdapterDataObserver(){
             override fun onChanged() {
+                if(realItemCount==0){
+                    addEmptyHeader()
+                    removeNoMoreDataFooter()
+                }else{
+                    removeEmptyHeader()
+                    if(hasMoreData){
+                        removeNoMoreDataFooter()
+                    }else{
+                        addNoMoreDataFooter()
+                    }
+                }
             }
 
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
@@ -46,115 +65,142 @@ abstract class WrappedAdapter<T>(data:List<T>? = null): BaseAdapter<T>(data){
         })
     }
 
-    fun <B:ViewBinding> addHeader(view: Header<B>, notify:Boolean = false):Int{
-        if(!headers.containsValue(view)){
-            val itemViewType = headCount
-            headers.put(itemViewType,view)
-            if(notify){
-                notifyItemInserted(itemViewType)
-            }
-            return itemViewType
-        }
-        return -1
-    }
 
-
-    fun removeHeader(view: Header<*>, notify:Boolean = false){
-        val index=headers.indexOfValue(view)
-        if(index>=0){
-            headers.removeAt(index)
-            if(notify){
-                notifyItemRemoved(index)
+    @Synchronized
+    private fun <B:ViewBinding> addItem(itemSectionIndex:Int,item: ExtraItem<B>, notify:Boolean = false){
+        if(itemSections[itemSectionIndex].addItem(item) && notify){
+            val notifyPosition = itemSections.subList(0,itemSectionIndex+1).fold(0){ count,item->
+                count+item.itemCount
             }
+            notifyItemInserted(notifyPosition-1)
         }
     }
 
-    fun <B:ViewBinding> addFooter(view: Footer<B>, notify:Boolean=false):Int{
-        if(!footers.containsValue(view)){
-            val itemType=footerCount
-            footers.put(itemType,view)
-            if(notify){
-                notifyItemInserted(itemCount-1)
+    @Synchronized
+    private fun <B:ViewBinding> removeItem(itemSectionIndex:Int,item: ExtraItem<B>, notify:Boolean = false){
+        val itemIndex = itemSections[itemSectionIndex].removeItem(item)
+        if(itemIndex >= 0 && notify){
+            val preItemCount = itemSections.subList(0,itemSectionIndex).fold(0){ count,item->
+                count+item.itemCount
             }
-            return itemType
+            notifyItemRemoved(preItemCount+itemIndex)
         }
-        return -1
     }
 
+    fun <B:ViewBinding> setEmptyView(emptyView:ExtraItem<B>){
+        this.emptyHeader = emptyView
+    }
 
-    fun removeFooter(view: Footer<*>, notify:Boolean=false){
-        val index=footers.indexOfValue(view)
-        if(index>=0){
-            footers.removeAt(index)
-            if(notify){
-                notifyItemRemoved(headCount+realItemCount+index)
+    fun <B:ViewBinding> setEmptyView(bindBlock:(B)->Unit = {},bindingCreator:(ViewGroup)->B){
+        this.emptyHeader = object:ExtraItem<B>(){
+            override fun getLayoutViewBinding(parent: ViewGroup): B {
+                return bindingCreator.invoke(parent)
+            }
+            override fun onBindView(dataBinding: B) {
+                bindBlock.invoke(dataBinding)
             }
         }
     }
 
+    private fun addEmptyHeader(){
+        this.emptyHeader?.let {
+            addItem(1,it,false)
+        }
+    }
+
+    private fun removeEmptyHeader(){
+        this.emptyHeader?.let {
+            removeItem(1,it,false)
+        }
+    }
+
+    fun <B:ViewBinding> setNoMoreDataView(emptyView:ExtraItem<B>){
+        this.noMoreDataFooter = emptyView
+    }
+
+    fun <B:ViewBinding> setNoMoreDataView(bindBlock:(B)->Unit = {},bindingCreator:(ViewGroup)->B){
+        this.noMoreDataFooter = object:ExtraItem<B>(){
+            override fun getLayoutViewBinding(parent: ViewGroup): B {
+                return bindingCreator.invoke(parent)
+            }
+            override fun onBindView(dataBinding: B) {
+                bindBlock.invoke(dataBinding)
+            }
+        }
+    }
+
+    private fun addNoMoreDataFooter(){
+        this.noMoreDataFooter?.let {
+            addItem(4,it,false)
+        }
+    }
+
+    private fun removeNoMoreDataFooter(){
+        this.noMoreDataFooter?.let {
+            removeItem(4,it,false)
+        }
+    }
+
+    fun <B:ViewBinding> addHeader(header: ExtraItem<B>, notify:Boolean = false){
+        addItem(0,header,notify)
+    }
+
+    fun removeHeader(header: ExtraItem<*>, notify:Boolean = false){
+        removeItem(0,header,notify)
+    }
+
+    fun <B:ViewBinding> addFooter(footer: ExtraItem<B>, notify:Boolean=false){
+        addItem(3,footer,notify)
+    }
+
+    fun removeFooter(footer: ExtraItem<*>, notify:Boolean=false){
+        removeItem(3,footer,notify)
+    }
 
     final override fun getItemCount(): Int {
-        return headCount+super.getItemCount()+footerCount
+        return itemSections.fold(0){count,itemSection->
+            count+itemSection.itemCount
+        }
     }
 
-    fun isNormalItem(position:Int) :Boolean = getItemViewType(position) in 0 until HEADER_ITEM_TYPE_OFFSET
+    fun isNormalItem(position:Int) :Boolean = getItemViewType(position) in 0 until 1_000_000
 
     private val realItemCount :Int get() =  super.getItemCount()
 
-
     override fun getItemViewType(position: Int): Int {
-        val itemViewType = when{
-            position < headCount -> headers.keyAt(position)+ HEADER_ITEM_TYPE_OFFSET   //header itemType 100开始
-            position >= headCount+realItemCount -> footers.keyAt(position -headCount-realItemCount)+ FOOTER_ITEM_TYPE_OFFSET  //footer itemType 200开始
-            else -> super.getItemViewType(position)   //normal itemType 0-99 超过100种itemType就会有问题 o.o
+        var positions = mutableListOf<List<Int>>()
+        var start = 0
+        itemSections.forEach {
+            positions.add(List(it.itemCount){
+                it+start
+            })
+            start += it.itemCount
         }
-        return itemViewType
+        return positions.find { it.contains(position) }?.let {
+            val itemSection = itemSections[positions.indexOf(it)]
+            if(itemSection is NormalItemSection){
+                super.getItemViewType(position)
+            }else{
+                itemSection.getItemType(position-it.first())
+            }
+        }?:super.getItemViewType(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        return when {
-            viewType < HEADER_ITEM_TYPE_OFFSET -> {  //[0,99]
-                super.onCreateViewHolder(parent, viewType)
-            }
-            viewType < FOOTER_ITEM_TYPE_OFFSET -> {  // [100,199]
-                BaseViewHolder(getHeaderView(viewType).getLayoutViewBinding())
-            }
-            else -> {  //[200,-)
-                BaseViewHolder(getFooterView(viewType).getLayoutViewBinding())
-            }
-        }
+        return itemSections.find { it.containsItemType(viewType) }?.getItem(viewType)?.let {
+            BaseViewHolder(it.getLayoutViewBinding(parent))
+        }?: super.onCreateViewHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int, payloads: List<Any>) {
         val viewType=getItemViewType(position)
-        when {
-            viewType < HEADER_ITEM_TYPE_OFFSET -> {  //[0,99]
-                super.onBindViewHolder(holder, position, payloads)
-            }
-            viewType < FOOTER_ITEM_TYPE_OFFSET -> {   // [100,199]
-                getHeaderView(viewType)._onBindView(holder.binding)
-            }
-            else -> {   //[200,-)
-                getFooterView(viewType)._onBindView(holder.binding)
-            }
-        }
+         itemSections.find { it.containsItemType(viewType) }?.getItem(viewType)?.let {
+             it._onBindView(holder.binding)
+        }?: super.onBindViewHolder(holder, position, payloads)
     }
 
     override fun getItem(position: Int): T {
-        return super.getItem(position-headCount)
-    }
-
-    private fun getHeaderView(viewType:Int): ExtraItem<*> {
-        return headers.valueAt(viewType - HEADER_ITEM_TYPE_OFFSET)
-    }
-
-    private fun getFooterView(viewType:Int): ExtraItem<*> {
-        return footers.valueAt(viewType - FOOTER_ITEM_TYPE_OFFSET)
-    }
-
-    companion object{
-        private const val HEADER_ITEM_TYPE_OFFSET = 100
-        private const val FOOTER_ITEM_TYPE_OFFSET = 200
+        return super.getItem(position-(itemSections[0].itemCount)-(itemSections[1].itemCount))
     }
 
 }
@@ -162,7 +208,7 @@ abstract class WrappedAdapter<T>(data:List<T>? = null): BaseAdapter<T>(data){
 
 abstract class ExtraItem<B:ViewBinding>{
 
-    abstract fun getLayoutViewBinding():B
+    abstract fun getLayoutViewBinding(parent: ViewGroup):B
 
     abstract fun onBindView(dataBinding:B)
 
@@ -171,9 +217,50 @@ abstract class ExtraItem<B:ViewBinding>{
     }
 }
 
-abstract class Header<B:ViewBinding>:ExtraItem<B>()
 
-abstract class Footer<B:ViewBinding>:ExtraItem<B>()
+internal open class ItemSection(
+    private val startItemType:Int,
+    private var nextItemType:Int = startItemType,
+    private val items:SparseArrayCompat<ExtraItem<*>> = SparseArrayCompat()
+){
+    open val itemCount :Int get() = items.size()
+
+    fun <B:ViewBinding> addItem(item:ExtraItem<B>):Boolean{
+        return if(!items.containsValue(item)){
+            items.put(nextItemType,item)
+            nextItemType++
+            true
+        }else{
+            false
+        }
+    }
+
+    fun <B:ViewBinding> removeItem(item:ExtraItem<B>):Int{
+        val index=items.indexOfValue(item)
+        return if(index>=0){
+            items.removeAt(index)
+            index
+        }else{
+            -1
+        }
+    }
+
+    fun getItemType(index: Int) = items.keyAt(index)
+
+    fun containsItemType(itemType:Int) :Boolean {
+        return items.containsKey(itemType)
+    }
+
+    fun getItem(itemType: Int):ExtraItem<*>? = items.get(itemType)
+}
+
+internal class NormalItemSection(private val itemCountGetter:()->Int):ItemSection(
+    startItemType = 0
+){
+    override val itemCount: Int
+        get() = itemCountGetter.invoke()
+
+}
 
 
 

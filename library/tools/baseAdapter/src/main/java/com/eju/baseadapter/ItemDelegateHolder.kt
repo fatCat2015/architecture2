@@ -20,16 +20,6 @@ internal class ItemDelegateHolder<T>{
     }
 
     /**
-     * 删除ItemDelegate
-     */
-    fun removeItemDelegate(itemDelegate: ItemDelegate<T, *>){
-        val itemIndex=itemDelegateMap.indexOfValue(itemDelegate)
-        if(itemIndex>=0){
-            itemDelegateMap.removeAt(itemIndex)
-        }
-    }
-
-    /**
      * 获取item对应使用的itemViewType
      */
     fun getItemViewType(item:T,position: Int):Int{
