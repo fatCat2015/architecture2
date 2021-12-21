@@ -16,6 +16,10 @@
         <activity
             android:name=".view.RoomDemoActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".view.ContactActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

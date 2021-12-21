@@ -1,13 +1,14 @@
 package com.eju.baseadapter
 
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import timber.log.Timber
 
 abstract class BaseAdapter<T>(items:List<T>?):RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    private val data :List<T> = items?: listOf()
+    private val data :List<T> = items?: mutableListOf()
 
     private val itemDelegateHolder = ItemDelegateHolder<T>()
 
@@ -52,30 +53,36 @@ abstract class BaseAdapter<T>(items:List<T>?):RecyclerView.Adapter<BaseViewHolde
 
     open fun getItem(position:Int)= data[position]
 
-//    fun notifyDataSetChanged(isRefresh:Boolean,list:List<T>,animate:Boolean = false){
-//        if(isRefresh){
-//            update(list)
-//        }else{
-//            add(list,animate)
-//        }
-//    }
-//
-//    fun add(list:List<T>,animate:Boolean = false){
-//        val startPosition = itemCount
-//        data.addAll(list)
-//        if(animate){
-//            notifyItemRangeInserted(startPosition,list.size)
-//        }else{
-//            notifyDataSetChanged()
-//        }
-//
-//    }
-//
-//    fun update(list:List<T>){
-//        data.clear()
-//        data.addAll(list)
-//        notifyDataSetChanged()
-//    }
+    open fun notifyDataSetChanged(isRefresh:Boolean,list:List<T>,animate:Boolean = false){
+        if(isRefresh){
+            update(list)
+        }else{
+            add(list,animate)
+        }
+    }
+
+    open fun add(list:List<T>,animate:Boolean = false){
+        val data = data
+        if(data is MutableList<T>){
+            val startPosition = itemCount
+            data.addAll(list)
+            if(animate){
+                notifyItemRangeInserted(startPosition,list.size)
+            }else{
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    open fun update(list:List<T>){
+        val data = data
+        if(data is MutableList<T>){
+            data.clear()
+            data.addAll(list)
+            notifyDataSetChanged()
+        }
+
+    }
 }
 
 

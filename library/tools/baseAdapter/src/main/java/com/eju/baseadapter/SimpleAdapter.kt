@@ -30,6 +30,7 @@ abstract class SimpleAdapter<T,B:ViewBinding>(data:List<T>?=null): WrappedAdapte
         })
     }
 
+
     abstract fun getLayoutViewBinding(parent: ViewGroup): B
 
     abstract fun bindData(viewHolder: BaseViewHolder<B>, item: T, position: Int)

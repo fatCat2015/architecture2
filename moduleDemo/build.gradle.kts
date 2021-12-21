@@ -119,6 +119,7 @@ dependencies {
     implementation(ThirdDependency.immersionBarKtx)
 
     implementation(ThirdDependency.timber)
+    implementation(ThirdDependency.pinyin)
 
     //hilt
     implementation(GoogleDependency.hilt)

@@ -91,5 +91,9 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             aRouter.build(PagePath.DemoModule.RoomDemo).navigation()
         }
 
+        binding.btContact.doOnClick {
+            aRouter.build(PagePath.DemoModule.Contact).navigation()
+        }
+
     }
 }

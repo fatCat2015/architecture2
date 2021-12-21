@@ -70,6 +70,15 @@
                 android:layout_height="wrap_content">
             </Button>
 
+
+            <Button
+                android:id="@+id/btContact"
+                android:layout_width="match_parent"
+                android:text="联系人列表"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 
