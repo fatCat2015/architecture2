@@ -12,10 +12,11 @@
         android:paddingTop="@dimen/dp_5"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingBottom="@dimen/dp_5"
-        android:textColor="#333"
+        android:textColor="#fff"
         android:textSize="@dimen/sp_14"
         android:text="A"
-        android:background="#f0f3f9"
+        android:textStyle="bold"
+        android:background="#6696F6"
         android:layout_height="wrap_content">
     </androidx.appcompat.widget.AppCompatTextView>
 </androidx.constraintlayout.widget.ConstraintLayout>

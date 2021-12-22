@@ -14,11 +14,11 @@ abstract class BaseAdapter<T>(items:List<T>?):RecyclerView.Adapter<BaseViewHolde
 
     private var onItemClickListener: OnItemClickListener<T>?=null
 
-    fun setOnItemClickListener(onItemClickListener: OnItemClickListener<T>){
+    open fun setOnItemClickListener(onItemClickListener: OnItemClickListener<T>){
         this.onItemClickListener = onItemClickListener
     }
 
-    fun <B:ViewBinding> addItemDelegate(itemDelegate: ItemDelegate<T, B>){
+    protected fun <B:ViewBinding> addItemDelegate(itemDelegate: ItemDelegate<T, B>){
         itemDelegateHolder.addItemDelegate(itemDelegate)
     }
 

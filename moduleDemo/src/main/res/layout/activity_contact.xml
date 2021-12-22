@@ -15,4 +15,13 @@
         android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.eju.tools.widget.LetterNavigationView
+        android:id="@+id/lnView"
+        android:layout_width="@dimen/dp_30"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="wrap_content">
+    </com.eju.tools.widget.LetterNavigationView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

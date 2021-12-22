@@ -3,8 +3,7 @@ package com.eju.demomodule.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.eju.baseadapter.BaseViewHolder
-import com.eju.baseadapter.section.PinYinSectionAdapter
-import com.eju.baseadapter.section.SectionAdapter
+import com.eju.baseadapter.section.StringSectionAdapter
 import com.eju.demomodule.databinding.ItemContactBinding
 import com.eju.demomodule.databinding.ItemContactSectionBinding
 import com.eju.demomodule.entity.Contact
@@ -14,9 +13,8 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType
 import java.lang.StringBuilder
 import java.util.*
-import kotlin.Comparator
 
-class ContactAdapter:PinYinSectionAdapter<Contact,ItemContactSectionBinding,ItemContactBinding,>() {
+class ContactAdapter:StringSectionAdapter<Contact,ItemContactSectionBinding,ItemContactBinding,>() {
 
     override fun getLayoutViewBinding(parent: ViewGroup): ItemContactBinding {
         return ItemContactBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -45,9 +43,14 @@ class ContactAdapter:PinYinSectionAdapter<Contact,ItemContactSectionBinding,Item
         viewHolder.binding.tvLetter.text = section
     }
 
-    override fun getSortedValuePinYin(item: Contact): String {
+    override fun getSectionValue(sortedValue: String): String {
+        return sortedValue[0].toString().uppercase(Locale.getDefault())
+    }
+
+    override fun getSortedValue(item: Contact): String {
         return str2Pinyin(item.name)
     }
+
 
 
     private val hanyuPinyinOutputFormat:HanyuPinyinOutputFormat by lazy {
