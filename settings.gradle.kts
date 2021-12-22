@@ -80,4 +80,3 @@ include(":moduleStart")
 include(":moduleDemo")
 include(":moduleMain")
 
-include(":permissions")
