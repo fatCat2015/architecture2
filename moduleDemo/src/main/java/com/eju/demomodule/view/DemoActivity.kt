@@ -6,6 +6,7 @@ import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.newFragment
 import com.eju.demomodule.databinding.ActivityDemoBinding
+import com.eju.tools.setNeverOverScroll
 import com.eju.tools.setUpWithViewPager2
 import com.eju.tools.widget.SimpleFragmentAdapter2
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +27,8 @@ class DemoActivity : AppBaseActivity<ActivityDemoBinding>() {
         )
         binding.viewPager2.adapter = SimpleFragmentAdapter2(fragments,this)
         binding.viewPager2.offscreenPageLimit = fragments.size-1
-        binding.tabLayout.setUpWithViewPager2(binding.viewPager2, listOf(
+        binding.viewPager2.setNeverOverScroll()
+        binding.tabLayout.setUpWithViewPager2(binding.viewPager2,listOf(
             "demo",
             "coil",
             "list",

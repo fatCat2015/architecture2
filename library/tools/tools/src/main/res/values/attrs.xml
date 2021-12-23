@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
-    <declare-styleable name="LetterNavigationView">
-    <attr name="textColor" format="color"></attr>
-    <attr name="textSize" format="dimension"></attr>
-    <attr name="textSelectedColor" format="color"></attr>
-    <attr name="textSelectedSize" format="dimension"></attr>
-    <attr name="padding" format="dimension"></attr>
-    <attr name="letterPadding" format="dimension"></attr>
-    <attr name="touchBgColor" format="color"></attr>
-    <attr name="touchBgRadius" format="dimension"></attr>
 
+
+    <declare-styleable name="LetterNavigationView">
+        <attr name="textColor" format="color"></attr>
+        <attr name="textSize" format="dimension"></attr>
+        <attr name="textBold" format="boolean"></attr>
+        <attr name="selectedTextColor" format="color"></attr>
+        <attr name="selectedTextSize" format="dimension"></attr>
+        <attr name="selectedTextBold" format="boolean"></attr>
+        <attr name="letterPadding" format="dimension"></attr>
+        <attr name="backgroundOnTouch" format="reference"></attr>
     </declare-styleable>
 
 </resources>

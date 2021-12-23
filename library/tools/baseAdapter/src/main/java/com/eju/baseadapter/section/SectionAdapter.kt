@@ -197,7 +197,7 @@ abstract class SectionAdapter<T,S,K,SB:ViewBinding,IB:ViewBinding>:WrappedAdapte
     /**
      * 通过section获取对应的position
      */
-    fun getPositionFromSection(section: K) :Int? = sectionPositionMap[section]
+    fun getPositionFromSection(section: K) :Int = sectionPositionMap[section]?:throw NullPointerException("section ${section} not exits")
 
     fun isSectionItem(position: Int) :Boolean {
         return sectionPositionMap.values.contains(position)

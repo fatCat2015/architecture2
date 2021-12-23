@@ -15,7 +15,6 @@ import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
 import com.eju.permissions.requestPermissions
 import com.eju.tools.*
-import com.eju.wechat.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
