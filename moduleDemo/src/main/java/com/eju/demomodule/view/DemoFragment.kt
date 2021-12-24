@@ -107,6 +107,7 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
         }
 
 
+
         binding.btEventBus.doOnClick {
             var event = "${eventIndex++}"
             Timber.i("post:${event}")

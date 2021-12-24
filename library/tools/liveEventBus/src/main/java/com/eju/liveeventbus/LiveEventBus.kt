@@ -27,7 +27,7 @@ object LiveEventBus {
     }
 
     @MainThread
-    fun <T> observe(lifecycleOwner: LifecycleOwner,key:String, sticky:Boolean ,observer:Observer<T>){
+    fun <T> observe(lifecycleOwner: LifecycleOwner,key:String, sticky:Boolean = false,observer:Observer<T>){
         assertMainThread("observe")
 
         val eventLiveData = (liveDataMap[key] as? MutableLiveData<T>) ?:MutableLiveData<T>().also {
@@ -51,7 +51,7 @@ object LiveEventBus {
     }
 
     @MainThread
-    fun <T> observeForever(key:String, sticky:Boolean ,observer:Observer<T>){
+    fun <T> observeForever(key:String, sticky:Boolean =false,observer:Observer<T>){
         assertMainThread("observeForever")
         val eventLiveData = (liveDataMap[key] as? MutableLiveData<T>) ?:MutableLiveData<T>().also {
             liveDataMap[key] = it
@@ -73,7 +73,6 @@ object LiveEventBus {
             eventLiveData.removeObserver(it)
             observerMap.remove(observer)
         }
-
     }
 
     fun <T> post( key:String, event:T , useLatest :Boolean = false){
@@ -89,7 +88,6 @@ object LiveEventBus {
                     }
                 }
             }
-
         }
     }
 
