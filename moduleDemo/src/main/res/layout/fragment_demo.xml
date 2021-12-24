@@ -79,6 +79,22 @@
                 android:layout_height="wrap_content">
             </Button>
 
+            <Button
+                android:id="@+id/btEventBus"
+                android:layout_width="match_parent"
+                android:text="post event"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
+            <Button
+                android:id="@+id/btObserve"
+                android:layout_width="match_parent"
+                android:text="observe event"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content">
+            </Button>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

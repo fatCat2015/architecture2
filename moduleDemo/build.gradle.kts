@@ -11,13 +11,15 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
-//ARouter
+
 kapt {
     arguments {
+        //ARouter
         arg("AROUTER_MODULE_NAME", project.getName())
 //        arg("AROUTER_GENERATE_DOC", "enable")  kotlin下不支持路由文档的生成
     }
 }
+
 
 val isModule:Boolean get() {
     val isModule:String by System.getProperties()
@@ -142,6 +144,8 @@ dependencies {
 }
 
 
+
+
 dependencies {
     implementation(project(":appBase"))
     implementation(project(":wechat"))
@@ -149,6 +153,7 @@ dependencies {
     implementation(project(":permissions"))
     implementation(project(":room"))
     implementation(project(":baseAdapter"))
+    implementation(project(":liveEventBus"))
 }
 
 dependencies {

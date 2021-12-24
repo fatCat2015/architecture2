@@ -37,6 +37,11 @@ project (":imageLoader").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/imageLoader")
 }
 
+include(":liveEventBus")
+project (":liveEventBus").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/liveEventBus")
+}
+
 include(":permissions")
 project (":permissions").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/permissions")
@@ -79,4 +84,5 @@ include (":app")
 include(":moduleStart")
 include(":moduleDemo")
 include(":moduleMain")
+
 

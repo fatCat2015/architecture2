@@ -34,6 +34,8 @@ class DemoActivity : AppBaseActivity<ActivityDemoBinding>() {
             "list",
             "自定义分页"
         ))
+
     }
+
 
 }

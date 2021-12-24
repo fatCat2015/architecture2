@@ -13,6 +13,9 @@ import com.eju.architecture.baseViewModels
 import com.eju.demomodule.R
 import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
+import com.eju.liveeventbus.observeEvent
+import com.eju.liveeventbus.observeEventSticky
+import com.eju.liveeventbus.postEvent
 import com.eju.permissions.requestPermissions
 import com.eju.tools.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -94,5 +97,37 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             aRouter.build(PagePath.DemoModule.Contact).navigation()
         }
 
+
+        observeEvent<String>("aaa"){
+            Timber.i("onChanged 111 :${it}")
+        }
+
+        observeEvent<String>("aaa"){
+            Timber.i("onChanged 222 :${it}")
+        }
+
+
+        binding.btEventBus.doOnClick {
+            var event = "${eventIndex++}"
+            Timber.i("post:${event}")
+            postEvent("aaa",event)
+
+            event = "${eventIndex++}"
+            Timber.i("post:${event}")
+            postEvent("aaa",event)
+
+            event = "${eventIndex++}"
+            Timber.i("post:${event}")
+            postEvent("aaa",event)
+        }
+
+        binding.btObserve.doOnClick {
+            observeEvent<String>("aaa"){
+                Timber.i("onChanged 333 :${it}")
+            }
+        }
+
     }
+
+    private var eventIndex = 0
 }

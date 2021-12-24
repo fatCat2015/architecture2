@@ -77,6 +77,11 @@ object ThirdDependency {
     //Compressor  https://github.com/zetbaitsu/Compressor
     const val compressor = "id.zelory:compressor:3.0.1"
 
+    //EventBus https://github.com/greenrobot/EventBus
+    const val eventBus = "org.greenrobot:eventbus:${Versions.eventBus}"
+    //https://greenrobot.org/eventbus/documentation/subscriber-index/
+    const val eventBusCompiler = "org.greenrobot:eventbus-annotation-processor:${Versions.eventBus}"
+
 
 
 

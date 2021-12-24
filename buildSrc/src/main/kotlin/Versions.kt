@@ -10,4 +10,5 @@ object Versions {
     const val refreshLayout = "2.0.3"
     const val agentWeb = "v4.1.9-androidx"
     const val immersionbar = "3.0.0"
+    const val eventBus = "3.3.1"
 }
