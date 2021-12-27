@@ -3,6 +3,7 @@ package com.eju.demomodule.view
 import android.Manifest
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseLazyLoadFragment
@@ -109,21 +110,15 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
 
 
         binding.btEventBus.doOnClick {
-            var event = "${eventIndex++}"
-            Timber.i("post:${event}")
-            postEvent("aaa",event)
-
-            event = "${eventIndex++}"
-            Timber.i("post:${event}")
-            postEvent("aaa",event)
-
-            event = "${eventIndex++}"
-            Timber.i("post:${event}")
-            postEvent("aaa",event)
+            binding.btEventBus.postDelayed(2000){
+                val event = "${eventIndex++}"
+                Timber.i("post:${event}")
+                postEvent("aaa",event)
+            }
         }
 
         binding.btObserve.doOnClick {
-            observeEvent<String>("aaa"){
+            observeEventSticky<String>("aaa"){
                 Timber.i("onChanged 333 :${it}")
             }
         }
