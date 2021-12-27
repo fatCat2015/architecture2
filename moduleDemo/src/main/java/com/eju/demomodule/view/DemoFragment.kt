@@ -123,6 +123,10 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             }
         }
 
+        binding.btDownload.doOnClick {
+            viewModel.download()
+        }
+
     }
 
     private var eventIndex = 0

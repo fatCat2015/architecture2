@@ -1,21 +1,26 @@
 package com.eju.demomodule.viewmodel
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.eju.architecture.core.BaseViewModel
-import com.eju.demomodule.R
 import com.eju.demomodule.entity.Order
 import com.eju.demomodule.repository.OrderDetailRepository
-import com.eju.tools.application
+import com.eju.retrofit.download.DownloadProxy
+import com.eju.tools.cacheDirPath
 import com.eju.wechat.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
+import java.io.File
+import java.net.URL
+import java.net.URLConnection
 import javax.inject.Inject
 
 @HiltViewModel
 class DemoViewModel @Inject constructor(private val orderDetailRepository: OrderDetailRepository):BaseViewModel() {
+
+
+    @Inject lateinit var downloadProxy:DownloadProxy
 
     private val _orderDetail = MutableLiveData<Order>()
     val orderDetail:LiveData<Order> = _orderDetail
@@ -25,6 +30,17 @@ class DemoViewModel @Inject constructor(private val orderDetailRepository: Order
             orderDetailRepository.orderDetail(id)
         }
     }
+
+    fun download(){
+        launch(loadingMsg = "下载中") {
+            Timber.tag("DownloadProxy").i("${downloadProxy} ${Thread.currentThread().id}")
+//            downloadProxy.downLoad("https://img0.baidu.com/it/u=1051577226,2771334401&fm=26&fmt=auto",
+            val outputFile = downloadProxy.downLoad("https://img.jiandanhome.com/yft_sync/2112/25/1640436250484.mp4",
+                File(cacheDirPath),"${System.currentTimeMillis()}")
+            Timber.tag("DownloadProxy").i("outputFile :${outputFile}")
+        }
+    }
+
 
     fun shareBitmap(bitmap:Bitmap){
         launch {

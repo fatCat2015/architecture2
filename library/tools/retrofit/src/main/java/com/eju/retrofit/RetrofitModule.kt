@@ -1,7 +1,5 @@
 package com.eju.retrofit
 
-import android.app.Application
-import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
