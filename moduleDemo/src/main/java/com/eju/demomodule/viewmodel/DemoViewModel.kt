@@ -6,21 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import com.eju.architecture.core.BaseViewModel
 import com.eju.demomodule.entity.Order
 import com.eju.demomodule.repository.OrderDetailRepository
-import com.eju.retrofit.download.DownloadProxy
+import com.eju.retrofit.download.RetrofitDownloader
 import com.eju.tools.cacheDirPath
 import com.eju.wechat.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
 import java.io.File
-import java.net.URL
-import java.net.URLConnection
 import javax.inject.Inject
 
 @HiltViewModel
 class DemoViewModel @Inject constructor(private val orderDetailRepository: OrderDetailRepository):BaseViewModel() {
 
 
-    @Inject lateinit var downloadProxy:DownloadProxy
+    @Inject lateinit var downloadProxy:RetrofitDownloader
 
     private val _orderDetail = MutableLiveData<Order>()
     val orderDetail:LiveData<Order> = _orderDetail

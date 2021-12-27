@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * 无进度下载大文件
  */
-class DownloadProxy @Inject constructor(private val downloadService: DownloadService) {
+class RetrofitDownloader @Inject constructor(private val downloadService: DownloadService) {
 
     suspend fun downLoad(url:String,outputDir:File,fileName:String) :File  {
         val responseBody = downloadService.download(url)
