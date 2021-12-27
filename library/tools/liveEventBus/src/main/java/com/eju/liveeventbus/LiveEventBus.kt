@@ -4,6 +4,8 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import timber.log.Timber
+import java.lang.IllegalArgumentException
 import java.lang.IllegalStateException
 
 class LiveEventBus {
@@ -42,6 +44,9 @@ class LiveEventBus {
         if(sticky){
             eventLiveData.observe(lifecycleOwner,observer)
         }else{
+            if(nonStickyObserverMap[observer] !=null){
+                return
+            }
             eventLiveData.observe(
                 lifecycleOwner,NonStickyObserver(
                     key = key,
@@ -70,6 +75,9 @@ class LiveEventBus {
         if(sticky){
             eventLiveData.observeForever(observer)
         }else{
+            if(nonStickyObserverMap[observer] !=null){
+                return
+            }
             eventLiveData.observeForever(
                 NonStickyObserver(
                     key = key,
