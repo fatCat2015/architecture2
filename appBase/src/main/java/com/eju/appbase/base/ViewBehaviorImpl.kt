@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.eju.appbase.dialog.LoadingDialog
 import com.eju.architecture.core.IViewBehavior
-import com.eju.tools.showToast
+import com.eju.tools.Toaster
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -40,6 +40,10 @@ class ViewBehaviorImpl(
 
     private var loadingDialog:LoadingDialog? =null
 
+    private val toaster:Toaster by lazy {
+        Toaster()
+    }
+
     override fun showLoading(msg: CharSequence?) {
         fragmentManager?.let {
             hideLoading()
@@ -58,8 +62,10 @@ class ViewBehaviorImpl(
     }
 
     override fun showToast(msg: CharSequence?,duration: Int) {
-        lifecycleOwner?.let {
-            showToast(context,it,msg,duration)
+        val context = context
+        val lifecycleOwner = lifecycleOwner
+        if(context != null && lifecycleOwner != null && msg != null){
+            toaster.showToast(context,lifecycleOwner,msg,duration)
         }
     }
 

@@ -32,9 +32,9 @@ import kotlin.math.roundToInt
  * @param clickIntervals 点击触发的事件间隔
  * @param block          执行点击的block
  */
-inline fun View.doOnClick(clickIntervals:Long = 300, crossinline block:()->Unit){
+inline fun View.doOnClick(clickIntervals:Long = 300, crossinline block:(View)->Unit){
     setOnClickListener(OnIntervalClickListener(clickIntervals){
-        block()
+        block(it)
     })
 }
 

@@ -3,15 +3,20 @@ package com.eju.demomodule.view
 import android.Manifest
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import android.widget.Toast
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseLazyLoadFragment
+import com.eju.appbase.dialog.LoadingDialog
 import com.eju.appbase.entity.User
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.aRouter
 import com.eju.architecture.baseViewModels
 import com.eju.demomodule.R
+import com.eju.demomodule.databinding.CustomToastBinding
 import com.eju.demomodule.databinding.FragmentDemoBinding
 import com.eju.demomodule.viewmodel.DemoViewModel
 import com.eju.liveeventbus.observeEvent
@@ -19,6 +24,7 @@ import com.eju.liveeventbus.observeEventSticky
 import com.eju.liveeventbus.postEvent
 import com.eju.permissions.requestPermissions
 import com.eju.tools.*
+import com.eju.tools.widget.ShowOneDialogHandler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -36,6 +42,8 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             Timber.i("order:${it}")
         }
     }
+
+    private val showOneDialogHandler:ShowOneDialogHandler by lazy { ShowOneDialogHandler() }
 
     override fun lazyLoad(savedInstanceState: Bundle?) {
     }
@@ -62,7 +70,7 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
 
         binding.btRequestPermissions.doOnClick {
             requestPermissions(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,deniedCallback = {
-                         showToast("denied ${it}")
+                showToast("denied ${it}")
             },allGrantedCallback = {
                 showToast("all granted")
             })
@@ -124,10 +132,31 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
         }
 
         binding.btDownload.doOnClick {
-            viewModel.download()
+//            viewModel.download()
+            Timber.tag("DemoFragment").i("11:${eventIndex}")
+            Log.i("DemoFragment","22:${eventIndex}")
+            showToast("${eventIndex++}")
+
+        }
+
+        binding.btDialog.doOnClick {
+            showOneDialogHandler.show(childFragmentManager,LoadingDialog.newInstance("222"))
+            it.postDelayed(1000){
+                showOneDialogHandler.show(childFragmentManager,LoadingDialog.newInstance("111"))
+            }
+            it.postDelayed(2000){
+                showOneDialogHandler.show(childFragmentManager,LoadingDialog.newInstance("444"))
+            }
+            it.postDelayed(3333){
+                showOneDialogHandler.show(childFragmentManager,LoadingDialog.newInstance("333"))
+            }
         }
 
     }
+
+
+
+
 
     private var eventIndex = 0
 }

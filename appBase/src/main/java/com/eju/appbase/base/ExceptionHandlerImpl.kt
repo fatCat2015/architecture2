@@ -15,8 +15,8 @@ import com.eju.appbase.router.service.LoginService
 import com.eju.appbase.service.ApiException
 import com.eju.appbase.service.ServiceErrorCode
 import com.eju.architecture.core.IExceptionHandler
+import com.eju.tools.Toaster
 import com.eju.tools.application
-import com.eju.tools.showToast
 
 class ExceptionHandlerImpl(
     private val activity: FragmentActivity?,
@@ -28,6 +28,10 @@ class ExceptionHandlerImpl(
     constructor(activity: FragmentActivity):this(activity,null,false)
 
     constructor(fragment: Fragment):this(null,fragment,true)
+
+    private val toaster: Toaster by lazy {
+        Toaster()
+    }
 
     private val context: Context? by lazy {
         if(isFragment) fragment?.activity else activity
@@ -71,12 +75,16 @@ class ExceptionHandlerImpl(
     }
 
     private fun showToast(msg:CharSequence?){
-        application.showToast(msg,Toast.LENGTH_LONG)
+        if(msg!=null){
+            toaster.showToast(application,msg,Toast.LENGTH_LONG)
+        }
     }
 
     private fun showToastLifecycleAware(msg:CharSequence?){
-        lifecycleOwner?.let {
-            showToast(context,it,msg, Toast.LENGTH_SHORT)
+        val context = context
+        val lifecycleOwner = lifecycleOwner
+        if(context != null && lifecycleOwner != null && msg != null){
+            toaster.showToast(context,lifecycleOwner,msg)
         }
     }
 

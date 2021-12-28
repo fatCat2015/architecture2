@@ -7,72 +7,53 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.*
+import timber.log.Timber
 import java.util.*
 
 
-object ShowOneDialogHandler{
+class ShowOneDialogHandler(){
 
-    private val dialogMap:MutableMap<FragmentManager,LinkedList<DialogFragment>> by lazy {
-        mutableMapOf()
+    private val dialogList :MutableList<WrappedDialogFragment> by lazy {
+        mutableListOf()
     }
 
-    @MainThread
-    fun show(fragmentActivity: FragmentActivity,dialog: DialogFragment){
-        show(fragmentActivity,fragmentActivity.supportFragmentManager,dialog)
-    }
+    private inner class WrappedDialogFragment(
+        private val fragmentManager: FragmentManager,
+        private val dialogFragment: DialogFragment,
+        private val isAllowingStateLoss:Boolean,
+        private val tag:String?
+    ):DefaultLifecycleObserver{
 
-    @MainThread
-    fun show(fragment: Fragment,dialog: DialogFragment){
-        show(fragment,fragment.childFragmentManager,dialog)
-    }
-
-    private fun show(lifecycleOwner: LifecycleOwner,fragmentManager: FragmentManager,dialog: DialogFragment){
-        val dialogList= dialogMap[fragmentManager]?:LinkedList<DialogFragment>().also {
-            lifecycleOwner.lifecycle.addObserver(object:DefaultLifecycleObserver{
-                override fun onDestroy(owner: LifecycleOwner) {
-                    dialogMap.remove(fragmentManager)?.clear()
-                }
-            })
-            dialogMap[fragmentManager]=it
+        init {
+            dialogFragment.lifecycle.addObserver(this)
         }
-        dialogList.addFirst(dialog)
-        dialog.lifecycle.addObserver(dialogLifecycleObserver)
-        if(dialogList.size==1){
-            showDialogAllowingStateLoss(fragmentManager,dialog)
-        }
-    }
 
-    private val dialogLifecycleObserver=object:DefaultLifecycleObserver{
         override fun onDestroy(owner: LifecycleOwner) {
-            owner.lifecycle.removeObserver(this)
-            if(owner is DialogFragment){
-                findEntryFromDialog(owner)?.let { entry->
-                    val fragmentManager=entry.key
-                    val dialogList=entry.value
-                    dialogList.remove(owner)
-                    if(dialogList.isNotEmpty()){
-                        val nextDialog=dialogList.last()
-                        showDialogAllowingStateLoss(fragmentManager,nextDialog)
-                    }
-                }
+            dialogList.remove(this)
+            Timber.i("dialog destroyed --> ${dialogFragment} ")
+            showNext()
+        }
+
+        fun show() {
+            Timber.i("show dialog --> ${dialogFragment}")
+            if(isAllowingStateLoss){
+                fragmentManager.beginTransaction().add(dialogFragment, tag).commitAllowingStateLoss()
+            }else{
+                dialogFragment.show(fragmentManager,tag)
             }
         }
     }
 
-    private fun findEntryFromDialog(dialog: DialogFragment): Map.Entry<FragmentManager,LinkedList<DialogFragment>>?{
-        var entry:Map.Entry<FragmentManager,LinkedList<DialogFragment>>?=null
-        dialogMap.forEach {
-            if(it.value.contains(dialog)){
-                entry=it
-                return@forEach
-            }
+    @MainThread
+    fun show(fragmentManager: FragmentManager,dialogFragment: DialogFragment,isAllowingStateLoss:Boolean = true,tag:String?=null){
+        dialogList.add(WrappedDialogFragment(fragmentManager,dialogFragment,isAllowingStateLoss,tag))
+        if(dialogList.size == 1){
+            showNext()
         }
-        return entry
     }
 
-
-    private fun showDialogAllowingStateLoss(fragmentManager: FragmentManager,dialogFragment: DialogFragment) {
-        fragmentManager.beginTransaction().add(dialogFragment, javaClass.simpleName).commitAllowingStateLoss()
+    private fun showNext(){
+        dialogList.firstOrNull()?.show()
     }
 
 

@@ -1,77 +1,124 @@
 package com.eju.tools
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.annotation.IntDef
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import timber.log.Timber
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
-private val toastMap = mutableMapOf<LifecycleOwner,AppToast>()
 
+/**
+ * android R (11,sdkInt:30) Toast的限制
+ * 1.text toast 不允许自定义,setGravity()和setMargin()不会有效果
+ * 2.custom toast,在后台时不能展示toast
+ * 3.新增Toast.Callback回调,Callback object to be called when the toast is shown or hidden.
+ * 4.setView被标记为Deprecated
+ * 总结:老老实实使用Toast.makeText(context,text,duration).show()
+ */
+class Toaster{
 
-fun Application.showToast(msg:CharSequence?,@ToastDuration duration:Int){
-    if(msg.isNullOrEmpty()){
-        return
+    private val toastMap :MutableMap<LifecycleOwner,WrappedToast> by lazy {
+        mutableMapOf()
     }
-    val toast=Toast.makeText(this, "",duration)
-    toast.setText(msg)
-    toast.show()
-}
 
+    private val mainHandler :Handler by lazy {
+        Handler(Looper.getMainLooper())
+    }
 
-fun showToast(context: Context?,lifecycleOwner: LifecycleOwner,msg:CharSequence?,@ToastDuration duration:Int){
-    if(msg.isNullOrEmpty()){
-        return
-    }
-    if(context==null){
-        return
-    }
-    val appToast=toastMap[lifecycleOwner]
-    val lifecycle=lifecycleOwner.lifecycle
-    if(appToast==null){
-        if(lifecycle.currentState==Lifecycle.State.DESTROYED){
-            return
-        }else{
-            toastMap[lifecycleOwner]= AppToast(
-                Toast.makeText(context,"",Toast.LENGTH_SHORT),
-                MutableLiveData<CharSequence>(msg),
-                duration
-            ).also { appToast->
-                appToast.toastStr.observe(lifecycleOwner,  Observer{ str->
-                    appToast.toast.setText(str)
-                    appToast.toast.duration = appToast.toastLength
-                    appToast.toast.show()
-                })
-                lifecycle.addObserver(object:DefaultLifecycleObserver{
-                    override fun onDestroy(owner: LifecycleOwner) {
-                        super.onDestroy(owner)
-                        appToast.toast.cancel()
-                        toastMap.remove(lifecycleOwner)
-                    }
-                })
+    private val isInMainThread :Boolean get() = Looper.getMainLooper() == Looper.myLooper()
+
+    private inner class ToastData(var text: CharSequence,@ToastDuration var duration: Int)
+
+    private inner class WrappedToast(
+        private val lifecycleOwner: LifecycleOwner,
+        private val toast:Toast,
+        private val toastDataLiveData:MutableLiveData<ToastData>,
+    ):LifecycleEventObserver,Observer<ToastData>{
+
+        init {
+            toastDataLiveData.observe(lifecycleOwner,this)
+            lifecycleOwner.lifecycle.addObserver(this)
+        }
+
+        fun setValue(text: CharSequence,@ToastDuration duration: Int){
+            val newToastData :ToastData = toastDataLiveData.value?.apply {
+                this.text = text
+                this.duration = duration
+            }?:ToastData(text,duration)
+            if(isInMainThread){
+                toastDataLiveData.value = newToastData
+            }else{
+                mainHandler.post { toastDataLiveData.value = newToastData }
             }
         }
-    }else{
-        appToast.toastLength=duration
-        if(isInMainThread){
-            appToast.toastStr.value=msg
-        }else{
-            appToast.toastStr.postValue(msg)
+
+        override fun onChanged(t: ToastData?) {
+            t?.let {
+                Timber.i("show toast --> LifecycleOwner:${lifecycleOwner} text:${it.text}")
+                toast.setText(it.text)
+                toast.duration = it.duration
+                toast.show()
+            }
         }
+
+        override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+            if(source.lifecycle.currentState==Lifecycle.State.DESTROYED){
+                Timber.i("LifecycleOwner destroyed --> LifecycleOwner:${source}")
+                toast.cancel()
+                toastMap.remove(source)
+                toastMap.forEach {
+                    Timber.i("LifecycleOwner destroyed --> ${it.value} = ${it.value}")
+                }
+            }
+        }
+
+    }
+
+
+    private val toastCreator:(Context)-> Toast by lazy {
+        {
+            Toast.makeText(it,"",Toast.LENGTH_SHORT)
+        }
+    }
+
+    @Synchronized
+    fun showToast(context: Context,
+                  lifecycleOwner: LifecycleOwner,
+                  text:CharSequence,
+                  @ToastDuration duration:Int = Toast.LENGTH_SHORT
+    ){
+        if(lifecycleOwner.lifecycle.currentState == Lifecycle.State.DESTROYED){
+            return
+        }
+        toastMap[lifecycleOwner]?.let {
+            it.setValue(text,duration)
+        }?:WrappedToast(
+            lifecycleOwner = lifecycleOwner,
+            toast = toastCreator(context),
+            toastDataLiveData = MutableLiveData(ToastData(text,duration))
+        ).also {
+            toastMap[lifecycleOwner] = it
+        }
+    }
+
+    fun showToast(context: Context,msg:CharSequence,@ToastDuration duration:Int = Toast.LENGTH_SHORT){
+        toastCreator(context).apply {
+            setText(msg)
+            setDuration(duration)
+        }.show()
     }
 }
 
-
-internal data class AppToast(
-    val toast:Toast,
-    val toastStr:MutableLiveData<CharSequence>,
-    var toastLength:Int
-)
 
 @IntDef(value = [Toast.LENGTH_SHORT, Toast.LENGTH_LONG])
 @Retention(
