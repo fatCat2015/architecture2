@@ -6,6 +6,8 @@ import com.eju.appbase.persistence.GUIDE_INDEX
 import com.eju.appbase.persistence.HAS_AGREED_PRIVACY_POLICY
 import com.eju.appbase.persistence.IS_LOGGED
 import com.eju.appbase.persistence.VERSION_CODE
+import com.eju.persistence.persistenceBoolean
+import com.eju.persistence.persistenceInt
 import com.eju.start.BuildConfig
 import com.eju.startup.AppInitializer
 import com.eju.tools.*
@@ -16,7 +18,14 @@ import javax.inject.Inject
 
 class StartRepository @Inject constructor():BaseRepository() {
 
-    fun hasAgreedPrivacyPolicy():Boolean = fetchBoolean(HAS_AGREED_PRIVACY_POLICY,false)
+
+    var isAgreedPrivacyPolicy :Boolean by persistenceBoolean(HAS_AGREED_PRIVACY_POLICY)
+
+    var localGuideIndex :Int by persistenceInt(GUIDE_INDEX)
+
+    var isLogged :Boolean by persistenceBoolean(IS_LOGGED)
+
+    var localVersionCode :Int by persistenceInt(VERSION_CODE)
 
     /**
      * 进行一些必须在同意隐私政策之后才能进行的初始化
@@ -25,19 +34,14 @@ class StartRepository @Inject constructor():BaseRepository() {
         AppInitializer.initializeComponentSuspend(AnalysisInitializer::class.java)
     }
 
-    fun setAgreedPrivacyPolicy(agreed:Boolean){
-        saveBoolean(HAS_AGREED_PRIVACY_POLICY,agreed)
-    }
 
     fun verifyShowGuidePage():Boolean{
-        val localGuideIndex= fetchInt(GUIDE_INDEX,0)
         return localGuideIndex != BuildConfig.guideIndex
     }
 
-    fun verifyIfHasLogged():Boolean = fetchBoolean(IS_LOGGED,false)
 
-    fun verifyIfFirstLaunchNewVersion():Boolean = fetchInt(VERSION_CODE,0)!= versionCode.also {
-        saveInt(VERSION_CODE, it?:0)
+    fun verifyIfFirstLaunchNewVersion():Boolean = localVersionCode!= versionCode.also {
+        localVersionCode = it?:0
     }
 }
 

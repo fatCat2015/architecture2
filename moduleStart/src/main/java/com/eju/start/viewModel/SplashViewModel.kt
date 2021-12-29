@@ -5,7 +5,6 @@ import com.eju.appbase.persistence.HAS_AGREED_PRIVACY_POLICY
 import com.eju.architecture.core.BaseViewModel
 import com.eju.start.repository.StartRepository
 import com.eju.tools.finishAllActivities
-import com.eju.tools.saveBoolean
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import timber.log.Timber
@@ -25,9 +24,9 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
 
     fun countdownToPage(){
         launch (showLoading = false){
-            val hasAgreedPrivacyPolicy = startRepository.hasAgreedPrivacyPolicy()
-            Timber.i("hasAgreedPrivacyPolicy:${hasAgreedPrivacyPolicy}")
-            if(hasAgreedPrivacyPolicy){
+            val isAgreedPrivacyPolicy = startRepository.isAgreedPrivacyPolicy
+            Timber.i("hasAgreedPrivacyPolicy:${isAgreedPrivacyPolicy}")
+            if(isAgreedPrivacyPolicy){
                 val startTime = System.currentTimeMillis()
                 startRepository.init()
                 val initTime = System.currentTimeMillis() -startTime
@@ -35,7 +34,7 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
                 val remainedTime = delay_time - initTime
                 delay(if(remainedTime<=0) 0 else remainedTime)
                 val showGuide = startRepository.verifyShowGuidePage()
-                val isLogged = startRepository.verifyIfHasLogged()
+                val isLogged = startRepository.isLogged
                 val firstLaunchNewVersion =  startRepository.verifyIfFirstLaunchNewVersion()
                 Timber.i("countdownToPage showGuide:${showGuide};isLogged:${isLogged};firstLaunchNewVersion:${firstLaunchNewVersion}")
                 when{
@@ -51,15 +50,15 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
     }
 
     fun onDisagreePrivacyPolicy(){
-        startRepository.setAgreedPrivacyPolicy(false)
+        startRepository.isAgreedPrivacyPolicy = false
     }
 
     fun onAgreePrivacyPolicy(){
-        startRepository.setAgreedPrivacyPolicy(true)
+        startRepository.isAgreedPrivacyPolicy = true
     }
 
     fun onPrivacyPolicyDialogDismiss(){
-        if(startRepository.hasAgreedPrivacyPolicy()){
+        if(startRepository.isAgreedPrivacyPolicy){
             countdownToPage()
         }else{
             finishAllActivities()

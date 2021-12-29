@@ -18,6 +18,7 @@ import com.eju.architecture.baseViewModels
 import com.eju.demomodule.R
 import com.eju.demomodule.databinding.CustomToastBinding
 import com.eju.demomodule.databinding.FragmentDemoBinding
+import com.eju.demomodule.demo.Consumer
 import com.eju.demomodule.viewmodel.DemoViewModel
 import com.eju.liveeventbus.observeEvent
 import com.eju.liveeventbus.observeEventSticky
@@ -135,8 +136,12 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
 //            viewModel.download()
             Timber.tag("DemoFragment").i("11:${eventIndex}")
             Log.i("DemoFragment","22:${eventIndex}")
-            showToast("${eventIndex++}")
+//            showToast("${eventIndex++}")
 
+
+            val consumer = Consumer()
+            consumer.str
+            consumer.str = "11"
         }
 
         binding.btDialog.doOnClick {

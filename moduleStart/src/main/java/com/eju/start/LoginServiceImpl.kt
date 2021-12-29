@@ -7,6 +7,7 @@ import com.eju.appbase.persistence.IS_LOGGED
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.service.LoginService
 import com.eju.appbase.router.service.ServicePath
+import com.eju.persistence.persistence
 import com.eju.retrofit.RetrofitModule
 import com.eju.tools.*
 import timber.log.Timber
@@ -19,15 +20,15 @@ class LoginServiceImpl: LoginService {
 
     override fun onLogin(vararg dataToSaved: Pair<String, String>) {
         Timber.i("onLogin ${dataToSaved}")
-        saveBoolean(IS_LOGGED,true)
+        persistence.saveBoolean(IS_LOGGED,true)
         dataToSaved.forEach {
-            saveString(it.first,it.second)
+            persistence.saveString(it.first,it.second)
         }
     }
 
     override fun onLogout(vararg dataKeysToCleared: String) {
-        saveBoolean(IS_LOGGED,false)
-        removeValueForKeys(*dataKeysToCleared)
+        persistence.saveBoolean(IS_LOGGED,false)
+        persistence.remove(*dataKeysToCleared)
     }
 
     override fun toLogin() {

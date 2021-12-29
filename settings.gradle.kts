@@ -46,6 +46,10 @@ include(":permissions")
 project (":permissions").apply {
     projectDir = File(rootProject.projectDir, "/library/tools/permissions")
 }
+include(":persistence")
+project (":persistence").apply {
+    projectDir = File(rootProject.projectDir, "/library/tools/persistence")
+}
 
 include (":retrofit")
 project (":retrofit").apply {
@@ -84,5 +88,6 @@ include (":app")
 include(":moduleStart")
 include(":moduleDemo")
 include(":moduleMain")
+
 
 

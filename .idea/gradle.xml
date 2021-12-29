@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/library/tools/imageLoader" />
             <option value="$PROJECT_DIR$/library/tools/liveEventBus" />
             <option value="$PROJECT_DIR$/library/tools/permissions" />
+            <option value="$PROJECT_DIR$/library/tools/persistence" />
             <option value="$PROJECT_DIR$/library/tools/retrofit" />
             <option value="$PROJECT_DIR$/library/tools/room" />
             <option value="$PROJECT_DIR$/library/tools/startup" />
