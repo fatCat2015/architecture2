@@ -47,12 +47,10 @@ class SPPersistence(private val context: Context,
         return putIfAbsent(identify).getFloat(key,defaultValue)
     }
 
-    //sharedPreferences不支持double值的读写
     override fun saveDouble(key: String, value: Double, identify: String) {
         throw IllegalArgumentException("SharedPreferences does not support save or read Double")
     }
 
-    //sharedPreferences不支持double值的读写
     override fun getDouble(key: String, defaultValue: Double, identify: String): Double {
         throw IllegalArgumentException("SharedPreferences does not support save or read Double")
     }
