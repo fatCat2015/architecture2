@@ -50,4 +50,9 @@ object GoogleDependency {
 
     const val palette = "androidx.palette:palette:1.0.0"
     const val paletteKtx = "androidx.palette:palette-ktx:1.0.0"
+
+    //https://blog.csdn.net/guolin_blog/article/details/120275319
+    //https://www.jianshu.com/p/7b0fddf37bb2
+    //https://developer.android.com/guide/topics/ui/splash-screen
+    const val splashScreenCompat = "androidx.core:core-splashscreen:1.0.0-alpha01"
 }

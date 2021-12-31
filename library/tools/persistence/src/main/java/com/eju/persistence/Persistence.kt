@@ -47,7 +47,7 @@ interface Persistence {
 
     fun <T: Serializable> saveSerializable(key:String, value:T, identify:String = DEFAULT_IDENTIFY )
    
-    fun <T: Serializable> getSerializable(key:String, defaultValue: T?=null, identify:String = DEFAULT_IDENTIFY ):T?
+    fun <T: Serializable> getSerializable(key:String,clazz: Class<T>,defaultValue: T?=null, identify:String = DEFAULT_IDENTIFY ):T?
 
     fun remove(key:String,identify:String = DEFAULT_IDENTIFY )
 

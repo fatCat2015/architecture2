@@ -13,9 +13,9 @@ class MMKVPersistence:Persistence {
         }
     }
 
-    private fun putIfAbsent(mmkvId:String):MMKV{
-        return mmkvMap[mmkvId]?:MMKV.mmkvWithID(mmkvId).also {
-            mmkvMap[mmkvId] = it
+    private fun putIfAbsent(identify:String):MMKV{
+        return mmkvMap[identify]?:MMKV.mmkvWithID(identify).also {
+            mmkvMap[identify] = it
         }
     }
 
@@ -101,18 +101,19 @@ class MMKVPersistence:Persistence {
     }
 
     override fun <T : Serializable> saveSerializable(key: String, value: T, identify: String) {
-        serializable2Bytes(value)?.let {
+        value.toByteArray()?.let {
             saveBytes(key, it,identify)
         }
     }
 
     override fun <T : Serializable> getSerializable(
         key: String,
+        clazz: Class<T>,
         defaultValue: T?,
         identify: String
     ): T? {
         return getBytes(key,identify=identify)?.let{
-            bytes2Serializable(it) ?:defaultValue
+            it.toSerializableObj() ?:defaultValue
         }?:defaultValue
     }
 
@@ -135,28 +136,5 @@ class MMKVPersistence:Persistence {
 
     }
 
-    //Serializable
-    private fun <T:Serializable> serializable2Bytes(item:T):ByteArray?{
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        return ObjectOutputStream(byteArrayOutputStream).use {
-            try {
-                it.writeObject(item)
-                it.flush()
-                byteArrayOutputStream.toByteArray()
-            } catch (e: Exception) {
-                null
-            }
-        }
-    }
 
-    private fun <T:Serializable> bytes2Serializable(byteArray: ByteArray):T?{
-        val byteArrayInputStream = ByteArrayInputStream(byteArray)
-        return ObjectInputStream(byteArrayInputStream).use {
-            try {
-                it.readObject() as? T
-            } catch (e: Exception) {
-                null
-            }
-        }
-    }
 }

@@ -34,6 +34,8 @@ dependencies {
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
 
+    implementation(ThirdDependency.gson)
+
     testImplementation(Test.junit)
     androidTestImplementation(Test.extJunit)
     androidTestImplementation(Test.espresso)

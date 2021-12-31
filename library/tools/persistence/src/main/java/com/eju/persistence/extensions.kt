@@ -1,11 +1,37 @@
 package com.eju.persistence
 
 import android.os.Parcelable
-import java.io.Serializable
+import java.io.*
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+//tools
+//Serializable
+fun <T:Serializable> T.toByteArray():ByteArray?{
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    return ObjectOutputStream(byteArrayOutputStream).use {
+        try {
+            it.writeObject(this)
+            it.flush()
+            byteArrayOutputStream.toByteArray()
+        } catch (e: Exception) {
+            null
+        }
+    }
+}
 
+fun <T:Serializable> ByteArray.toSerializableObj():T?{
+    val byteArrayInputStream = ByteArrayInputStream(this)
+    return ObjectInputStream(byteArrayInputStream).use {
+        try {
+            it.readObject() as? T
+        } catch (e: Exception) {
+            null
+        }
+    }
+}
+
+//extensions
 val persistence :Persistence by lazy { MMKVPersistence() }
 
 fun persistenceInt(key:String,default:Int = 0,identify:String = Persistence.DEFAULT_IDENTIFY) = PersistenceIntProperty(key,default,identify)
@@ -44,8 +70,8 @@ class PersistenceIntProperty(private val key:String,
 }
 
 class PersistenceLongProperty(private val key:String,
-                             private val default:Long,
-                             private val identify:String ):
+                              private val default:Long,
+                              private val identify:String ):
     ReadWriteProperty<Any, Long> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Long {
@@ -59,8 +85,8 @@ class PersistenceLongProperty(private val key:String,
 }
 
 class PersistenceFloatProperty(private val key:String,
-                              private val default:Float,
-                              private val identify:String ):
+                               private val default:Float,
+                               private val identify:String ):
     ReadWriteProperty<Any, Float> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Float {
@@ -74,8 +100,8 @@ class PersistenceFloatProperty(private val key:String,
 }
 
 class PersistenceDoubleProperty(private val key:String,
-                               private val default:Double,
-                               private val identify:String ):
+                                private val default:Double,
+                                private val identify:String ):
     ReadWriteProperty<Any, Double> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Double {
@@ -89,8 +115,8 @@ class PersistenceDoubleProperty(private val key:String,
 }
 
 class PersistenceBooleanProperty(private val key:String,
-                                private val default:Boolean,
-                                private val identify:String ):
+                                 private val default:Boolean,
+                                 private val identify:String ):
     ReadWriteProperty<Any, Boolean> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Boolean {
@@ -104,8 +130,8 @@ class PersistenceBooleanProperty(private val key:String,
 }
 
 class PersistenceBytesProperty(private val key:String,
-                                 private val default:ByteArray?,
-                                 private val identify:String ):
+                               private val default:ByteArray?,
+                               private val identify:String ):
     ReadWriteProperty<Any, ByteArray?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): ByteArray? {
@@ -121,8 +147,8 @@ class PersistenceBytesProperty(private val key:String,
 }
 
 class PersistenceStringProperty(private val key:String,
-                               private val default:String?,
-                               private val identify:String ):
+                                private val default:String?,
+                                private val identify:String ):
     ReadWriteProperty<Any, String?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): String? {
@@ -138,9 +164,9 @@ class PersistenceStringProperty(private val key:String,
 }
 
 class PersistenceParcelableProperty<T:Parcelable>(private val key:String,
-                                    private val clazz: Class<T>,
-                                private val default:T?,
-                                private val identify:String ):
+                                                  private val clazz: Class<T>,
+                                                  private val default:T?,
+                                                  private val identify:String ):
     ReadWriteProperty<Any, T?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? {
@@ -157,8 +183,8 @@ class PersistenceParcelableProperty<T:Parcelable>(private val key:String,
 
 
 class PersistenceStringSetProperty(private val key:String,
-                                                  private val default:Set<String>?,
-                                                  private val identify:String ):
+                                   private val default:Set<String>?,
+                                   private val identify:String ):
     ReadWriteProperty<Any, Set<String>?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): Set<String>? {
@@ -175,8 +201,8 @@ class PersistenceStringSetProperty(private val key:String,
 
 
 class PersistenceSerializableProperty<T:Serializable>(private val key:String,
-                                                  private val default:T?,
-                                                  private val identify:String ):
+                                                      private val default:T?,
+                                                      private val identify:String ):
     ReadWriteProperty<Any, T?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? {
