@@ -34,7 +34,7 @@ object GoogleDependency {
     const val hiltCompile = "com.google.dagger:hilt-compiler:${Versions.hilt}"
 
     //room
-    //https://developer.android.google.cn/jetpack/androidx/releases/room#kts
+    //https://developer.android.google.cn/jetpack/androidx/releases/room
     const val room = "androidx.room:room-runtime:${Versions.room}"
     const val roomCompile = "androidx.room:room-compiler:${Versions.room}"
     const val roomKtx= "androidx.room:room-ktx:${Versions.room}"
@@ -54,5 +54,5 @@ object GoogleDependency {
     //https://blog.csdn.net/guolin_blog/article/details/120275319
     //https://www.jianshu.com/p/7b0fddf37bb2
     //https://developer.android.com/guide/topics/ui/splash-screen
-    const val splashScreenCompat = "androidx.core:core-splashscreen:1.0.0-alpha01"
+    const val splashScreenCompat = "androidx.core:core-splashscreen:1.0.0-alpha02"
 }

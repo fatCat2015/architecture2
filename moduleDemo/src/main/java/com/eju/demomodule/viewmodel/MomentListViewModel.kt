@@ -15,7 +15,7 @@ class MomentListViewModel @Inject constructor(private val momentRepository: Mome
 
     override val loadingParamsFactory: () -> MomentLoadingParams
         get() = {
-            MomentLoadingParams(null,20)
+            MomentLoadingParams(null,10)
         }
 
     override fun verifyShowEmptyView(

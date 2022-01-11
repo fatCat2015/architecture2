@@ -34,8 +34,14 @@ object ThirdDependency {
     const val coilTransformationsGpu = "com.github.Commit451.coil-transformations:transformations-gpu:1.0.0"
 
     // https://github.com/scwang90/SmartRefreshLayout
-    const val smartRefreshLayout = "com.scwang.smart:refresh-layout-kernel:${Versions.refreshLayout}"
-    const val smartRefreshHeader0 = "com.scwang.smart:refresh-header-classics:${Versions.refreshLayout}"
+    const val smartRefreshLayout = "io.github.scwang90:refresh-layout-kernel:${Versions.refreshLayout}"
+    const val smartRefreshHeaderClassics = "io.github.scwang90:refresh-header-classics:${Versions.refreshLayout}"
+    const val smartRefreshHeaderRadar = "io.github.scwang90:refresh-header-radar:${Versions.refreshLayout}"
+    const val smartRefreshHeaderFalsify = "io.github.scwang90:refresh-header-falsify:${Versions.refreshLayout}"
+    const val smartRefreshHeaderMaterial = "io.github.scwang90:refresh-header-material:${Versions.refreshLayout}"
+    const val smartRefreshHeaderTwoLevel = "io.github.scwang90:refresh-header-two-level:${Versions.refreshLayout}"
+    const val smartRefreshFooterBall = "io.github.scwang90:refresh-footer-ball:${Versions.refreshLayout}"
+    const val smartRefreshFooterClassics = "io.github.scwang90:refresh-footer-classics:${Versions.refreshLayout}"
 
     // https://github.com/H07000223/FlycoTabLayout
     const val flycoTabLayout = "io.github.h07000223:flycoTabLayout:3.0.0"

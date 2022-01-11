@@ -132,7 +132,7 @@ dependencies {
 
     //smartRefreshLayout
     implementation(ThirdDependency.smartRefreshLayout)
-    implementation(ThirdDependency.smartRefreshHeader0)
+    implementation(ThirdDependency.smartRefreshHeaderClassics)
 
 }
 

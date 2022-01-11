@@ -71,6 +71,8 @@ object PagePath {
         const val RoomDemo="/DemoModule/RoomDemo"
         @PathDescription("联系人列表")
         const val Contact="/DemoModule/Contact"
+        @PathDescription("tagDemo")
+        const val TAG="/DemoModule/tagDemo"
 
         @PathDescription("demo例子",isFragment = true)
         const val DemoFragment="/DemoModule/DemoFragment"

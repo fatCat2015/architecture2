@@ -40,6 +40,9 @@
         <activity
             android:name=".view.ARouterDemoActivity"
             android:label="ARouterDemo" />
+        <activity
+            android:name=".view.TagActivity"
+            android:label="tag" />
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@ fun <T:Parcelable> persistenceParcelable(key:String,clazz: Class<T>,default:T? =
 
 fun persistenceStringSet(key:String,default:Set<String>? = null,identify:String = Persistence.DEFAULT_IDENTIFY) = PersistenceStringSetProperty(key,default,identify)
 
-fun <T:Serializable> persistenceSerializable(key:String,default:T? = null,identify:String = Persistence.DEFAULT_IDENTIFY) = PersistenceSerializableProperty(key,default,identify)
+fun <T:Serializable> persistenceSerializable(key:String,clazz: Class<T>,default:T? = null,identify:String = Persistence.DEFAULT_IDENTIFY) = PersistenceSerializableProperty(key,clazz,default,identify)
 
 class PersistenceIntProperty(private val key:String,
                              private val default:Int,
@@ -201,12 +201,13 @@ class PersistenceStringSetProperty(private val key:String,
 
 
 class PersistenceSerializableProperty<T:Serializable>(private val key:String,
+                                                      private val clazz: Class<T>,
                                                       private val default:T?,
                                                       private val identify:String ):
     ReadWriteProperty<Any, T?> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T? {
-        return persistence.getSerializable(key,default,identify)
+        return persistence.getSerializable(key,clazz,default,identify)
     }
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T?) {

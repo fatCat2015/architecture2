@@ -51,6 +51,8 @@ abstract class BaseAdapter<T>(items:List<T>?):RecyclerView.Adapter<BaseViewHolde
         }
     }
 
+    open fun getData() = data
+
     open fun getItem(position:Int)= data[position]
 
     open fun notifyDataSetChanged(isRefresh:Boolean,list:List<T>,animate:Boolean = false){

@@ -138,10 +138,8 @@ class DemoFragment:AppBaseLazyLoadFragment<FragmentDemoBinding>() {
             Log.i("DemoFragment","22:${eventIndex}")
 //            showToast("${eventIndex++}")
 
+            aRouter.build(PagePath.DemoModule.TAG).navigation()
 
-            val consumer = Consumer()
-            consumer.str
-            consumer.str = "11"
         }
 
         binding.btDialog.doOnClick {
