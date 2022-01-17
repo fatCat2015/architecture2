@@ -1,7 +1,5 @@
 package com.eju.wechat
 
-import java.lang.ref.WeakReference
-
 
 interface SendReqCallback{
     fun onSuccess(result:String)

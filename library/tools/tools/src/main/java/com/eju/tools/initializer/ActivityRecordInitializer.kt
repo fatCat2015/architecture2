@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import com.eju.tools.activityCache
-import timber.log.Timber
 
 class ActivityRecordInitializer:SimpleInitializer<Unit>(){
 
@@ -39,9 +38,6 @@ class ActivityRecordInitializer:SimpleInitializer<Unit>(){
         }
     }
 
-    override fun createOnMainThread(): Boolean {
-        return true
-    }
 
 
 

@@ -2,7 +2,7 @@ package com.eju.architecture.core.lazy
 
 import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.getActualParameterizedType
+import com.eju.architecture.core.getActualParameterizedType
 import timber.log.Timber
 import java.lang.Exception
 import kotlin.properties.ReadWriteProperty

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.baseadapter.BaseViewHolder
 import com.eju.baseadapter.tag.TagAdapter
 import com.eju.demomodule.R
@@ -14,6 +14,8 @@ import com.eju.demomodule.databinding.ActivityTagBinding
 import com.eju.demomodule.databinding.ItemTagBinding
 import com.eju.demomodule.entity.Tag
 import com.eju.demomodule.viewmodel.TagViewModel
+import com.eju.tools.dp
+import com.eju.tools.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import kotlin.properties.Delegates
@@ -28,7 +30,7 @@ class TagActivity:AppBaseActivity<ActivityTagBinding>() {
 
     override fun observe() {
         viewModel.tags.observe(this){
-            tagAdapter = object:TagAdapter<Tag,ItemTagBinding>(it,3,true,true){
+            tagAdapter = object:TagAdapter<Tag,ItemTagBinding>(it,5,true,false){
                 override fun getLayoutViewBinding(parent: ViewGroup): ItemTagBinding {
                     return ItemTagBinding.inflate(layoutInflater,parent,false)
                 }
@@ -55,6 +57,7 @@ class TagActivity:AppBaseActivity<ActivityTagBinding>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
+        binding.rv.addItemDecoration(DividerItemDecoration(dividerSize = 10.dp.toInt(), showDividers = DividerItemDecoration.SHOW_END or DividerItemDecoration.SHOW_BEGINNING))
         viewModel.getTags()
     }
 }

@@ -2,7 +2,7 @@ package com.eju.retrofit
 
 import android.app.Application
 import android.content.Context
-import com.eju.startup.Initializer
+import androidx.startup.Initializer
 import com.facebook.stetho.Stetho
 
 class RetrofitInitializer: Initializer<Unit> {

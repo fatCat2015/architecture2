@@ -55,6 +55,7 @@ android {
 dependencies {
     implementation(GoogleDependency.coreKtx)
     implementation(GoogleDependency.coroutine)
+    implementation(GoogleDependency.appStartup)
     //hilt
     implementation(GoogleDependency.hilt)
     kapt(GoogleDependency.hiltCompile)
@@ -71,8 +72,6 @@ dependencies {
     implementation(project(":cache"))
     //tools
     implementation(project(":tools"))
-    //startup
-    implementation(project(":startup"))
 
     implementation(ThirdDependency.timber)
 

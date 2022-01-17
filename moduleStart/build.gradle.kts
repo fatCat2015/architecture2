@@ -140,8 +140,6 @@ dependencies {
 dependencies {
     implementation(project(":appBase"))
     implementation(project(":persistence"))
-    implementation(project(":startup"))
-    implementation(project(":analysis"))
 }
 
 dependencies {

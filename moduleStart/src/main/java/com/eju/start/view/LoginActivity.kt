@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.start.databinding.ActivityLoginBinding
 import com.eju.start.viewModel.LoginViewModel
 import com.eju.tools.doAfterTextChanged

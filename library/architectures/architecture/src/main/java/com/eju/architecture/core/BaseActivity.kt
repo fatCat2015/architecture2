@@ -10,7 +10,6 @@ import com.eju.tools.hideSoftInput
 import com.eju.tools.isShouldHideSoftInput
 import com.eju.tools.initializer.NetworkState
 import com.eju.tools.initializer.observeNetworkStatus
-import com.eju.architecture.viewBinding
 import com.eju.tools.fixAndroidQMemoryLeak
 
 

@@ -49,11 +49,11 @@ dependencies {
     implementation(GoogleDependency.lifecycleCommon)
     implementation(GoogleDependency.lifecycleProcess)
     implementation(GoogleDependency.palette)
+    implementation(GoogleDependency.appStartup)
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
     api(ThirdDependency.compressor)
 
-    implementation(project(":startup"))
 
 
     testImplementation(Test.junit)

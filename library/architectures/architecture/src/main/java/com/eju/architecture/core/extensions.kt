@@ -1,11 +1,10 @@
-package com.eju.architecture
+package com.eju.architecture.core
 
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.core.*
 import com.eju.architecture.core.lazy.BaseViewModelLazy
 import com.eju.architecture.core.lazy.ViewBindingLazy
 import timber.log.Timber

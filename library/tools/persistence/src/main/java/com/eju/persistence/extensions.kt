@@ -32,7 +32,7 @@ fun <T:Serializable> ByteArray.toSerializableObj():T?{
 }
 
 //extensions
-val persistence :Persistence by lazy { MMKVPersistence() }
+val persistence :Persistence by lazy { MMKVPersistence(ContextInitializer.sContext) }
 
 fun persistenceInt(key:String,default:Int = 0,identify:String = Persistence.DEFAULT_IDENTIFY) = PersistenceIntProperty(key,default,identify)
 

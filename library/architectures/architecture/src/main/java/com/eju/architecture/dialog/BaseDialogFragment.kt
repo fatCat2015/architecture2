@@ -14,7 +14,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
-import com.eju.architecture.viewBinding
+import com.eju.architecture.core.viewBinding
 import java.util.*
 
 

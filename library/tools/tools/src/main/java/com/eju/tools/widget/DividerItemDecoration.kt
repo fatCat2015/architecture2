@@ -77,7 +77,7 @@ class DividerItemDecoration(private val divider:Drawable,private val showDivider
         val itemCount = parent.adapter?.itemCount?.let { if(it==0) null else it }?:return
         when(layoutManager){
             is GridLayoutManager->{
-                //do not draw when GridLayoutManager
+                //do not draw
 //                drawDividerWhenGridLayoutManager(itemCount,layoutManager.spanCount,layoutManager.orientation,parent,c)
             }
             is LinearLayoutManager->{

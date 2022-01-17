@@ -1,17 +1,14 @@
 package com.eju.start.view
 
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.aRouter
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.start.databinding.ActivitySplashBinding
 import com.eju.start.viewModel.SplashViewModel
-import com.eju.tools.finishAllActivities
 import dagger.hilt.android.AndroidEntryPoint
 
 @Route(path = PagePath.Start.Splash)
@@ -58,6 +55,6 @@ class SplashActivity:AppBaseActivity<ActivitySplashBinding>() {
     }
 
     override fun afterCreate(savedInstanceState: Bundle?) {
-        viewModel.countdownToPage()
+        viewModel.verifyPrivacyPolicy()
     }
 }

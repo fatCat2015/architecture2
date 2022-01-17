@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class TagRepository @Inject constructor():BaseRepository() {
 
-    fun getTags() = List(20){
-        Tag("id${it}","name${it}").apply {
-            setSelected(it%2==0)
+    fun getTags() = List(20){ index->
+        Tag("id${index}","${if(index==0) "不限" else "name${index}"}").apply {
+            setSelected(index==0)
         }
     }
 

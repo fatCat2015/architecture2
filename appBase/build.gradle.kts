@@ -53,6 +53,7 @@ dependencies {
     implementation(GoogleDependency.resultActivity)
     implementation(GoogleDependency.resultFragment)
     implementation(GoogleDependency.kotlinReflect)
+    implementation(GoogleDependency.appStartup)
     debugImplementation(ThirdDependency.leakCanary)
 
     //hilt
@@ -78,7 +79,6 @@ dependencies {
     api(project(":architecture"))
     api(project(":retrofit"))
     api(project(":tools"))
-    implementation(project(":startup"))
 }
 
 dependencies {

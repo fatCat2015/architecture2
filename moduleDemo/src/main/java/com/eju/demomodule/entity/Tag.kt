@@ -16,4 +16,8 @@ data class Tag(
     override fun setSelected(selected: Boolean) {
         this.selectedFlag = selected
     }
+
+    override fun isUnLimit(): Boolean {
+        return id == "id0"
+    }
 }

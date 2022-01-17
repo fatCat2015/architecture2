@@ -1,7 +1,7 @@
 package com.eju.tools.initializer
 
 import android.content.Context
-import com.eju.startup.Initializer
+import androidx.startup.Initializer
 import com.eju.tools.BuildConfig
 import com.eju.tools.saveCrashLogLocally
 import timber.log.Timber

@@ -31,9 +31,8 @@ dependencies {
     implementation(GoogleDependency.coreKtx)
     implementation(GoogleDependency.appcompat)
     implementation(GoogleDependency.coroutine)
+    implementation(GoogleDependency.appStartup)
     implementation(ThirdDependency.timber)
-
-    implementation(project(":startup"))
 
     api(ThirdDependency.coil)
     api(ThirdDependency.coilGif)

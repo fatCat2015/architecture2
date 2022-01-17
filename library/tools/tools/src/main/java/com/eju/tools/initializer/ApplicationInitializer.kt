@@ -2,8 +2,7 @@ package com.eju.tools.initializer
 
 import android.app.Application
 import android.content.Context
-import com.eju.startup.Initializer
-import timber.log.Timber
+import androidx.startup.Initializer
 
 class ApplicationInitializer: Initializer<Unit> {
 
@@ -18,10 +17,6 @@ class ApplicationInitializer: Initializer<Unit> {
 
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return listOf()
-    }
-
-    override fun createOnMainThread(): Boolean {
-        return true
     }
 
 }

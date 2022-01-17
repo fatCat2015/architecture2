@@ -1,20 +1,16 @@
 package com.eju.demomodule.view
 
 import android.os.Bundle
-import androidx.core.view.postDelayed
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.baseadapter.section.CeilingItemDecoration
 import com.eju.demomodule.adapter.ContactAdapter
 import com.eju.demomodule.databinding.ActivityContactBinding
 import com.eju.demomodule.viewmodel.ContactViewModel
 import com.eju.tools.widget.setUpWithRecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 @Route(path = PagePath.DemoModule.Contact)

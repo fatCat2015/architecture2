@@ -1,11 +1,17 @@
 package com.eju.persistence
 
+import android.content.Context
 import android.os.Parcelable
 import com.tencent.mmkv.MMKV
+import com.tencent.mmkv.MMKVLogLevel
 import timber.log.Timber
 import java.io.*
 
-class MMKVPersistence:Persistence {
+class MMKVPersistence(context: Context):Persistence {
+
+    init {
+        MMKV.initialize(context,if(BuildConfig.DEBUG) MMKVLogLevel.LevelDebug else MMKVLogLevel.LevelNone)
+    }
 
     private val mmkvMap:MutableMap<String, MMKV> by lazy {
         mutableMapOf<String, MMKV>().also {

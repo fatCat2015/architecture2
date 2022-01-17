@@ -4,8 +4,6 @@ import android.Manifest
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.widget.Toast
 import androidx.core.view.postDelayed
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,11 +12,9 @@ import com.eju.appbase.dialog.LoadingDialog
 import com.eju.appbase.entity.User
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.aRouter
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.demomodule.R
-import com.eju.demomodule.databinding.CustomToastBinding
 import com.eju.demomodule.databinding.FragmentDemoBinding
-import com.eju.demomodule.demo.Consumer
 import com.eju.demomodule.viewmodel.DemoViewModel
 import com.eju.liveeventbus.observeEvent
 import com.eju.liveeventbus.observeEventSticky

@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.viewbinding.ViewBinding
 import com.eju.architecture.R
-import com.eju.architecture.viewBinding
+import com.eju.architecture.core.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 

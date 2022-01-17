@@ -10,14 +10,13 @@
         >
 
         <provider
-            android:name="com.eju.startup.InitializationProvider"
-            android:authorities="${applicationId}.eju-startup"
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
             <meta-data  android:name="com.eju.appbase.router.ARouterInitializer"
-                android:value="eju.startup" />
+                android:value="androidx.startup" />
         </provider>
-
 
         <activity android:name=".router.AppLinkEntryActivity"
             android:exported = "true"

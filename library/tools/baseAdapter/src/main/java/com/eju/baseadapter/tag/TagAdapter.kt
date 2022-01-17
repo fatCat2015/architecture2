@@ -41,30 +41,44 @@ abstract class TagAdapter<T:ITagItem,B:ViewBinding>(
             if(item.isSelected()){
                 if(enableUnselect){
                     item.setSelected(false)
-                    notifyItemChanged(position)
+                    notifyDataSetChanged()
                     selectedTagLinkedList.remove(item)
                     onSelectedChangedCallback?.invoke(selectedTags,selectedCount)
                 }
             }else{
-                if(selectedCount>=maxSelectCount){
-                    if(unselectOldestWhenExceed){
-                        selectedTagLinkedList.removeFirst().setSelected(false)
+                if(item.isUnLimit()){
+                    selectedTagLinkedList.forEach { it.setSelected(false) }
+                    selectedTagLinkedList.clear()
+                    item.setSelected(true)
+                    notifyDataSetChanged()
+                    selectedTagLinkedList.addLast(item)
+                    onSelectedChangedCallback?.invoke(selectedTags,selectedCount)
+                }else{
+                    if(selectedCount>=maxSelectCount){
+                        if(unselectOldestWhenExceed){
+                            selectedTagLinkedList.removeFirst().setSelected(false)
+                            val unLimitItems = selectedTagLinkedList.filter { it.isUnLimit() }.onEach { it.setSelected(false) }
+                            selectedTagLinkedList.removeAll(unLimitItems.toSet())
+                            item.setSelected(true)
+                            notifyDataSetChanged()
+                            selectedTagLinkedList.addLast(item)
+                            onSelectedChangedCallback?.invoke(selectedTags,selectedCount)
+                        }else{
+                            actionWhenExceedMaxCount?.invoke(maxSelectCount)
+                        }
+                    }else{
                         item.setSelected(true)
+                        val unLimitItems = selectedTagLinkedList.filter { it.isUnLimit() }.onEach { it.setSelected(false) }
+                        selectedTagLinkedList.removeAll(unLimitItems.toSet())
                         notifyDataSetChanged()
                         selectedTagLinkedList.addLast(item)
                         onSelectedChangedCallback?.invoke(selectedTags,selectedCount)
-                    }else{
-                        actionWhenExceedMaxCount?.invoke(maxSelectCount)
                     }
-                }else{
-                    item.setSelected(true)
-                    notifyItemChanged(position)
-                    selectedTagLinkedList.addLast(item)
-                    onSelectedChangedCallback?.invoke(selectedTags,selectedCount)
                 }
             }
         }
     }
+
 
 
 }

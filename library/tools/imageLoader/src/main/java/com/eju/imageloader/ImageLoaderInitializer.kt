@@ -3,13 +3,13 @@ package com.eju.imageloader
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import androidx.startup.Initializer
 import coil.Coil
 import coil.decode.*
 import coil.fetch.*
 import coil.util.DebugLogger
-import com.eju.startup.Initializer
 
-class ImageLoaderInitializer:Initializer<Unit>{
+class ImageLoaderInitializer: Initializer<Unit> {
 
     override fun create(context: Context) {
         initCoil(context)

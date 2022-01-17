@@ -31,6 +31,7 @@ dependencies {
     implementation(GoogleDependency.coreKtx)
     implementation(GoogleDependency.appcompat)
     implementation(GoogleDependency.coroutine)
+    implementation(GoogleDependency.appStartup)
     implementation(ThirdDependency.mmkv)
     implementation(ThirdDependency.timber)
 

@@ -11,10 +11,9 @@ import androidx.core.view.postDelayed
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.eju.appbase.base.AppBaseLazyLoadFragment
 import com.eju.appbase.base.AppBaseLazyLoadPagingFragment
 import com.eju.appbase.router.PagePath
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.baseadapter.ExtraItem
 import com.eju.demomodule.adapter.UserAdapter
 import com.eju.demomodule.databinding.*
@@ -22,8 +21,6 @@ import com.eju.demomodule.viewmodel.UserListViewModel
 import com.eju.tools.doOnClick
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Route(path = PagePath.DemoModule.UserList)
 @AndroidEntryPoint

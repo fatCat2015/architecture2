@@ -44,10 +44,10 @@ dependencies {
     implementation(GoogleDependency.coroutine)
     implementation(GoogleDependency.room)
     implementation(GoogleDependency.roomKtx)
+    implementation(GoogleDependency.appStartup)
     kapt(GoogleDependency.roomCompile)
     implementation(ThirdDependency.timber)
 
-    implementation(project(":startup"))
 
     testImplementation(Test.junit)
     androidTestImplementation(Test.extJunit)

@@ -1,23 +1,38 @@
 package com.eju.wechat
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Bitmap
 import com.eju.tools.*
+import com.tencent.mm.opensdk.constants.ConstantsAPI
 import com.tencent.mm.opensdk.modelbase.BaseReq
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.modelmsg.*
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.IWXAPI
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import id.zelory.compressor.constraint.resolution
 import id.zelory.compressor.constraint.size
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.io.File
-import java.lang.ref.WeakReference
 import java.util.*
 
 
-internal val api:IWXAPI = WechatInitializer.api
+internal val api:IWXAPI by lazy {
+    val context = ContextInitializer.sContext
+    val api = WXAPIFactory.createWXAPI(context,BuildConfig.weChatAppId,BuildConfig.DEBUG)
+    context.registerReceiver(object: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            api.registerApp(BuildConfig.weChatAppId)
+        }
+    }, IntentFilter(ConstantsAPI.ACTION_REFRESH_WXAPP))
+    Timber.i("IWXAPI初始化${api}")
+    api
+}
 
 /**
  * WXMediaMessage.thumbData要求的最大值

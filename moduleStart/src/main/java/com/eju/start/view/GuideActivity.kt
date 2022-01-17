@@ -5,7 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
 import com.eju.appbase.router.aRouter
-import com.eju.architecture.baseViewModels
+import com.eju.architecture.core.baseViewModels
 import com.eju.start.databinding.ActivityGuideBinding
 import com.eju.start.viewModel.GuideViewModel
 import com.eju.tools.doOnClick

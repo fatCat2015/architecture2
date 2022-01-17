@@ -3,6 +3,7 @@ package com.eju.start.viewModel
 import androidx.lifecycle.MutableLiveData
 import com.eju.appbase.persistence.HAS_AGREED_PRIVACY_POLICY
 import com.eju.architecture.core.BaseViewModel
+import com.eju.start.api.bean.SplashScreenAd
 import com.eju.start.repository.StartRepository
 import com.eju.tools.finishAllActivities
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(private val startRepository: StartRepository):BaseViewModel() {
 
+    val splashScreenAd = MutableLiveData<SplashScreenAd>()
+
     val showPrivacyPolicy = MutableLiveData<Int>()
 
     val toMain = MutableLiveData<Int>()
@@ -22,30 +25,38 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
     val toGuide = MutableLiveData<Int>()
 
 
-    fun countdownToPage(){
+    private fun querySplashScreenAd(){
+        launch (showLoading = false){
+            splashScreenAd.postValue(startRepository.querySplashScreenAd().also {
+                Timber.i("querySplashScreenAd-->${it}")
+            })
+        }
+    }
+
+    fun verifyPrivacyPolicy(){
         launch (showLoading = false){
             val isAgreedPrivacyPolicy = startRepository.isAgreedPrivacyPolicy
             Timber.i("hasAgreedPrivacyPolicy:${isAgreedPrivacyPolicy}")
             if(isAgreedPrivacyPolicy){
-                val startTime = System.currentTimeMillis()
-                startRepository.init()
-                val initTime = System.currentTimeMillis() -startTime
-                Timber.i("init complete initTime: ${initTime}")
-                val remainedTime = delay_time - initTime
-                delay(if(remainedTime<=0) 0 else remainedTime)
-                val showGuide = startRepository.verifyShowGuidePage()
-                val isLogged = startRepository.isLogged
-                val firstLaunchNewVersion =  startRepository.verifyIfFirstLaunchNewVersion()
-                Timber.i("countdownToPage showGuide:${showGuide};isLogged:${isLogged};firstLaunchNewVersion:${firstLaunchNewVersion}")
-                when{
-                    showGuide -> toGuide.postValue(1)
-                    isLogged -> toMain.postValue(1)
-                    else -> toLogin.postValue(1)
-                }
+                querySplashScreenAd()
+                delay(delay_time)
+                countdownToPage()
             }else{
                 showPrivacyPolicy.postValue(1)
             }
 
+        }
+    }
+
+    private fun countdownToPage() {
+        val showGuide = startRepository.verifyShowGuidePage()
+        val isLogged = startRepository.isLogged
+        val firstLaunchNewVersion = startRepository.verifyIfFirstLaunchNewVersion()
+        Timber.i("countdownToPage showGuide:${showGuide};isLogged:${isLogged};firstLaunchNewVersion:${firstLaunchNewVersion}")
+        when {
+            showGuide -> toGuide.postValue(1)
+            isLogged -> toMain.postValue(1)
+            else -> toLogin.postValue(1)
         }
     }
 
@@ -59,7 +70,7 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
 
     fun onPrivacyPolicyDialogDismiss(){
         if(startRepository.isAgreedPrivacyPolicy){
-            countdownToPage()
+            verifyPrivacyPolicy()
         }else{
             finishAllActivities()
         }
@@ -67,7 +78,7 @@ class SplashViewModel @Inject constructor(private val startRepository: StartRepo
 
 
     companion object{
-        const val delay_time = 1000L
+        const val delay_time = 3000L
     }
 
 

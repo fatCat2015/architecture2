@@ -37,11 +37,6 @@ class ProcessStateInitializer:SimpleInitializer<Unit>()  {
         }
     }
 
-    override fun createOnMainThread(): Boolean {
-        return true
-    }
-
-
 
 }
 

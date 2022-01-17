@@ -1,12 +1,10 @@
 package com.eju.main.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.eju.appbase.base.AppBaseActivity
 import com.eju.appbase.router.PagePath
-import com.eju.architecture.baseViewModels
-import com.eju.main.R
+import com.eju.architecture.core.baseViewModels
 import com.eju.main.databinding.ActivityMainBinding
 import com.eju.main.viewmodel.MainViewModel
 import com.eju.tools.finishAllActivitiesExceptTop
